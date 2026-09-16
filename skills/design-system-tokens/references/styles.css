@@ -100,7 +100,7 @@
     --color-text: #0f0f0f;
     --color-text-accent: #065fd4; /* overridden — links, headings, highlighted text */
     --color-text-muted: #606060; /* overridden — visited links, captions       */
-    --color-text-ondark: var(--color-surface); /* optional → var(--color-surface)   */
+    --color-text-ondark: #ffffff; /* overridden — footer, dark sections       */
     
     /* --- Surface colors ---
        #ffffff base, #f9f9f9 alt (sidebar, comments, alt sections).          */

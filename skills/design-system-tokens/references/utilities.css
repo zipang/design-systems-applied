@@ -97,8 +97,9 @@
 .gap-xxl { gap: var(--space-xxl); }
 
 /* --- Rounded corners --- */
+.rounded-none  { border-radius: var(--rounded-none); }
 .rounded-sm    { border-radius: var(--rounded-sm); }
-.rounded-base  { border-radius: var(--rounded-base); }
+.rounded-md    { border-radius: var(--rounded-md); }
 .rounded-lg    { border-radius: var(--rounded-lg); }
 .rounded-full  { border-radius: var(--rounded-full); }
 

@@ -59,14 +59,16 @@ typography:
   }
 
 # ============================================================================
-# ROUNDED  —  corner radius presets (all required; full defaults to 100%)
+# ROUNDED  —  corner radius presets (only full is required;
+# none, sm, md, lg are optional)
+# Values in rem, except full (9999px for circular shapes).
 # ============================================================================
 rounded:
   none: "0"
-  sm:   "4px"
-  md: "12px"
-  lg:   "18px"
-  full: "9999px"   # circular — avatars, icons, pills (designer override of the 100% default)
+  sm:   "0.25rem"
+  md:   "0.75rem"
+  lg:   "1.125rem"
+  full: "9999px"   # circular — avatars, icons, pills
 
 # ============================================================================
 # SPACING  —  spatial rhythm scale, 4px linear (all required)
@@ -90,7 +92,7 @@ elevation:
   lg: "none"
 
 # ============================================================================
-# BORDER  —  custom top-level family (border WIDTHS; required, default none)
+# BORDER  —  custom top-level family (border WIDTHS; all required)
 # Values match the 124 preset — import from presets/borders/124.css.
 # Border COLORS are not tokens — components pick them under `components`.
 # ============================================================================
@@ -120,8 +122,8 @@ here still exist in the stylesheet with a `var()` fallback to a required token.
 - **Danger (`#d93025`)** — Errors, destructive actions.
 - **Text base (`#0f0f0f`)** — Body text.
 - **Text accent (`#065fd4`)** — Accented text, links, headings.
-- **Text muted (`#606060`)** — Secondary, tertiary text.
-- **Text ondark** — omitted; fall back to `var(--color-surface)`.
+- **Text muted (`#606060`)** — Subdued text: visited links, notes.
+- **Text ondark (`#ffffff`)** — Text on dark surfaces: footer, dark sections.
 - **Surface base (`#ffffff`)** — Default page background.
 - **Surface alt (`#f9f9f9`)** — Alternating sections.
 - **Surface dark (`#0f0f0f`)** — Footer, dark sections.
@@ -147,7 +149,7 @@ design tokens** — do not list them in the front matter. They are generated in
 
 Body and headings use Roboto (Arial fallback). Code and labels use
 `ui-monospace`. The type scale is geometric with ratio 1.5 (Perfect Fifth):
-`size(step) = 1rem * 1.5^step`, so `base` is `1rem`, `lg` `1.5rem`, `xl`
+`size(step) = 1rem * 1.5^step`, so `md` is `1rem`, `lg` `1.5rem`, `xl`
 `2.25rem`, and `xs`/`sm` go down to `0.444rem`/`0.667rem`. Font sizes are
 defined in the stylesheet only — they are not front-matter entries. The
 optional `2xl` and `display` steps fall back to `var(--font-size-xl)` unless
@@ -165,8 +167,9 @@ Depth is conveyed through color contrast and spacing rather than shadows.
 
 ## Shapes
 
-Corner radii range from 4px (inputs) to 9999px (circular avatars); the
-`full` token defaults to `100%`. Cards use 12px; pills and buttons use 18px.
+Corner radii range from 4px (0.25rem — chips, inputs) to 9999px (circular
+avatars). Cards and thumbnails use 0.75rem. Pill buttons and large chips use
+1.125rem.
 
 ## Components
 

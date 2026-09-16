@@ -6,7 +6,7 @@
 
        <div class="bg-surface-card rounded-lg p-md elevation-sm">
            <h2 class="text-lg font-semibold tracking-tight">Title</h2>
-           <p class="color-subtle text-sm">Body</p>
+           <p class="color-muted text-sm">Body</p>
        </div>
 
    Order the theme stylesheet first, then this file.
@@ -15,9 +15,8 @@
 /* --- Text colors (avoid .text-* collisions: .text-* is reserved for font size) --- */
 .color-base          { color: var(--color-text); }
 .color-accent        { color: var(--color-text-accent); }
-.color-subtle        { color: var(--color-text-subtle); }
+.color-muted        { color: var(--color-text-muted); }
 .color-ondark        { color: var(--color-text-ondark); }
-.color-selected      { color: var(--color-text-selected); }
 .color-brand-primary { color: var(--color-brand-primary); }
 .color-brand-accent  { color: var(--color-brand-accent); }
 .color-brand-secondary { color: var(--color-brand-secondary); }
@@ -64,7 +63,6 @@
 
 /* --- Line heights --- */
 .leading-tight   { line-height: var(--line-height-tight); }
-.leading-snug    { line-height: var(--line-height-snug); }
 .leading-normal  { line-height: var(--line-height-normal); }
 .leading-relaxed { line-height: var(--line-height-relaxed); }
 
@@ -72,7 +70,6 @@
 .tracking-tight  { letter-spacing: var(--letter-spacing-tight); }
 .tracking-normal { letter-spacing: var(--letter-spacing-normal); }
 .tracking-wide   { letter-spacing: var(--letter-spacing-wide); }
-.tracking-wider  { letter-spacing: var(--letter-spacing-wider); }
 
 /* --- Spacing (margin, padding, gap) --- */
 .m-xs  { margin: var(--space-xs); }

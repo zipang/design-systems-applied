@@ -9,8 +9,7 @@ name: Reference Design System
 # ============================================================================
 colors:
   # Brand — primary and accent are required; secondary and tertiary are
-  # optional. Here secondary is overridden; tertiary is omitted (the
-  # stylesheet will fall back to var(--color-brand-primary)).
+  # optional.
   brand:
     primary:   "#ff0000"   # --color-brand-primary   (headings, highlights, logo)
     accent:    "#065fd4"   # --color-brand-accent    (CTAs, key accents)
@@ -25,19 +24,13 @@ colors:
     danger:  "#d93025"     # --color-action-danger
 
   # Text  (drop-.base rule: colors.text.base -> --color-text)
-  # Only base is required. accent and subtle are overridden here; ondark
-  # and selected are omitted (stylesheet falls back to var(--color-surface)
-  # and var(--color-text) respectively).
   text:
     base:    "#0f0f0f"     # --color-text
-    accent:  "#065fd4"     # --color-text-accent       (optional, overridden)
-    subtle:  "#606060"     # --color-text-subtle       (optional, overridden)
-    # ondark:  omitted → --color-text-ondark: var(--color-surface)
-    # selected: omitted → --color-text-selected: var(--color-text)
+    accent:  "#065fd4"     # --color-text-accent
+    muted:   "#606060"     # --color-text-muted
+    ondark:  "#ffffff"     # --color-text-ondark
 
   # Surface  (drop-.base rule: colors.surface.base -> --color-surface)
-  # base and alt are required; dark is overridden here; card is omitted
-  # (stylesheet falls back to var(--color-surface)).
   surface:
     base: "#ffffff"        # --color-surface
     alt:  "#f9f9f9"        # --color-surface-alt
@@ -49,7 +42,7 @@ colors:
 # fontFamily, fontWeight, lineHeight, letterSpacing values MUST use existing preset values from styles.css (CSS variables)
 # ============================================================================
 typography:
-  # Font families — `base` and `display` already merge in their fontSize
+  # Font families — No font size
   base: {
     fontFamily: "Roboto, Arial, sans-serif",
     fontWeight: "var(--font-weight-regular)",
@@ -69,8 +62,9 @@ typography:
 # ROUNDED  —  corner radius presets (all required; full defaults to 100%)
 # ============================================================================
 rounded:
+  none: "0"
   sm:   "4px"
-  base: "12px"
+  md: "12px"
   lg:   "18px"
   full: "9999px"   # circular — avatars, icons, pills (designer override of the 100% default)
 
@@ -126,9 +120,8 @@ here still exist in the stylesheet with a `var()` fallback to a required token.
 - **Danger (`#d93025`)** — Errors, destructive actions.
 - **Text base (`#0f0f0f`)** — Body text.
 - **Text accent (`#065fd4`)** — Accented text, links, headings.
-- **Text subtle (`#606060`)** — Secondary, tertiary text.
-- **Text ondark / selected** — omitted; fall back to `var(--color-surface)` and
-  `var(--color-text)` respectively.
+- **Text muted (`#606060`)** — Secondary, tertiary text.
+- **Text ondark** — omitted; fall back to `var(--color-surface)`.
 - **Surface base (`#ffffff`)** — Default page background.
 - **Surface alt (`#f9f9f9`)** — Alternating sections.
 - **Surface dark (`#0f0f0f`)** — Footer, dark sections.

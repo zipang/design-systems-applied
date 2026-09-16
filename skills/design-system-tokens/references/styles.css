@@ -28,9 +28,11 @@
        xs = step -2, sm = step -1, lg = step +1, xl = step +2.
        --font-size-2xl and --font-size-display are optional and fall back to
        var(--font-size-xl) unless overridden here. */
+    --font-size-base: 1rem;
+
     --font-size-xs: 0.444rem; /* 1.5^-2 — captions, metadata, timestamps  */
     --font-size-sm: 0.667rem; /* 1.5^-1 — secondary text, list rows       */
-    --font-size-base: 1rem; /* step 0 — body text                       */
+    --font-size-md: 1rem; /* step 0 — body text                       */
     --font-size-lg: 1.5rem; /* 1.5^1 — section titles, card titles       */
     --font-size-xl: 2.25rem; /* 1.5^2 — page titles, large prompts       */
     --font-size-2xl: var(--font-size-xl); /* optional → var(--font-size-xl) */
@@ -46,19 +48,15 @@
     --font-weight-bold: 700;
     --font-weight-extrabold: var(--font-weight-bold); /* optional → var(--font-weight-bold) */
 
-    /* --- Line heights ---
-       snug and relaxed are optional: snug → tight, relaxed → normal. */
+    /* --- Line heights --- */
     --line-height-tight: 1.15; /* headings, single-line titles            */
-    --line-height-snug: var(--line-height-tight); /* optional → var(--line-height-tight) */
     --line-height-normal: 1.55; /* body text, multi-line descriptions      */
     --line-height-relaxed: var(--line-height-normal); /* optional → var(--line-height-normal) */
 
-    /* --- Letter spacing ---
-       wide and wider are optional and fall back to normal. */
+    /* --- Letter spacing --- */
     --letter-spacing-tight: -0.02em; /* large headings, display text       */
     --letter-spacing-normal: 0; /* body text, default tracking             */
     --letter-spacing-wide: var(--letter-spacing-normal); /* optional → var(--letter-spacing-normal) */
-    --letter-spacing-wider: var(--letter-spacing-normal); /* optional → var(--letter-spacing-normal) */
 
     /* ============================================================================
        2. COLORS — Brand: Red primary, Blue accent, Gray secondary
@@ -101,10 +99,9 @@
        #0f0f0f is YouTube's "almost-black" primary text (updated 2022).       */
     --color-text: #0f0f0f;
     --color-text-accent: #065fd4; /* overridden — links, headings, highlighted text */
-    --color-text-subtle: #606060; /* overridden — secondary, tertiary content       */
+    --color-text-muted: #606060; /* overridden — visited links, captions       */
     --color-text-ondark: var(--color-surface); /* optional → var(--color-surface)   */
-    --color-text-selected: var(--color-text); /* optional → var(--color-text)       */
-
+    
     /* --- Surface colors ---
        #ffffff base, #f9f9f9 alt (sidebar, comments, alt sections).          */
     --color-surface: #ffffff;
@@ -131,10 +128,11 @@
        ----------------------------------------------------------------------------
        4px chips, 12px cards, 18px pill buttons, 9999px circular avatars.
        ========================================================================== */
-    --rounded-sm: 0.25rem; /*  4px — chips, small badges                 */
-    --rounded-base: 0.75rem; /* 12px — cards, thumbnails, search bar      */
-    --rounded-lg: 1.125rem; /* 18px — pill buttons, large chips          */
-    --rounded-full: 9999px; /* circular — avatars, circular icons        */
+    --rounded-none: 0;       /*  0px — none                          */
+    --rounded-sm: 0.25rem;   /*  4px — chips, small badges           */
+    --rounded-md: 0.75rem;   /* 12px — cards, thumbnails, search bar */
+    --rounded-lg: 1.125rem;  /* 18px — pill buttons, large chips     */
+    --rounded-full: 9999px;  /* circular — avatars, circular icons   */
 
     /* ============================================================================
        5. ELEVATION — Flat preset (YouTube is mostly flat, tonal layering)

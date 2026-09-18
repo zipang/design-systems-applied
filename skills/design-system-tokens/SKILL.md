@@ -1,6 +1,6 @@
 ---
 name: design-system-tokens
-description: The Design System is a dual-file contract (DESIGN.md + theme.css) of fixed design tokens exposed as CSS variables. Use this skill to create or update the design token values, or to document their usage to create components.
+description: The Design System is a dual-file contract (DESIGN.md + design-tokens.css) of fixed design tokens exposed as CSS variables. Use this skill to create or update the design token values, or to document their usage to create components.
 ---
 
 # 1. Overview
@@ -12,7 +12,7 @@ This skill documents the usage of design tokens in our Design System Applied app
 The Design System is composed of two main files:
 
 - **`DESIGN.md`**: The agent-readable documentation of your design system. This markdown file is divided into two parts: the _design tokens_ living inside the YAML front-matter, and the prose sections documenting their usage to create components. The full specifications for this file can be found here: [google-labs-code/design.md](https://github.com/google-labs-code/design.md).
-- **`<theme>.css`**: A stylesheet containing all the design tokens from our `DESIGN.md` front matter exposed as `:root` (global) CSS variables.
+- **`design-tokens.css`**: A stylesheet containing all the design tokens from our `DESIGN.md` front matter exposed as `:root` (global) CSS variables.
 
 ## New Rules
 
@@ -20,11 +20,11 @@ Our _Applied Design System_ approach adds new rules that are not found in the or
 
 - The full list of usable design tokens is **fixed** and documented.
 - Do not add any new undocumented token.
-- To change a token value: edit the value in **both** `DESIGN.md` front matter and `theme.css`. Keep them identical.
+- To change a token value: edit the value in **both** `DESIGN.md` front matter and `design-tokens.css`. Keep them identical.
 - Design tokens inside `DESIGN.md` front matter are structured into categories and sub-categories that make them accessible by their path.
 - Token categories are: `colors` (brand, action, text, surface), `typography` (base, display, mono families; scale xs→display; weights; line heights; letter spacing), `spacing`, `rounded`, `elevation`, `border`.
 - Design tokens re-exposed as CSS variables are flattened, so we need a mapping between the two notations.
-- Mapping rule: dotted path → dashed variable. `colors.text.base` → `--color-text` (drop `.base`). Optional tokens always defined in `theme.css` with a `var()` fallback to a required token.
+- Mapping rule: dotted path → dashed variable. `colors.text.base` → `--color-text` (drop `.base`). Optional tokens always defined in `design-tokens.css` with a `var()` fallback to a required token.
 - All size values must be given in `rem` units.
 
 The next sections will now introduce the full list of available tokens:
@@ -140,7 +140,7 @@ At minimum two surfaces are required: `colors.surface.base` (exposed as `--color
 
 ## Color variants derivation
 
-Brand and action colors carry `muted` and `active` variants that are **derived automatically** from the base color via CSS relative color syntax. These variants are **not design tokens** — they do not appear in the front matter. They live in a dedicated [`color-variants.css`](./references/color-variants.css) file, included after the main theme stylesheet.
+Brand and action colors carry `muted` and `active` variants that are **derived automatically** from the base color via CSS relative color syntax. These variants are **not design tokens** — they do not appear in the front matter. They live in a dedicated [`color-variants.css`](./references/color-variants.css) file, included after the main design-tokens stylesheet.
 
 **Derivation rules:**
 
@@ -241,8 +241,8 @@ Inline comments in the front matter map each entry back to its CSS variable in t
 | File | Purpose |
 |------|---------|
 | [references/DESIGN.md](./references/DESIGN.md) | Complete annotated example of a `DESIGN.md` file — front matter plus prose sections. Demonstrates required and optional tokens, stylesheet fallbacks, and the Link component example. |
-| [references/styles.css](./references/styles.css) | Complete example of a main theme stylesheet. Exposes every token defined in sections 2–7 as a CSS variable inside a single `:root` block. |
-| [references/color-variants.css](./references/color-variants.css) | Derived `muted` / `active` variants for brand and action colors. Include **after** the main theme stylesheet. Not part of the token set. |
+| [references/styles.css](./references/styles.css) | Complete example of the design-tokens stylesheet. Exposes every token defined in sections 2–7 as a CSS variable inside a single `:root` block. |
+| [references/color-variants.css](./references/color-variants.css) | Derived `muted` / `active` variants for brand and action colors. Include **after** the main design-tokens stylesheet. Not part of the token set. |
 | [references/reset.css](./references/reset.css) | Base CSS reset consuming the theme variables. |
 | [references/utilities.css](./references/utilities.css) | Class-based utilities to apply the theme variables in a Tailwind fashion. |
 | [presets/elevation/](./presets/elevation/) | Elevation presets: `flat.css`, `brutal.css`, `material-paper.css`, `neumorphism.css`. |
@@ -253,7 +253,7 @@ Inline comments in the front matter map each entry back to its CSS variable in t
 Check each of these rules after any edit to the Design System files:
 
 * **Undocumented tokens are FORBIDDEN** in the stylesheet or in the front matter. Contrary to the Google Labs approach, only the tokens listed in sections 2–7 are permitted in our **Design System Applied** approach.
-* **Every Design token must be present in the theme stylesheet** — both required and optional.
+* **Every Design token must be present in the design-tokens stylesheet** — both required and optional.
 * **The front-matter path → CSS variable mapping must follow the tables** in sections 2–7. The "Token path" column is the front-matter path; the "CSS variable" column is the stylesheet variable.
 * **Non-required token defaults must be `var()` references to required tokens.** The "Default" column for every optional token in the tables specifies its fallback. The stylesheet must use this exact fallback when the token is not defined in the front matter.
 * **The "drop `.base`" rule** — when a token path ends in `.base`, the CSS variable drops the `base` segment (e.g. `colors.text.base` → `--color-text`, not `--color-text-base`).

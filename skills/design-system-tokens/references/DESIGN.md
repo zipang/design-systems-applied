@@ -143,7 +143,7 @@ Only `brand` and `action` colors carry these variants, because they are used
 on interactive elements with states. Text and surface colors define their own
 variants explicitly in the token tables. These derived variants are **not
 design tokens** — do not list them in the front matter. They are generated in
-`color-variants.css`, included after the main theme stylesheet.
+`color-variants.css`, included after the main design-tokens stylesheet.
 
 ## Typography
 

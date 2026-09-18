@@ -1,7 +1,7 @@
 /* ============================================================================
    UTILITIES — Class-based helpers applying theme tokens, Tailwind-fashion
    ----------------------------------------------------------------------------
-   Every rule maps 1:1 to a token from the main theme stylesheet. Use them to
+   Every rule maps 1:1 to a token from the main design-tokens stylesheet. Use them to
    build components without writing new declarations:
 
        <div class="bg-surface-card rounded-lg p-md elevation-sm">
@@ -9,7 +9,7 @@
            <p class="color-muted text-sm">Body</p>
        </div>
 
-   Order the theme stylesheet first, then this file.
+   Order the design-tokens stylesheet first, then this file.
    ========================================================================== */
 
 /* --- Text colors (avoid .text-* collisions: .text-* is reserved for font size) --- */

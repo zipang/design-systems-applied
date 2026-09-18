@@ -3,13 +3,13 @@
    ----------------------------------------------------------------------------
    These variables are NOT design tokens. They do not appear in the DESIGN.md
    front matter. They are generated automatically from the base brand and
-   action colors defined in the main theme stylesheet, using CSS relative
+   action colors defined in the main design-tokens stylesheet, using CSS relative
    color syntax with hsl().
 
-   Include this file AFTER the main theme stylesheet so the base variables
+   Include this file AFTER the main design-tokens stylesheet so the base variables
    it references are already defined:
 
-       <link rel="stylesheet" href="theme.css">
+       <link rel="stylesheet" href="design-tokens.css">
        <link rel="stylesheet" href="color-variants.css">
 
     Derivation rules

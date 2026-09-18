@@ -20,9 +20,9 @@ The final solution presented in this repository is a set of additional rules, gu
 
 Our work started as a recipe inside our >> [AI lab project](https://github.com/zipang/the-ai-lab/tree/master/recipes/the-designer) << but after some real usage to build new project, i thought that this recipe really desserved its own place as it is really a foundation, a recipe you must use before every others..
 
-The key idea is to define a _fixed standard list_ of design tokens to cover every frugal needs in our Design System (this setup is definitively minimalist by design) and use them inside the `DESIGN.md` front matter AND separately in a ready-to-use _theme stylesheet_ implementing these tokens with **CSS variables**.
+The key idea is to define a _fixed standard list_ of design tokens to cover every frugal needs in our Design System (this setup is definitively minimalist by design) and use them inside the `DESIGN.md` front matter AND separately in a ready-to-use _design-tokens stylesheet_ implementing these tokens with **CSS variables**.
 
-Because the YAML front-matter is a structured object and CSS variables are flat, we need a translation table that gives us the path to a design token inside `DESIGN.md` (like`{colors.brand.primary}`) and its declaration as a CSS variable in our theme stylesheet : `--colors-brand-primary`.
+Because the YAML front-matter is a structured object and CSS variables are flat, we need a translation table that gives us the path to a design token inside `DESIGN.md` (like`{colors.brand.primary}`) and its declaration as a CSS variable in our design-tokens stylesheet : `--colors-brand-primary`.
 
 
 ## Introducing our standard list of design tokens
@@ -47,11 +47,11 @@ Colors are splitted into four sub-categories : brand, actions, text, surfaces.
 Entries are sorted alphabetically.
 
 - **AI agent**: A program powered by an LLM (such as opencode) that reads this repository, follows its rules and skills, and writes code for us. Our rules and guides target AI agents first, humans second.
-- **Design System**: The single source of truth for the visual language of a product. In this project, it is a dual-file contract: `DESIGN.md` (the rationale and rules) plus `theme.css` (the tokens as CSS variables).
+- **Design System**: The single source of truth for the visual language of a product. In this project, it is a dual-file contract: `DESIGN.md` (the rationale and rules) plus `design-tokens.css` (the tokens as CSS variables).
 - **Design token**: A named visual value (a color, a font size, a spacing step) exposed as a CSS variable. The token list is fixed. Components must consume tokens with `var()` and never write raw values.
+- **Design tokens stylesheet**: The `design-tokens.css` file. It defines every design token as a CSS variable inside one `:root` block. It is the executable half of the Design System contract.
 - **DESIGN.md**: A markdown file at the root of a project, defined by the Google Labs spec. It holds the design tokens in YAML front matter and the component rules in prose.
 - **Drift**: The slow loss of visual coherence across the pages of a product: inconsistent sizes, borders, colors, or component behavior. Also called "design derive". Drift is the main problem this project fights.
 - **Recipe**: A self-contained procedure from our AI lab project (the-ai-lab) that combines prompts, rules, and tools to reach one goal. This project started as the "the-designer" recipe.
 - **Skill**: A markdown file under `.agents/skills/` that gives an AI agent instructions for one task (for example: apply the Design System, write a spec, commit changes). The agent loads a skill when its task matches the skill description.
-- **Theme stylesheet**: The `theme.css` file. It defines every design token as a CSS variable inside one `:root` block. It is the executable half of the Design System contract.
 - **Vibe coding**: The practice of producing software by prompting an LLM without a plan or a specification. Fast, but it causes the problems listed above.

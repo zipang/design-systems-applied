@@ -1,5 +1,5 @@
+import { clsx } from "@lib/clsx";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
 import "./PageFooter.css";
 
 interface PageFooterProps {

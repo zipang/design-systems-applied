@@ -1,6 +1,6 @@
+import { createEliza } from "@lib/eliza/eliza";
+import { formatBytes } from "@lib/format";
 import { useState } from "react";
-import { createEliza } from "../../lib/eliza/eliza";
-import { formatBytes } from "../../lib/format";
 import type { Attachment, ChatMessage } from "./types";
 
 /** The conversation state and the actions that mutate it. */

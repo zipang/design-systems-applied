@@ -1,5 +1,5 @@
+import { clsx } from "@lib/clsx";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
 import { usePageScroll } from "./page-scroll";
 import "./PageBody.css";
 

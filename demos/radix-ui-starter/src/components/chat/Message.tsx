@@ -1,7 +1,7 @@
+import { Icon } from "@components/base/Icon";
+import { Text } from "@components/base/Text";
+import { clsx } from "@lib/clsx";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
-import { Icon } from "../base/Icon";
-import { Text } from "../base/Text";
 import type { ChatMessage } from "./types";
 import "./Message.css";
 

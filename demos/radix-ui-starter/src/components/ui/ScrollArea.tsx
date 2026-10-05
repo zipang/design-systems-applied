@@ -1,6 +1,6 @@
+import { clsx } from "@lib/clsx";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
 import "./ScrollArea.css";
 
 interface ScrollAreaProps {

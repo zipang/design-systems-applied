@@ -1,6 +1,6 @@
+import { clsx } from "@lib/clsx";
 import { Label } from "@radix-ui/react-label";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
 import "./TextField.css";
 
 interface TextFieldProps {

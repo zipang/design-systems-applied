@@ -1,6 +1,6 @@
+import { clsx } from "@lib/clsx";
+import { useHideOnScroll } from "@lib/scroll/useScrollDirection";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
-import { useHideOnScroll } from "../../lib/scroll/useScrollDirection";
 import { usePageScroll } from "./page-scroll";
 import "./SiteNavigationHeader.css";
 

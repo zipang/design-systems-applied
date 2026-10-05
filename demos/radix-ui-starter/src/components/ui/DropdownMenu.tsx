@@ -1,6 +1,6 @@
+import { clsx } from "@lib/clsx";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
 import "./DropdownMenu.css";
 
 interface DropdownMenuProps {

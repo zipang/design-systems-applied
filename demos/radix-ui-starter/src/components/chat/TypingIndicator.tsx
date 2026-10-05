@@ -1,5 +1,5 @@
+import { Text } from "@components/base/Text";
 import type * as React from "react";
-import { Text } from "../base/Text";
 import "./TypingIndicator.css";
 
 /** Three animated dots shown while Eliza composes a reply. */

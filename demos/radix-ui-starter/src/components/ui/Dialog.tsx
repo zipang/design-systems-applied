@@ -1,8 +1,8 @@
+import { Heading } from "@components/base/Heading";
+import { Text } from "@components/base/Text";
+import { clsx } from "@lib/clsx";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
-import { Heading } from "../base/Heading";
-import { Text } from "../base/Text";
 import "./Dialog.css";
 
 interface DialogProps {

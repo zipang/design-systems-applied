@@ -1,23 +1,23 @@
-import type * as React from "react";
-import { useState } from "react";
-import { Heading } from "../base/Heading";
-import { Icon } from "../base/Icon";
-import { Text } from "../base/Text";
-import { Container } from "../layout/Container";
-import { HStack } from "../layout/HStack";
-import { VStack } from "../layout/VStack";
-import { Avatar } from "../ui/Avatar";
-import type { ButtonSize, ButtonVariant } from "../ui/Button";
-import { Button } from "../ui/Button";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/Dialog";
+import { Heading } from "@components/base/Heading";
+import { Icon } from "@components/base/Icon";
+import { Text } from "@components/base/Text";
+import { Container } from "@components/layout/Container";
+import { HStack } from "@components/layout/HStack";
+import { VStack } from "@components/layout/VStack";
+import { Avatar } from "@components/ui/Avatar";
+import type { ButtonSize, ButtonVariant } from "@components/ui/Button";
+import { Button } from "@components/ui/Button";
+import { Dialog, DialogContent, DialogTrigger } from "@components/ui/Dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger
-} from "../ui/DropdownMenu";
-import { TextField } from "../ui/TextField";
+} from "@components/ui/DropdownMenu";
+import { TextField } from "@components/ui/TextField";
+import type * as React from "react";
+import { useState } from "react";
 import { DemoColorPalette } from "./DemoColorPalette";
 import { DemoSection } from "./DemoSection";
 import "./ComponentsDemo.css";

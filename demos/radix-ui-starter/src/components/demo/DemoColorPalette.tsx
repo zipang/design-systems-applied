@@ -1,6 +1,6 @@
+import { Text } from "@components/base/Text";
+import { clsx } from "@lib/clsx";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
-import { Text } from "../base/Text";
 import "./DemoColorPalette.css";
 
 interface Swatch {

@@ -1,6 +1,6 @@
+import { clsx } from "@lib/clsx";
 import type * as React from "react";
 import { useMemo, useState } from "react";
-import { clsx } from "../../lib/clsx";
 import { PageScrollContext } from "./page-scroll";
 import "./PageLayout.css";
 

@@ -11,7 +11,11 @@ still apply.
 - **`Elt` suffix** for variables that hold a DOM element (for example `composerElt`).
 - **No `any`.** Use `unknown` only at a true boundary and state the boundary in JSDoc.
 - **Comments explain *why* only**, at non-obvious branches. Do not narrate the code.
-- **Class names use `clsx()`** from `src/lib/clsx.ts`. Never concatenate strings by hand
+- **Path aliases.** Import across directories with the aliases `@components`,
+  `@assets`, `@lib`, and `@styles`. The package declares them in
+  `demos/radix-ui-starter/tsconfig.json`. Keep imports within the same directory
+  relative (for example `./Foo`).
+- **Class names use `clsx()`** from `@lib/clsx`. Never concatenate strings by hand
   and never add an external class-name library.
 - **Stylesheet import is the last import** in a component module.
 - **Logic is tested.** Colocate `<name>.test.ts` next to logic modules. Component
@@ -21,7 +25,7 @@ still apply.
 ## Example
 
 ```ts
-import { clsx } from "./clsx";
+import { clsx } from "@lib/clsx";
 
 interface BadgeClassOptions {
 	size: "sm" | "md";

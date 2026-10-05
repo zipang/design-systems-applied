@@ -1,9 +1,9 @@
+import { Icon } from "@components/base/Icon";
+import { Text } from "@components/base/Text";
+import { Button } from "@components/ui/Button";
+import { clsx } from "@lib/clsx";
 import type * as React from "react";
 import { useRef } from "react";
-import { clsx } from "../../lib/clsx";
-import { Icon } from "../base/Icon";
-import { Text } from "../base/Text";
-import { Button } from "../ui/Button";
 import type { Attachment } from "./types";
 import "./Composer.css";
 

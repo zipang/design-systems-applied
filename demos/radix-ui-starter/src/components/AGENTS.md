@@ -46,7 +46,7 @@ Rules:
   attribute, mirror it to the matching `is-*` class. Common states: `is-disabled`,
   `is-loading`, `is-active`, `is-open`, `is-selected`, `is-invalid`, `is-readonly`,
   `is-placeholder`.
-- **Compose classes with `clsx()`** from `src/lib/clsx.ts`.
+- **Compose classes with `clsx()`** from `@lib/clsx`.
 - **Page shell.** `PageLayout` is the `main` grid; `PageHeader`/`PageBody`/`PageFooter`
   are its `header`/`article`/`footer` rows and self-position by `grid-row`, so a page
   renders only the regions it needs. `PageBody` is the scroller; it attaches the scroll
@@ -58,7 +58,7 @@ Rules:
 
 ```tsx
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
+import { clsx } from "@lib/clsx";
 import "./Button.css";
 
 interface ButtonProps {

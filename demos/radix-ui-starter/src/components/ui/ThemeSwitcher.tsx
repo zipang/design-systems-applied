@@ -1,7 +1,7 @@
+import { Icon } from "@components/base/Icon";
+import { clsx } from "@lib/clsx";
+import { useTheme } from "@lib/theme/ThemeProvider";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
-import { useTheme } from "../../lib/theme/ThemeProvider";
-import { Icon } from "../base/Icon";
 import {
 	DropdownMenu,
 	DropdownMenuContent,

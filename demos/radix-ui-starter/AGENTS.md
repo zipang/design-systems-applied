@@ -14,6 +14,7 @@ element comes from our own component library, and every style consumes a design 
 ```
 DESIGN.md            reserved for the demo's Design System (added with the themes)
 index.html           HTML entrypoint
+tsconfig.json        standalone TypeScript config with the import aliases
 src/
   server.tsx         Bun dev server (HTML import)
   main.tsx           React entrypoint

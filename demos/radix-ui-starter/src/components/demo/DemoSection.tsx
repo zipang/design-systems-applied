@@ -1,5 +1,5 @@
+import { Heading } from "@components/base/Heading";
 import type * as React from "react";
-import { Heading } from "../base/Heading";
 import "./DemoSection.css";
 
 interface DemoSectionProps {

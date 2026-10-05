@@ -1,5 +1,5 @@
+import { clsx } from "@lib/clsx";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
 import "./VStack.css";
 import type { Space } from "./space";
 

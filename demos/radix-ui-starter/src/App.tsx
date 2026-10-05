@@ -1,12 +1,12 @@
+import { ChatPage } from "@components/chat/ChatPage";
+import type { View } from "@components/demo/AppNav";
+import { AppNav } from "@components/demo/AppNav";
+import { ComponentsPage } from "@components/demo/ComponentsPage";
+import { PageHeader } from "@components/layout/PageHeader";
+import { PageLayout } from "@components/layout/PageLayout";
+import { SiteNavigationHeader } from "@components/layout/SiteNavigationHeader";
 import type * as React from "react";
 import { useState } from "react";
-import { ChatPage } from "./components/chat/ChatPage";
-import type { View } from "./components/demo/AppNav";
-import { AppNav } from "./components/demo/AppNav";
-import { ComponentsPage } from "./components/demo/ComponentsPage";
-import { PageHeader } from "./components/layout/PageHeader";
-import { PageLayout } from "./components/layout/PageLayout";
-import { SiteNavigationHeader } from "./components/layout/SiteNavigationHeader";
 
 /**
  * Application shell. Composes the page layout and the shared site navigation, and

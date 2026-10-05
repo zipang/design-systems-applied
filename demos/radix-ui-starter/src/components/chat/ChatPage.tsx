@@ -1,7 +1,7 @@
+import { Container } from "@components/layout/Container";
+import { PageBody } from "@components/layout/PageBody";
+import { PageFooter } from "@components/layout/PageFooter";
 import type * as React from "react";
-import { Container } from "../layout/Container";
-import { PageBody } from "../layout/PageBody";
-import { PageFooter } from "../layout/PageFooter";
 import { ChatHeader } from "./ChatHeader";
 import { Composer } from "./Composer";
 import { MessageList } from "./MessageList";

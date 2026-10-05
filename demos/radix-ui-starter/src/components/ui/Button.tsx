@@ -1,7 +1,7 @@
+import type { IconName } from "@components/base/Icon";
+import { Icon } from "@components/base/Icon";
+import { clsx } from "@lib/clsx";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
-import type { IconName } from "../base/Icon";
-import { Icon } from "../base/Icon";
 import "./Button.css";
 
 /** Visual variants for {@link Button}. */

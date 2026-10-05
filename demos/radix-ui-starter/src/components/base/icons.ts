@@ -1,10 +1,10 @@
-import addIcon from "../../assets/icons/add.svg" with { type: "text" };
-import checkIcon from "../../assets/icons/check.svg" with { type: "text" };
-import chevronDownIcon from "../../assets/icons/chevron-down.svg" with { type: "text" };
-import crossIcon from "../../assets/icons/cross.svg" with { type: "text" };
-import fileIcon from "../../assets/icons/file.svg" with { type: "text" };
-import resetIcon from "../../assets/icons/reset.svg" with { type: "text" };
-import sendIcon from "../../assets/icons/send.svg" with { type: "text" };
+import addIcon from "@assets/icons/add.svg" with { type: "text" };
+import checkIcon from "@assets/icons/check.svg" with { type: "text" };
+import chevronDownIcon from "@assets/icons/chevron-down.svg" with { type: "text" };
+import crossIcon from "@assets/icons/cross.svg" with { type: "text" };
+import fileIcon from "@assets/icons/file.svg" with { type: "text" };
+import resetIcon from "@assets/icons/reset.svg" with { type: "text" };
+import sendIcon from "@assets/icons/send.svg" with { type: "text" };
 
 /**
  * Inline SVG markup, keyed by icon name. The SVGs are imported as text so the Icon

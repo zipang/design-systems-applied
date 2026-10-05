@@ -1,7 +1,7 @@
+import { Heading } from "@components/base/Heading";
+import { Text } from "@components/base/Text";
+import { Button } from "@components/ui/Button";
 import type * as React from "react";
-import { Heading } from "../base/Heading";
-import { Text } from "../base/Text";
-import { Button } from "../ui/Button";
 import "./ChatHeader.css";
 
 interface ChatHeaderProps {

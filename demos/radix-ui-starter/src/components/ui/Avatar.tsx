@@ -1,6 +1,6 @@
+import { clsx } from "@lib/clsx";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
 import "./Avatar.css";
 
 interface AvatarProps {

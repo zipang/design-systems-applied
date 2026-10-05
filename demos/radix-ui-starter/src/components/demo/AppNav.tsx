@@ -1,9 +1,9 @@
+import { Container } from "@components/layout/Container";
+import { HStack } from "@components/layout/HStack";
+import { Button } from "@components/ui/Button";
+import { ThemeSwitcher } from "@components/ui/ThemeSwitcher";
+import { clsx } from "@lib/clsx";
 import type * as React from "react";
-import { clsx } from "../../lib/clsx";
-import { Container } from "../layout/Container";
-import { HStack } from "../layout/HStack";
-import { Button } from "../ui/Button";
-import { ThemeSwitcher } from "../ui/ThemeSwitcher";
 import "./AppNav.css";
 
 /** The pages the app can show. */

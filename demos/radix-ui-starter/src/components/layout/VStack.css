@@ -1,0 +1,49 @@
+/* VStack.css — every rule is scoped under .layout-vstack */
+.layout-vstack {
+	display: flex;
+	flex-direction: column;
+
+	&.layout-vstack--gap-xs {
+		gap: var(--space-xs);
+	}
+
+	&.layout-vstack--gap-sm {
+		gap: var(--space-sm);
+	}
+
+	&.layout-vstack--gap-md {
+		gap: var(--space-md);
+	}
+
+	&.layout-vstack--gap-base {
+		gap: var(--space-base);
+	}
+
+	&.layout-vstack--gap-lg {
+		gap: var(--space-lg);
+	}
+
+	&.layout-vstack--gap-xl {
+		gap: var(--space-xl);
+	}
+
+	&.layout-vstack--gap-xxl {
+		gap: var(--space-xxl);
+	}
+
+	&.layout-vstack--align-start {
+		align-items: flex-start;
+	}
+
+	&.layout-vstack--align-center {
+		align-items: center;
+	}
+
+	&.layout-vstack--align-end {
+		align-items: flex-end;
+	}
+
+	&.layout-vstack--align-stretch {
+		align-items: stretch;
+	}
+}

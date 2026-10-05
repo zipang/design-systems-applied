@@ -1,0 +1,6 @@
+/* Container.css — every rule is scoped under .layout-container */
+.layout-container {
+	inline-size: 100%;
+	margin-inline: auto;
+	padding-inline: var(--space-lg);
+}

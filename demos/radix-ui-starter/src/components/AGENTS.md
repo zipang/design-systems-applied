@@ -32,7 +32,9 @@ Rules:
   `ui-button`, never `.button`).
 - **Scoped stylesheets.** Every rule in a component stylesheet is nested under the
   component's root class. Use native CSS nesting for states and descendants, so the
-  file folds as one block.
+  file folds as one block. Compound Radix components with portals are the documented
+  exception: pieces that are not descendants of the root (a dropdown trigger, a dialog
+  overlay) use their own `ui-<component>__<part>` class and their own scoped block.
 - **Named states are classes.** Every named state has an `is-<state>` class nested under
   the root (`.ui-button.is-loading`). When Radix exposes a state only as a `data-*`
   attribute, mirror it to the matching `is-*` class. Common states: `is-disabled`,

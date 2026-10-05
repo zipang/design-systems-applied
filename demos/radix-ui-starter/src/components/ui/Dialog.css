@@ -1,0 +1,44 @@
+/* Dialog.css — compound component; each part is scoped to its own class */
+.ui-dialog__trigger {
+	border: 0;
+	background: transparent;
+	color: var(--color-text);
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-sm);
+	cursor: pointer;
+}
+
+.ui-dialog__overlay {
+	position: fixed;
+	inset: 0;
+	background: color-mix(in srgb, var(--color-text) 50%, transparent);
+}
+
+.ui-dialog {
+	position: fixed;
+	inset-block-start: 50%;
+	inset-inline-start: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+	inline-size: fit-content;
+	max-inline-size: calc(100% - (2 * var(--space-lg)));
+	border: var(--border-sm) solid var(--color-brand-secondary);
+	border-radius: var(--rounded-lg);
+	background: var(--color-surface);
+	box-shadow: var(--elevation-lg);
+	padding: var(--space-lg);
+
+	& .ui-dialog__close {
+		position: absolute;
+		inset-block-start: var(--space-sm);
+		inset-inline-end: var(--space-sm);
+		border: 0;
+		background: transparent;
+		color: var(--color-text-muted);
+		font-size: var(--font-size-lg);
+		line-height: 1;
+		cursor: pointer;
+	}
+}

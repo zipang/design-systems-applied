@@ -72,7 +72,7 @@ composes layout from design tokens. Four complete themes ship as separate
 
 ### Phase 2: Core library primitives
 
-- [ ] **Task 4: Add the `clsx()` utility**
+- [x] **Task 4: Add the `clsx()` utility**
   - Acceptance: `src/lib/clsx.ts` accepts strings, falsy values, and conditional
     objects; colocated `clsx.test.ts` covers each case.
   - Verify: `bun test`.
@@ -80,7 +80,7 @@ composes layout from design tokens. Four complete themes ship as separate
     `demos/radix-ui-starter/src/lib/clsx.test.ts`
   - Depends: Task 3
 
-- [ ] **Task 5: Add `base/Heading` and `base/Text`**
+- [x] **Task 5: Add `base/Heading` and `base/Text`**
   - Acceptance: both render through tokens, carry `base-heading` / `base-text` scoped
     classes, use `clsx`, and expose the documented variants and `is-*` states.
   - Verify: `bun run check`, `bun run typecheck`; manual render in `App.tsx`.
@@ -88,7 +88,7 @@ composes layout from design tokens. Four complete themes ship as separate
     `Text.css`
   - Depends: Task 4
 
-- [ ] **Task 6: Add `layout/` primitives**
+- [x] **Task 6: Add `layout/` primitives**
   - Acceptance: `Container`, `VStack`, `HStack`, `Grid` render through tokens, with
     `layout-*` scoped classes and `clsx`; no product-named components in `layout/`.
   - Verify: `bun run check`, `bun run typecheck`; manual compose.
@@ -96,7 +96,7 @@ composes layout from design tokens. Four complete themes ship as separate
     `.css`
   - Depends: Task 4
 
-- [ ] **Task 7: Add `ui/Button` and `ui/TextField`**
+- [x] **Task 7: Add `ui/Button` and `ui/TextField`**
   - Acceptance: token-only styling, `ui-button` / `ui-field` scoped classes,
     `is-loading` / `is-disabled` / `is-invalid` / `is-readonly` states, `clsx`; the
     TextField wraps a Radix-friendly input with label and error wiring.
@@ -104,21 +104,21 @@ composes layout from design tokens. Four complete themes ship as separate
   - Files: `.../src/components/ui/{Button,TextField}.tsx` and `.css`
   - Depends: Task 4
 
-- [ ] **Task 8: Add `ui/DropdownMenu`**
+- [x] **Task 8: Add `ui/DropdownMenu`**
   - Acceptance: wraps `@radix-ui/react-dropdown-menu`; Radix `data-*` states mirrored
     to `is-open` / `is-disabled` classes; scoped under `ui-dropdown`.
   - Verify: `bun run check`, `bun run typecheck`; manual open/close.
   - Files: `.../src/components/ui/{DropdownMenu,DropdownMenuItem}.tsx` and `.css`
   - Depends: Task 4
 
-- [ ] **Task 9: Add `ui/Dialog`**
+- [x] **Task 9: Add `ui/Dialog`**
   - Acceptance: wraps `@radix-ui/react-dialog`; overlay and content token-styled;
     `is-open` state class; focus trap and escape work.
   - Verify: `bun run check`, `bun run typecheck`; manual open/close.
   - Files: `.../src/components/ui/{Dialog,DialogContent}.tsx` and `.css`
   - Depends: Task 4
 
-- [ ] **Task 10: Add `ui/Avatar`**
+- [x] **Task 10: Add `ui/Avatar`**
   - Acceptance: wraps `@radix-ui/react-avatar`; fallback token-styled; scoped
     `ui-avatar`.
   - Verify: `bun run check`, `bun run typecheck`.
@@ -126,7 +126,7 @@ composes layout from design tokens. Four complete themes ship as separate
   - Depends: Task 4
 
 ### Checkpoint: Core library
-- [ ] All primitives render in `App.tsx`; gates pass
+- [x] All primitives render in `App.tsx`; gates pass
 - [ ] Manual visual pass before theming
 
 ### Phase 3: Themes

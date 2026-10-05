@@ -1,0 +1,40 @@
+/* Button.css — every rule is scoped under .ui-button */
+.ui-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-sm);
+	border: 0;
+	border-radius: var(--rounded-md);
+	padding: var(--space-sm) var(--space-lg);
+	color: var(--color-text);
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-tight);
+	cursor: pointer;
+
+	&.ui-button--primary {
+		background: var(--color-brand-primary);
+		color: var(--color-text-ondark);
+	}
+
+	&.ui-button--secondary {
+		background: var(--color-surface-alt);
+		color: var(--color-text);
+	}
+
+	&.ui-button--ghost {
+		background: transparent;
+		color: var(--color-text);
+	}
+
+	&.is-loading {
+		cursor: progress;
+	}
+
+	&.is-disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+}

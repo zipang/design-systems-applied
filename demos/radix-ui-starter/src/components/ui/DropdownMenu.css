@@ -1,0 +1,45 @@
+/* DropdownMenu.css — each part is scoped to its own tier-prefixed class */
+.ui-dropdown__trigger {
+	border: 0;
+	background: transparent;
+	color: var(--color-text);
+	font-family: var(--font-family-base);
+	font-size: var(--font-size-sm);
+	cursor: pointer;
+
+	&[data-state="open"] {
+		color: var(--color-text-accent);
+	}
+}
+
+.ui-dropdown {
+	border: var(--border-sm) solid var(--color-brand-secondary);
+	border-radius: var(--rounded-sm);
+	background: var(--color-surface);
+	box-shadow: var(--elevation-md);
+	padding: var(--space-xs);
+}
+
+.ui-dropdown__item {
+	border-radius: var(--rounded-sm);
+	padding: var(--space-sm) var(--space-md);
+	color: var(--color-text);
+	font-size: var(--font-size-sm);
+	cursor: pointer;
+	outline: none;
+
+	&[data-highlighted] {
+		background: var(--color-surface-alt);
+	}
+
+	&.is-disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+}
+
+.ui-dropdown__separator {
+	block-size: var(--border-sm);
+	margin: var(--space-xs) 0;
+	background: var(--color-surface-alt);
+}

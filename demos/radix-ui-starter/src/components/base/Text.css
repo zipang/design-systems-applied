@@ -1,0 +1,39 @@
+/* Text.css — every rule is scoped under .base-text */
+.base-text {
+	margin: 0;
+	color: var(--color-text);
+	font-family: var(--font-family-base);
+	line-height: var(--line-height-normal);
+
+	&.base-text--xs {
+		font-size: var(--font-size-xs);
+	}
+
+	&.base-text--sm {
+		font-size: var(--font-size-sm);
+	}
+
+	&.base-text--md {
+		font-size: var(--font-size-md);
+	}
+
+	&.base-text--lg {
+		font-size: var(--font-size-lg);
+	}
+
+	&.base-text--xl {
+		font-size: var(--font-size-xl);
+	}
+
+	&.base-text--muted {
+		color: var(--color-text-muted);
+	}
+
+	&.base-text--accent {
+		color: var(--color-text-accent);
+	}
+
+	&.base-text--ondark {
+		color: var(--color-text-ondark);
+	}
+}

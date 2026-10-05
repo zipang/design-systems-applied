@@ -1,0 +1,31 @@
+/* Avatar.css — every rule is scoped under .ui-avatar */
+.ui-avatar {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	border-radius: var(--rounded-full);
+	background: var(--color-brand-secondary);
+	color: var(--color-text-ondark);
+
+	&.ui-avatar--sm {
+		inline-size: var(--space-xl);
+		block-size: var(--space-xl);
+	}
+
+	&.ui-avatar--md {
+		inline-size: var(--space-xxl);
+		block-size: var(--space-xxl);
+	}
+
+	& .ui-avatar__image {
+		inline-size: 100%;
+		block-size: 100%;
+		object-fit: cover;
+	}
+
+	& .ui-avatar__fallback {
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
+	}
+}

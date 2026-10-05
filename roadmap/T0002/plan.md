@@ -190,7 +190,7 @@ composes layout from design tokens. Four complete themes ship as separate
 
 ### Phase 4: ELIZA and the chat UI
 
-- [ ] **Task 15: Implement the ELIZA engine**
+- [x] **Task 15: Implement the ELIZA engine**
   - Acceptance: `eliza.ts` implements keyword ranking, decomposition, reassembly,
     pre/post substitutions, and memory; `doctor-script.ts` holds the DOCTOR script with
     attribution; tests include a conversation from the 1966 paper and the quit path.
@@ -198,14 +198,14 @@ composes layout from design tokens. Four complete themes ship as separate
   - Files: `.../src/lib/eliza/{eliza.ts,doctor-script.ts,eliza.test.ts}`
   - Depends: Task 3
 
-- [ ] **Task 16: Add `chat/Message` and `chat/MessageList`**
+- [x] **Task 16: Add `chat/Message` and `chat/MessageList`**
   - Acceptance: user/bot roles styled with tokens, `is-user` / `is-bot` state classes,
     scoped `chat-message` and `chat-message-list`; uses `base/Text`.
   - Verify: `bun run check`, `bun run typecheck`.
   - Files: `.../src/components/chat/{Message,MessageList}.tsx` and `.css`
   - Depends: Tasks 5, 15
 
-- [ ] **Task 17: Add `chat/Composer` and `chat/ChatPanel`**
+- [x] **Task 17: Add `chat/Composer` and `chat/ChatPanel`**
   - Acceptance: composer sends on submit and disables while ELIZA "types";
     ChatPanel owns the message state and scrolls to the latest message; uses
     `ui/Button`, `ui/TextField`.
@@ -213,7 +213,7 @@ composes layout from design tokens. Four complete themes ship as separate
   - Files: `.../src/components/chat/{Composer,ChatPanel}.tsx` and `.css`
   - Depends: Tasks 7, 16
 
-- [ ] **Task 18: Add `chat/ChatHeader`, `ThemeSwitcher`, and compose `App`**
+- [x] **Task 18: Add `chat/ChatHeader`, `ThemeSwitcher`, and compose `App`**
   - Acceptance: header contains the theme dropdown and a "new conversation" Dialog;
     switching themes updates the page instantly; `App.tsx` composes layout and chat
     only from library components.
@@ -223,8 +223,8 @@ composes layout from design tokens. Four complete themes ship as separate
   - Depends: Tasks 9, 11, 17
 
 ### Checkpoint: Demo works
-- [ ] End-to-end chat works; theme switcher works; quit path works
-- [ ] Root gates pass
+- [x] End-to-end chat works; theme switcher works; quit path works
+- [x] Root gates pass
 - [ ] Human review of the demo before polish
 
 ### Phase 5: Polish

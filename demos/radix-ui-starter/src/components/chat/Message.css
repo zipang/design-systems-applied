@@ -1,0 +1,50 @@
+/* Message.css — every rule is scoped under .chat-message */
+.chat-message {
+	display: flex;
+	width: fit-content;
+	max-inline-size: 42rem;
+	flex-direction: column;
+	gap: var(--space-sm);
+
+	&.is-you {
+		align-self: flex-end;
+		align-items: flex-end;
+	}
+
+	& .chat-message__speaker {
+		padding: 0 var(--space-sm);
+		font-weight: var(--font-weight-semibold);
+	}
+
+	& .chat-message__bubble {
+		border-radius: var(--rounded-none) var(--rounded-lg) var(--rounded-lg) var(--rounded-lg);
+		background: var(--color-surface-alt);
+		padding: var(--space-base) var(--space-lg);
+		color: var(--color-text);
+
+		& p {
+			line-height: var(--line-height-relaxed);
+		}
+	}
+
+	&.is-you .chat-message__bubble {
+		border-radius: var(--rounded-lg) var(--rounded-none) var(--rounded-lg) var(--rounded-lg);
+		background: var(--color-surface-dark);
+		color: var(--color-text-ondark);
+	}
+
+	& .chat-message__attachment {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+		margin-block-start: var(--space-base);
+		border-block-start: var(--border-sm) solid currentColor;
+		padding-block-start: var(--space-base);
+	}
+
+	& .chat-message__file {
+		display: flex;
+		min-inline-size: 0;
+		flex-direction: column;
+	}
+}

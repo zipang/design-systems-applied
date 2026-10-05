@@ -1,0 +1,7 @@
+/* MessageList.css — every rule is scoped under .chat-message-list */
+.chat-message-list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xl);
+	padding-block: var(--space-xxl);
+}

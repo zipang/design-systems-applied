@@ -1,0 +1,14 @@
+/* ThemeSwitcher.css — every rule is scoped under .ui-theme-switcher */
+.ui-theme-switcher {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs);
+}
+
+.ui-theme-switcher__item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-lg);
+	inline-size: 100%;
+}

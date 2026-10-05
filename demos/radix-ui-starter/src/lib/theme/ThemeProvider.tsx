@@ -1,5 +1,5 @@
 import type * as React from "react";
-import { createContext, useContext, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createContext, useContext, useLayoutEffect, useMemo, useState } from "react";
 import type { Theme, ThemeId } from "./themes";
 import { DEFAULT_THEME, getTheme, themes } from "./themes";
 
@@ -16,29 +16,27 @@ interface ThemeProviderProps {
 }
 
 /**
- * Injects the active theme's stylesheet text into a single `<style>` element and
- * exposes the theme list. Each theme is a complete `:root` stylesheet, so switching
- * replaces the style text and leaves the cascade unchanged.
+ * Injects the active theme's stylesheet into a `<style>` element in `document.head`
+ * and exposes the theme list. Each theme is a complete `:root` stylesheet, so
+ * switching replaces the element and leaves the cascade unchanged.
  */
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 	const [theme, setTheme] = useState<ThemeId>(DEFAULT_THEME);
-	const styleElt = useRef<HTMLStyleElement>(null);
 	const css = getTheme(theme).css;
 
 	useLayoutEffect(() => {
-		if (styleElt.current) {
-			styleElt.current.textContent = css;
-		}
+		const styleElt = document.createElement("style");
+		styleElt.textContent = css;
+		document.head.append(styleElt);
+
+		return () => {
+			styleElt.remove();
+		};
 	}, [css]);
 
 	const value = useMemo<ThemeContextValue>(() => ({ theme, available: themes, setTheme }), [theme]);
 
-	return (
-		<ThemeContext.Provider value={value}>
-			<style ref={styleElt} />
-			{children}
-		</ThemeContext.Provider>
-	);
+	return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };
 
 /**

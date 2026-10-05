@@ -1,0 +1,29 @@
+/* App.css — application shell. Switches between pages and lays out the viewport. */
+.app {
+	display: flex;
+	flex-direction: column;
+	min-block-size: 100dvh;
+
+	& .app__nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-lg);
+		padding-block: var(--space-md);
+	}
+
+	& .app__view {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		min-block-size: 0;
+	}
+
+	& .app__chat {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		min-block-size: 0;
+		padding-inline: var(--space-base);
+	}
+}

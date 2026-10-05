@@ -1,0 +1,52 @@
+/* Composer.css — every rule is scoped under .chat-composer */
+.chat-composer {
+	border-block-start: var(--border-md) solid var(--color-brand-primary);
+
+	& .chat-composer__attachment {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+		border-block-end: var(--border-sm) solid var(--color-brand-tertiary);
+		padding-block: var(--space-base);
+	}
+
+	& .chat-composer__row {
+		display: flex;
+		align-items: stretch;
+		gap: var(--space-sm);
+		padding-block-start: var(--space-base);
+	}
+
+	& .chat-composer__file {
+		display: none;
+	}
+
+	& .chat-composer__input {
+		flex: 1;
+		min-block-size: calc(var(--space-xl) + var(--space-base));
+		max-block-size: 12rem;
+		resize: none;
+		border: 0;
+		border-radius: var(--rounded-none);
+		background: transparent;
+		padding: var(--space-sm) var(--space-md);
+		color: var(--color-text);
+		font-size: var(--font-size-md);
+		line-height: var(--line-height-relaxed);
+
+		&::placeholder {
+			color: var(--color-text-muted);
+		}
+	}
+
+	& .chat-composer__attach {
+		inline-size: calc(var(--space-xl) + var(--space-base));
+		padding-inline: 0;
+	}
+
+	& .chat-composer__send {
+		min-inline-size: 7rem;
+		background: var(--color-surface-dark);
+		color: var(--color-text-ondark);
+	}
+}

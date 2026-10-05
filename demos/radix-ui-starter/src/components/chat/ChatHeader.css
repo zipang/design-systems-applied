@@ -1,0 +1,16 @@
+/* ChatHeader.css — every rule is scoped under .chat-header */
+.chat-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-base);
+	min-block-size: calc(var(--space-xl) + var(--space-xxl));
+	border-block-end: var(--border-md) solid var(--color-brand-primary);
+
+	& .chat-header__identity {
+		display: flex;
+		min-inline-size: 0;
+		align-items: baseline;
+		gap: var(--space-md);
+	}
+}

@@ -1,32 +1,41 @@
 import type * as React from "react";
 import { clsx } from "../../lib/clsx";
 import { useTheme } from "../../lib/theme/ThemeProvider";
+import { Icon } from "../base/Icon";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuLabel,
 	DropdownMenuTrigger
 } from "./DropdownMenu";
+import "./ThemeSwitcher.css";
 
 interface ThemeSwitcherProps {
 	className?: string;
 }
 
 /**
- * Dropdown that selects the active theme from the registry.
+ * Dropdown that selects the active theme from the registry, marking the active one.
  */
 export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ className }) => {
 	const { theme, available, setTheme } = useTheme();
+	const active = available.find((item) => item.id === theme);
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className={clsx("ui-theme-switcher", className)}>
-				Theme: {theme}
+				{active?.label ?? theme}
+				<Icon name="chevron-down" size="sm" />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
+				<DropdownMenuLabel>Choose a theme</DropdownMenuLabel>
 				{available.map((item) => (
 					<DropdownMenuItem key={item.id} onSelect={() => setTheme(item.id)}>
-						{item.label}
+						<span className="ui-theme-switcher__item">
+							<span>{item.label}</span>
+							{theme === item.id ? <Icon name="check" size="sm" /> : null}
+						</span>
 					</DropdownMenuItem>
 				))}
 			</DropdownMenuContent>

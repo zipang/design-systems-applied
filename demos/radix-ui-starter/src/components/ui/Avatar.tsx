@@ -7,7 +7,7 @@ interface AvatarProps {
 	fallback: string;
 	src?: string;
 	alt?: string;
-	size?: "sm" | "md";
+	size?: "sm" | "md" | "lg";
 	shape?: "rounded" | "square";
 	className?: string;
 }

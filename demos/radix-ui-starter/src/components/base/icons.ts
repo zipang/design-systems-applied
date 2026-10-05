@@ -1,4 +1,9 @@
 import addIcon from "../../assets/icons/add.svg" with { type: "text" };
+import checkIcon from "../../assets/icons/check.svg" with { type: "text" };
+import chevronDownIcon from "../../assets/icons/chevron-down.svg" with { type: "text" };
+import crossIcon from "../../assets/icons/cross.svg" with { type: "text" };
+import fileIcon from "../../assets/icons/file.svg" with { type: "text" };
+import resetIcon from "../../assets/icons/reset.svg" with { type: "text" };
 import sendIcon from "../../assets/icons/send.svg" with { type: "text" };
 
 /**
@@ -7,5 +12,10 @@ import sendIcon from "../../assets/icons/send.svg" with { type: "text" };
  */
 export const icons = {
 	add: addIcon,
+	check: checkIcon,
+	"chevron-down": chevronDownIcon,
+	cross: crossIcon,
+	file: fileIcon,
+	reset: resetIcon,
 	send: sendIcon
 } as const;

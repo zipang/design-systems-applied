@@ -2,18 +2,33 @@ import type * as React from "react";
 import { clsx } from "../../lib/clsx";
 import "./Container.css";
 
+/**
+ * Max-width presets for {@link Container}. `fluid` has no limit, `lg` is a wide
+ * layout column, and `prose` is tuned to a comfortable reading measure (70ch).
+ */
+export type ContainerWidth = "fluid" | "lg" | "prose";
+
 interface ContainerProps {
-	as?: "div" | "main" | "section";
+	as?: "div" | "main" | "section" | "nav";
+	width?: ContainerWidth;
 	children: React.ReactNode;
 	className?: string;
 }
 
 /**
- * Centers page content and applies horizontal padding from the token scale. It has no
- * max width: the fixed token list has no layout-width token.
+ * Centers content and applies horizontal padding. `width` picks the max width.
  */
-export const Container: React.FC<ContainerProps> = ({ as = "div", children, className }) => {
+export const Container: React.FC<ContainerProps> = ({
+	as = "div",
+	width = "lg",
+	children,
+	className
+}) => {
 	const ContainerElt = as;
 
-	return <ContainerElt className={clsx("layout-container", className)}>{children}</ContainerElt>;
+	return (
+		<ContainerElt className={clsx("layout-container", `layout-container--${width}`, className)}>
+			{children}
+		</ContainerElt>
+	);
 };

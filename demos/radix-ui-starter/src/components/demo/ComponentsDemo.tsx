@@ -18,7 +18,6 @@ import {
 	DropdownMenuTrigger
 } from "../ui/DropdownMenu";
 import { TextField } from "../ui/TextField";
-import { ThemeSwitcher } from "../ui/ThemeSwitcher";
 import { DemoColorPalette } from "./DemoColorPalette";
 import { DemoSection } from "./DemoSection";
 import "./ComponentsDemo.css";
@@ -51,10 +50,7 @@ export const ComponentsDemo: React.FC = () => {
 	return (
 		<Container as="main" className="demo-components">
 			<VStack gap="xl">
-				<HStack justify="between">
-					<Heading level={1}>Components</Heading>
-					<ThemeSwitcher />
-				</HStack>
+				<Heading level={1}>Components</Heading>
 
 				<DemoSection index={1} title="Headings">
 					<VStack gap="sm">
@@ -63,6 +59,12 @@ export const ComponentsDemo: React.FC = () => {
 								Heading level {level}
 							</Heading>
 						))}
+						<Heading level={2} size="display">
+							Level 2 · display size
+						</Heading>
+						<Heading level={2} size="md">
+							Level 2 · md size
+						</Heading>
 					</VStack>
 				</DemoSection>
 
@@ -113,9 +115,9 @@ export const ComponentsDemo: React.FC = () => {
 
 				<DemoSection index={6} title="Avatar">
 					<HStack gap="lg" wrap>
-						<Avatar fallback="EL" size="sm" shape="rounded" />
-						<Avatar fallback="EL" size="md" shape="rounded" />
-						<Avatar fallback="SQ" size="sm" shape="square" />
+						<Avatar fallback="SM" size="sm" shape="rounded" />
+						<Avatar fallback="MD" size="md" shape="rounded" />
+						<Avatar fallback="LG" size="lg" shape="rounded" />
 						<Avatar fallback="SQ" size="md" shape="square" />
 					</HStack>
 				</DemoSection>

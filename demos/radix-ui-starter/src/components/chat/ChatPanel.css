@@ -1,0 +1,16 @@
+/* ChatPanel.css — every rule is scoped under .chat-panel */
+.chat-panel {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-block-size: 0;
+
+	& .chat-panel__scroll {
+		flex: 1;
+		min-block-size: 0;
+	}
+
+	& .chat-panel__composer {
+		padding-block-end: var(--space-lg);
+	}
+}

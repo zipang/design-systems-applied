@@ -112,7 +112,11 @@ demos/radix-ui-starter/
 ├── package.json
 ├── index.html
 ├── themes/                        one complete Design System per theme
-│   ├── reference/                 DESIGN.md + design-tokens.css (default)
+│   ├── paper/                     DESIGN.md + design-tokens.css (default)
+│   ├── midnight/                  DESIGN.md + design-tokens.css
+│   ├── cyan/                      DESIGN.md + design-tokens.css
+│   ├── magenta/                   DESIGN.md + design-tokens.css
+│   ├── reference/                 DESIGN.md + design-tokens.css
 │   ├── monokai/                   DESIGN.md + design-tokens.css
 │   ├── dracula/                   DESIGN.md + design-tokens.css
 │   └── gruvbox/                   DESIGN.md + design-tokens.css
@@ -147,6 +151,10 @@ Conventions for the demo, to be written into `src/AGENTS.md` and
 `src/components/AGENTS.md` (the `follow-the-rules` skill already expects these):
 
 - Arrow-function components only. `React.FC<Props>` for components.
+- `Container` takes `width`: `fluid` (no limit), `lg` (a wide column), or `prose`
+  (70 characters for comfortable reading).
+- `Heading` takes `size` (`xs`–`display`); it defaults to the level's step on the
+  token scale but can be overridden like `Text`.
 - Mandatory JSDoc on exported symbols. Object parameters use named interfaces.
 - DOM element variables use the `Elt` suffix (for example `headerElt`).
 - No `any`. `unknown` only at true boundaries, with the boundary stated in JSDoc.

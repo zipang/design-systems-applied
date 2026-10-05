@@ -80,3 +80,14 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ({
 export const DropdownMenuSeparator: React.FC = () => (
 	<DropdownMenuPrimitive.Separator className="ui-dropdown__separator" />
 );
+
+interface DropdownMenuLabelProps {
+	children: React.ReactNode;
+}
+
+/** A non-interactive label inside the menu. */
+export const DropdownMenuLabel: React.FC<DropdownMenuLabelProps> = ({ children }) => (
+	<DropdownMenuPrimitive.Label className="ui-dropdown__label">
+		{children}
+	</DropdownMenuPrimitive.Label>
+);

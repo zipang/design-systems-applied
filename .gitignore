@@ -8,6 +8,9 @@ out/
 # Throwaway experiments
 .tmp/
 
+# Cloned references used for inspiration only
+demos/.reference/
+
 # opencode local config
 .opencode/package.json
 .opencode/package-lock.json

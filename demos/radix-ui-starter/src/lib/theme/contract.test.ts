@@ -1,10 +1,12 @@
 import { expect, test } from "bun:test";
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { parse } from "yaml";
 
 const THEMES_DIR = join(import.meta.dir, "../../../themes");
-const THEME_IDS = ["reference", "monokai", "dracula", "gruvbox"] as const;
+const THEME_IDS = readdirSync(THEMES_DIR)
+	.filter((name) => existsSync(join(THEMES_DIR, name, "design-tokens.css")))
+	.sort();
 
 /** Front-matter path to stylesheet variable, for the tokens every theme overrides. */
 const COLOR_MAP: [string, string][] = [
@@ -71,6 +73,10 @@ const resolveValue = (value: string, vars: Record<string, string>): string => {
 	return name ? (vars[name] ?? value) : value;
 };
 
+/** Compare values ignoring whitespace and case (color-mix spans lines). */
+const normalize = (value: string, vars: Record<string, string>): string =>
+	resolveValue(value, vars).toLowerCase().replace(/\s+/g, "");
+
 const readPath = (source: unknown, path: string): unknown =>
 	path.split(".").reduce<unknown>((current, key) => {
 		if (current && typeof current === "object" && key in current) {
@@ -103,7 +109,7 @@ for (const id of THEME_IDS) {
 			const cssValue = vars[cssVar] ?? "";
 
 			expect(cssValue).not.toBe("");
-			expect(String(declared).toLowerCase()).toBe(resolveValue(cssValue, vars).toLowerCase());
+			expect(normalize(String(declared), vars)).toBe(normalize(cssValue, vars));
 		}
 	});
 }

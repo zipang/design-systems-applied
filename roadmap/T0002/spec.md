@@ -27,8 +27,9 @@ Radix UI primitives are re-exposed through our own library:
 
 - `src/components/ui/` — Radix UI wrappers and pure UI primitives (Button, TextField,
   DropdownMenu, Dialog, Avatar, and so on). `Button` supports the sizes `sm`,
-  `default`, and `lg`, and the variants `primary`, `secondary`, `ghost`, `success`,
-  `warning`, `danger`, and `info`, plus an optional leading icon.
+  `default`, and `lg`, and the variants `primary`, `accent`, `secondary`, `ghost`,
+  `success`, `warning`, `danger`, and `info`, plus an optional leading icon. `Avatar`
+  supports the `shape` `rounded` (circle) or `square`.
 - `src/components/base/` — typography primitives (`Heading`, `Text`) that must be used
   instead of raw HTML text tags, plus `Icon`, which renders a bundled SVG file inline
   so its strokes follow `currentColor`. Icons live in `src/assets/icons/` as plain

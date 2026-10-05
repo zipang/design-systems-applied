@@ -17,6 +17,7 @@ import {
 } from "./components/ui/DropdownMenu";
 import { TextField } from "./components/ui/TextField";
 import { useTheme } from "./lib/theme/ThemeProvider";
+import "./App.css";
 
 /**
  * Temporary gallery that exercises every core primitive and the theme switcher. The
@@ -27,12 +28,13 @@ export const App: React.FC = () => {
 	const { theme, available, setTheme } = useTheme();
 
 	return (
-		<Container as="main">
+		<Container as="main" className="app-shell">
 			<VStack gap="lg">
 				<HStack justify="between">
 					<Heading level={1}>Radix UI Starter</Heading>
 					<HStack gap="sm">
 						<Avatar fallback="EL" size="sm" />
+						<Avatar fallback="SQ" size="sm" shape="square" />
 						<DropdownMenu>
 							<DropdownMenuTrigger>Theme: {theme}</DropdownMenuTrigger>
 							<DropdownMenuContent>
@@ -65,6 +67,7 @@ export const App: React.FC = () => {
 						/>
 						<HStack gap="sm" wrap>
 							<Button label="Primary" />
+							<Button label="Accent" variant="accent" />
 							<Button label="Secondary" variant="secondary" />
 							<Button label="Ghost" variant="ghost" />
 							<Button label="Success" variant="success" />

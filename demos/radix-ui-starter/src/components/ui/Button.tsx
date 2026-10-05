@@ -7,6 +7,7 @@ import "./Button.css";
 /** Visual variants for {@link Button}. */
 export type ButtonVariant =
 	| "primary"
+	| "accent"
 	| "secondary"
 	| "ghost"
 	| "success"
@@ -63,6 +64,6 @@ export const Button: React.FC<ButtonProps> = ({
 		onClick={onClick}
 	>
 		{icon ? <Icon name={icon} size={size === "sm" ? "sm" : "md"} /> : null}
-		{label}
+		{label ? <span className="ui-button__label">{label}</span> : null}
 	</button>
 );

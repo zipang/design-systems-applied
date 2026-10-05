@@ -1,6 +1,10 @@
 /* Container.css — every rule is scoped under .layout-container */
 .layout-container {
+	/* 60rem, derived from the spacing scale: 20 x --space-xxl (3rem). */
+	--layout-container-max-width: calc(20 * var(--space-xxl));
+
 	inline-size: 100%;
+	max-inline-size: var(--layout-container-max-width);
 	margin-inline: auto;
 	padding-inline: var(--space-lg);
 }

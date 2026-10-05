@@ -6,18 +6,19 @@
 
 	& .ui-field__label {
 		color: var(--color-text-muted);
-		font-size: var(--font-size-xs);
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-sm);
 		font-weight: var(--font-weight-medium);
 		letter-spacing: var(--letter-spacing-wide);
 	}
 
 	& .ui-field__input {
 		border: var(--border-sm) solid var(--color-brand-secondary);
-		border-radius: var(--rounded-sm);
+		border-radius: var(--rounded-none);
 		background: var(--color-surface);
 		padding: var(--space-sm) var(--space-md);
 		color: var(--color-text);
-		font-family: var(--font-family-base);
+		font-family: var(--font-family-mono);
 		font-size: var(--font-size-md);
 		line-height: var(--line-height-normal);
 

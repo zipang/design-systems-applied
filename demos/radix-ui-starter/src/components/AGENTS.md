@@ -27,6 +27,8 @@ Rules:
 
 - **Token-only CSS.** Use `var(--token)` for every color, size, radius, and shadow.
   Never write a raw value.
+- **Mono for UI.** Every UI component uses `--font-family-mono`. Only `base/Heading`
+  (display) and `base/Text` (base) use the other font families.
 - **One unique class per component, prefixed by tier.** The root element carries one
   class: `base-<name>`, `ui-<name>`, `layout-<name>`, or `chat-<name>` (for example
   `ui-button`, never `.button`).

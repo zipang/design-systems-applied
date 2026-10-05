@@ -8,20 +8,25 @@ interface AvatarProps {
 	src?: string;
 	alt?: string;
 	size?: "sm" | "md";
+	shape?: "rounded" | "square";
 	className?: string;
 }
 
 /**
- * Token-styled avatar with a text fallback. Sizes come from the spacing scale.
+ * Token-styled avatar with a text fallback. Sizes come from the spacing scale;
+ * `shape` chooses between a circle (`rounded`) and square corners.
  */
 export const Avatar: React.FC<AvatarProps> = ({
 	fallback,
 	src,
 	alt = "",
 	size = "md",
+	shape = "rounded",
 	className
 }) => (
-	<AvatarPrimitive.Root className={clsx("ui-avatar", `ui-avatar--${size}`, className)}>
+	<AvatarPrimitive.Root
+		className={clsx("ui-avatar", `ui-avatar--${size}`, `ui-avatar--${shape}`, className)}
+	>
 		{src ? <AvatarPrimitive.Image className="ui-avatar__image" src={src} alt={alt} /> : null}
 		<AvatarPrimitive.Fallback className="ui-avatar__fallback" delayMs={src ? 200 : 0}>
 			{fallback}

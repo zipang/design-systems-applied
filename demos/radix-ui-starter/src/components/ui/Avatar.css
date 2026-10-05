@@ -4,9 +4,17 @@
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
-	border-radius: var(--rounded-full);
 	background: var(--color-brand-secondary);
 	color: var(--color-text-ondark);
+	font-family: var(--font-family-mono);
+
+	&.ui-avatar--rounded {
+		border-radius: var(--rounded-full);
+	}
+
+	&.ui-avatar--square {
+		border-radius: var(--rounded-none);
+	}
 
 	&.ui-avatar--sm {
 		inline-size: var(--space-xl);

@@ -3,7 +3,7 @@
 	border: 0;
 	background: transparent;
 	color: var(--color-text);
-	font-family: var(--font-family-base);
+	font-family: var(--font-family-mono);
 	font-size: var(--font-size-sm);
 	cursor: pointer;
 
@@ -14,15 +14,16 @@
 
 .ui-dropdown {
 	border: var(--border-sm) solid var(--color-brand-secondary);
-	border-radius: var(--rounded-sm);
+	border-radius: var(--rounded-none);
 	background: var(--color-surface);
 	box-shadow: var(--elevation-md);
+	font-family: var(--font-family-mono);
 	padding: var(--space-xs);
 }
 
 .ui-dropdown__item {
-	border-radius: var(--rounded-sm);
-	padding: var(--space-sm) var(--space-md);
+	border-radius: var(--rounded-none);
+	padding: var(--space-xs) var(--space-md);
 	color: var(--color-text);
 	font-size: var(--font-size-sm);
 	cursor: pointer;

@@ -25,7 +25,8 @@ html {
 }
 body {
 	margin: 0;
-	font-family: var(--font-family-base);
+	/* UI default. `base/Text` (base) and `base/Heading` (display) override this. */
+	font-family: var(--font-family-mono);
 	font-size: var(--font-size-base);
 	line-height: var(--line-height-normal);
 	color: var(--color-text);
@@ -91,7 +92,7 @@ button {
 :focus-visible {
 	outline: none;
 	box-shadow: 0 0 0 var(--border-md) var(--color-brand-primary);
-	border-radius: var(--rounded-sm);
+	border-radius: var(--rounded-none);
 }
 ::selection {
 	background: var(--color-brand-primary);

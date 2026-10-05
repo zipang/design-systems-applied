@@ -73,7 +73,7 @@ is the source of truth. Do not restate it here.
 skills/               The canonical, distributable design-system-tokens skill.
 roadmap/TXXXX/        Tickets: a spec.md and a plan.md for each unit of work.
 tools/                Token contract validator and sync CLI (planned).
-packages/             End-to-end demonstration projects (planned).
+demos/                Demonstration applications, starting with radix-ui-starter.
 AGENTS.md             Rules for AI agents that work in this repository.
 ```
 

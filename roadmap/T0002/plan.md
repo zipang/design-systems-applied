@@ -32,7 +32,7 @@ composes layout from design tokens. Four complete themes ship as separate
 
 ### Phase 1: Foundation
 
-- [ ] **Task 1: Scaffold the demo package and Bun pipeline**
+- [x] **Task 1: Scaffold the demo package and Bun pipeline**
   - Acceptance: `demos/radix-ui-starter/` has `package.json`, `tsconfig.json`,
     `index.html`, `src/server.tsx`, `src/main.tsx`, `src/App.tsx`; `dev` serves a page
     and `build` produces output; React 19 and the needed `@radix-ui/react-*` packages
@@ -43,7 +43,7 @@ composes layout from design tokens. Four complete themes ship as separate
     `demos/radix-ui-starter/src/{server.tsx,main.tsx,App.tsx}`
   - Depends: None
 
-- [ ] **Task 2: Move the placeholder and update root docs and CI**
+- [x] **Task 2: Move the placeholder and update root docs and CI**
   - Acceptance: `packages/radix-ui-starter/README.md` moves to
     `demos/radix-ui-starter/README.md`; empty `packages/` removed; root `README.md`
     and `AGENTS.md` layouts say `demos/`; CI covers the demo gates.
@@ -53,7 +53,7 @@ composes layout from design tokens. Four complete themes ship as separate
     `demos/radix-ui-starter/README.md`
   - Depends: Task 1
 
-- [ ] **Task 3: Author the demo rule files and re-scope `follow-the-rules`**
+- [x] **Task 3: Author the demo rule files and re-scope `follow-the-rules`**
   - Acceptance: `demos/radix-ui-starter/AGENTS.md`, `src/AGENTS.md`, and
     `src/components/AGENTS.md` state the tier rules, class/state conventions, `clsx`,
     token-only CSS, and the component-test exception; `follow-the-rules` resolves the
@@ -66,8 +66,8 @@ composes layout from design tokens. Four complete themes ship as separate
   - Depends: Task 1
 
 ### Checkpoint: Foundation
-- [ ] Dev server serves a page; build passes
-- [ ] Root gates pass; no `packages/` references remain
+- [x] Dev server serves a page; build passes
+- [x] Root gates pass; no `packages/` references remain
 - [ ] Review with human before building the library
 
 ### Phase 2: Core library primitives

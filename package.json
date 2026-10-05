@@ -3,6 +3,9 @@
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
+	"workspaces": [
+		"demos/*"
+	],
 	"scripts": {
 		"check": "biome check .",
 		"check:fix": "biome check --write .",

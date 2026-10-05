@@ -22,7 +22,7 @@ skills/design-system-tokens/      Canonical, distributable copy of the core skil
   presets/                        Elevation and border presets.
 roadmap/TXXXX/{spec,plan}.md      Tickets (units of planned work).
 tools/                            Token contract validator/sync CLI (planned).
-packages/radix-ui-starter/        End-to-end demo (planned).
+demos/                            Demonstration applications (agent-first examples).
 .tmp/                             Throwaway experiments. Never committed.
 ```
 

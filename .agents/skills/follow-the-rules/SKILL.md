@@ -12,9 +12,10 @@ This skill does not restate the rules — it points at them. The rules are:
   tooling, and commit conventions
 - `skills/design-system-tokens/SKILL.md` — the fixed token list, the dual-file
   contract, and the validation rules in section 10
-- Any `AGENTS.md` inside the directory under review — the rules for that package.
-  When a package defines its own TypeScript or component conventions, review against
-  them too. This repository has no such package yet.
+- The nearest `AGENTS.md` above the file under review. Read it before applying the
+  defaults. For a demo, this is `demos/<name>/AGENTS.md`, then its `src/AGENTS.md` for
+  TypeScript, then its `src/components/AGENTS.md` for components. Those files override
+  these defaults.
 
 ## When to Use
 

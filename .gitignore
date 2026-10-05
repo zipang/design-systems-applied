@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+
+# Throwaway experiments
+.tmp/
+
+# opencode local config
+.opencode/package.json
+.opencode/package-lock.json
+.opencode/bun.lock
+
+# OS and logs
+.DS_Store
+*.log

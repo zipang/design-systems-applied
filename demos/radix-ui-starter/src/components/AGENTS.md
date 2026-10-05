@@ -11,7 +11,9 @@ Components live in five tiers. Place each component in the lowest tier that fits
   replace raw text tags.
 - **`ui/`** — Radix UI wrappers and generic UI primitives (`Button`, `TextField`,
   `DropdownMenu`, `Dialog`, `Avatar`, `ThemeSwitcher`).
-- **`layout/`** — layout primitives only (`Container`, `VStack`, `HStack`, `Grid`).
+- **`layout/`** — layout primitives only (`Container`, `VStack`, `HStack`, `Grid`, and the
+  page shell: `PageLayout`, `PageHeader`, `PageBody`, `PageFooter`,
+  `SiteNavigationHeader`).
 - **`chat/`** — product-named components for the chat demo (`ChatPanel`, `ChatHeader`,
   `MessageList`, `Message`, `Composer`).
 - **`demo/`** — product-named page compositions for the demo (`ComponentsDemo` and its
@@ -45,6 +47,12 @@ Rules:
   `is-loading`, `is-active`, `is-open`, `is-selected`, `is-invalid`, `is-readonly`,
   `is-placeholder`.
 - **Compose classes with `clsx()`** from `src/lib/clsx.ts`.
+- **Page shell.** `PageLayout` is the `main` grid; `PageHeader`/`PageBody`/`PageFooter`
+  are its `header`/`article`/`footer` rows and self-position by `grid-row`, so a page
+  renders only the regions it needs. `PageBody` is the scroller; it attaches the scroll
+  ref from `layout/page-scroll.ts`. `SiteNavigationHeader` collapses on scroll-down via
+  `lib/scroll/useScrollDirection.ts`. Never nest a `<header>` inside another `<header>`:
+  a page's own header block goes in `PageBody` (the `article`).
 
 ## Example
 

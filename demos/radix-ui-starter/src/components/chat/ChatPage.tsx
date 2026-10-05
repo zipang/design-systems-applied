@@ -1,0 +1,41 @@
+import type * as React from "react";
+import { Container } from "../layout/Container";
+import { PageBody } from "../layout/PageBody";
+import { PageFooter } from "../layout/PageFooter";
+import { ChatHeader } from "./ChatHeader";
+import { Composer } from "./Composer";
+import { MessageList } from "./MessageList";
+import { useChat } from "./useChat";
+
+/**
+ * The chat page regions. A sticky header and the transcript scroll in the page body;
+ * the composer is pinned in the page footer.
+ */
+export const ChatPage: React.FC = () => {
+	const chat = useChat();
+
+	return (
+		<>
+			<PageBody>
+				<Container width="lg">
+					<ChatHeader onReset={chat.reset} />
+					<MessageList messages={chat.messages} pending={chat.pending} />
+				</Container>
+			</PageBody>
+			<PageFooter>
+				<Container width="lg">
+					<Composer
+						draft={chat.draft}
+						attachment={chat.attachment}
+						pending={chat.pending}
+						disabled={chat.finished}
+						onDraftChange={chat.setDraft}
+						onAttach={chat.attach}
+						onRemoveAttachment={chat.removeAttachment}
+						onSend={chat.send}
+					/>
+				</Container>
+			</PageFooter>
+		</>
+	);
+};

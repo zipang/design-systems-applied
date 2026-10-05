@@ -1,0 +1,23 @@
+import type * as React from "react";
+import { clsx } from "../../lib/clsx";
+import { usePageScroll } from "./page-scroll";
+import "./PageBody.css";
+
+interface PageBodyProps {
+	children: React.ReactNode;
+	className?: string;
+}
+
+/**
+ * The page's scroll region. Registers itself as the shell's scroll element so
+ * descendants such as a collapsible navigation can observe it.
+ */
+export const PageBody: React.FC<PageBodyProps> = ({ children, className }) => {
+	const pageScroll = usePageScroll();
+
+	return (
+		<article ref={pageScroll?.setElement} className={clsx("layout-page-body", className)}>
+			{children}
+		</article>
+	);
+};

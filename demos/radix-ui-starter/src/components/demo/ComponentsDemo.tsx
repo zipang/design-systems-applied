@@ -48,7 +48,7 @@ export const ComponentsDemo: React.FC = () => {
 	const [errorText, setErrorText] = useState("a value is required");
 
 	return (
-		<Container as="main" className="demo-components">
+		<Container className="demo-components">
 			<VStack gap="xl">
 				<Heading level={1}>Components</Heading>
 

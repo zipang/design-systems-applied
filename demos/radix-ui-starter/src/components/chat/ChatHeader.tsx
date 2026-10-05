@@ -14,7 +14,7 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ onReset }) => (
 		<div className="chat-header__identity">
 			<Heading level={1}>Eliza</Heading>
 			<Text as="span" size="sm" tone="muted">
-				What is on your mind?
+				What's on your mind?
 			</Text>
 		</div>
 		<Button icon="reset" label="Start over" variant="ghost" onClick={onReset} />

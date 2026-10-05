@@ -1,0 +1,8 @@
+/* AppNav.css — every rule is scoped under .demo-app-nav */
+.demo-app-nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-lg);
+	padding-block: var(--space-md);
+}

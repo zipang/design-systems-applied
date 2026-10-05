@@ -1,20 +1,19 @@
 /* Composer.css — every rule is scoped under .chat-composer */
 .chat-composer {
 	border-block-start: var(--border-md) solid var(--color-brand-primary);
+	padding: var(--space-base) 0;
 
 	& .chat-composer__attachment {
 		display: flex;
 		align-items: center;
 		gap: var(--space-md);
 		border-block-end: var(--border-sm) solid var(--color-brand-tertiary);
-		padding-block: var(--space-base);
 	}
 
 	& .chat-composer__row {
 		display: flex;
 		align-items: stretch;
 		gap: var(--space-sm);
-		padding-block-start: var(--space-base);
 	}
 
 	& .chat-composer__file {

@@ -1,10 +1,14 @@
-/* ChatHeader.css — every rule is scoped under .chat-header */
+/* ChatHeader.css — every rule is scoped under .chat-header. It is the article's
+   header and stays pinned at the top of the scrolling body. */
 .chat-header {
+	position: sticky;
+	inset-block-start: 0;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: var(--space-base);
 	min-block-size: calc(var(--space-xl) + var(--space-xxl));
+	background: var(--color-surface);
 	border-block-end: var(--border-md) solid var(--color-brand-primary);
 
 	& .chat-header__identity {

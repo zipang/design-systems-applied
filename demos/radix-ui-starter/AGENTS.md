@@ -17,9 +17,9 @@ index.html           HTML entrypoint
 src/
   server.tsx         Bun dev server (HTML import)
   main.tsx           React entrypoint
-  App.tsx            composes the page
+  App.tsx            composes the page shell and switches pages
   components/        our UI library (see src/components/AGENTS.md)
-  lib/               pure logic (clsx, eliza, theme) with colocated tests
+  lib/               pure logic (clsx, eliza, theme, scroll) with colocated tests
   styles/            shared, theme-agnostic stylesheets
 themes/<name>/       one complete Design System per theme (DESIGN.md + design-tokens.css)
 ```

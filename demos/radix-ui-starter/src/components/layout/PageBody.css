@@ -1,0 +1,9 @@
+/* PageBody.css — every rule is scoped under .layout-page-body */
+.layout-page-body {
+	grid-row: 2;
+	min-block-size: 0;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-brand-secondary) transparent;
+}

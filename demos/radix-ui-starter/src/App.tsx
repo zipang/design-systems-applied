@@ -1,50 +1,28 @@
 import type * as React from "react";
 import { useState } from "react";
-import { ChatPanel } from "./components/chat/ChatPanel";
-import { ComponentsDemo } from "./components/demo/ComponentsDemo";
-import { Container } from "./components/layout/Container";
-import { HStack } from "./components/layout/HStack";
-import { Button } from "./components/ui/Button";
-import { ThemeSwitcher } from "./components/ui/ThemeSwitcher";
-import "./App.css";
-
-type View = "chat" | "components";
+import { ChatPage } from "./components/chat/ChatPage";
+import type { View } from "./components/demo/AppNav";
+import { AppNav } from "./components/demo/AppNav";
+import { ComponentsPage } from "./components/demo/ComponentsPage";
+import { PageHeader } from "./components/layout/PageHeader";
+import { PageLayout } from "./components/layout/PageLayout";
+import { SiteNavigationHeader } from "./components/layout/SiteNavigationHeader";
 
 /**
- * Application shell. Switches between the chat demo and the components demo. Both
- * pages share the theme switcher in the top navigation.
+ * Application shell. Composes the page layout and the shared site navigation, and
+ * switches between the chat and components pages.
  */
 export const App: React.FC = () => {
 	const [view, setView] = useState<View>("chat");
 
 	return (
-		<div className="app">
-			<Container as="nav" width="lg" className="app__nav">
-				<HStack gap="sm">
-					<Button
-						label="Chat"
-						size="sm"
-						variant={view === "chat" ? "primary" : "ghost"}
-						onClick={() => setView("chat")}
-					/>
-					<Button
-						label="Components"
-						size="sm"
-						variant={view === "components" ? "primary" : "ghost"}
-						onClick={() => setView("components")}
-					/>
-				</HStack>
-				<ThemeSwitcher />
-			</Container>
-			<div className="app__view">
-				{view === "chat" ? (
-					<Container width="lg" className="app__chat">
-						<ChatPanel />
-					</Container>
-				) : (
-					<ComponentsDemo />
-				)}
-			</div>
-		</div>
+		<PageLayout>
+			<PageHeader>
+				<SiteNavigationHeader>
+					<AppNav view={view} onNavigate={setView} />
+				</SiteNavigationHeader>
+			</PageHeader>
+			{view === "chat" ? <ChatPage /> : <ComponentsPage />}
+		</PageLayout>
 	);
 };

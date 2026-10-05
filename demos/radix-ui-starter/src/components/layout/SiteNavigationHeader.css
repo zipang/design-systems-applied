@@ -1,0 +1,21 @@
+/* SiteNavigationHeader.css — every rule is scoped under .layout-site-navigation.
+   The outer grid row animates from full to zero; the inner clips and slides. */
+.layout-site-navigation {
+	display: grid;
+	grid-template-rows: 1fr;
+	background: var(--color-surface);
+	transition: grid-template-rows 200ms ease;
+
+	& .layout-site-navigation__inner {
+		overflow: hidden;
+		transition: transform 200ms ease;
+	}
+
+	&.is-hidden {
+		grid-template-rows: 0fr;
+
+		& .layout-site-navigation__inner {
+			transform: translateY(-100%);
+		}
+	}
+}

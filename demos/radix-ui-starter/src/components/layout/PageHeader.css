@@ -1,0 +1,4 @@
+/* PageHeader.css — every rule is scoped under .layout-page-header */
+.layout-page-header {
+	grid-row: 1;
+}

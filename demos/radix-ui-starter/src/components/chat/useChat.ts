@@ -1,18 +1,27 @@
-import type * as React from "react";
 import { useState } from "react";
 import { createEliza } from "../../lib/eliza/eliza";
 import { formatBytes } from "../../lib/format";
-import { ScrollArea } from "../ui/ScrollArea";
-import { ChatHeader } from "./ChatHeader";
-import { Composer } from "./Composer";
-import { MessageList } from "./MessageList";
 import type { Attachment, ChatMessage } from "./types";
-import "./ChatPanel.css";
+
+/** The conversation state and the actions that mutate it. */
+export interface Chat {
+	messages: ChatMessage[];
+	pending: boolean;
+	finished: boolean;
+	draft: string;
+	attachment: Attachment | null;
+	setDraft: (value: string) => void;
+	attach: (file: File) => void;
+	removeAttachment: () => void;
+	send: () => void;
+	reset: () => void;
+}
 
 /**
- * The Eliza chat page. Owns the conversation state and the reply engine.
+ * Own the Eliza conversation: messages, composer draft, attachment, and the reply
+ * engine. The chat page binds the returned state and actions to its regions.
  */
-export const ChatPanel: React.FC = () => {
+export const useChat = (): Chat => {
 	const [eliza] = useState(createEliza);
 	const [messages, setMessages] = useState<ChatMessage[]>(() => [
 		{ id: 1, speaker: "eliza", text: eliza.opening }
@@ -70,24 +79,16 @@ export const ChatPanel: React.FC = () => {
 		setFinished(false);
 	};
 
-	return (
-		<main className="chat-panel">
-			<ChatHeader onReset={reset} />
-			<ScrollArea className="chat-panel__scroll">
-				<MessageList messages={messages} pending={pending} />
-			</ScrollArea>
-			<footer className="chat-panel__composer">
-				<Composer
-					draft={draft}
-					attachment={attachment}
-					pending={pending}
-					disabled={finished}
-					onDraftChange={setDraft}
-					onAttach={attach}
-					onRemoveAttachment={() => setAttachment(null)}
-					onSend={send}
-				/>
-			</footer>
-		</main>
-	);
+	return {
+		messages,
+		pending,
+		finished,
+		draft,
+		attachment,
+		setDraft,
+		attach,
+		removeAttachment: () => setAttachment(null),
+		send,
+		reset
+	};
 };

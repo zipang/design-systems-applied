@@ -39,7 +39,7 @@ colors:
 
 # ============================================================================
 # TYPOGRAPHY  —  entries are objects;
-# fontFamily, fontWeight, lineHeight, letterSpacing values MUST use existing preset values from styles.css (CSS variables)
+# fontFamily, fontWeight, lineHeight, letterSpacing values MUST use existing preset values from design-tokens.css (CSS variables)
 # ============================================================================
 typography:
   # Font families — No font size
@@ -59,8 +59,7 @@ typography:
   }
 
 # ============================================================================
-# ROUNDED  —  corner radius presets (only full is required;
-# none, sm, md, lg are optional)
+# ROUNDED  —  corner radius presets (all five are required)
 # Values in rem, except full (9999px for circular shapes).
 # ============================================================================
 rounded:

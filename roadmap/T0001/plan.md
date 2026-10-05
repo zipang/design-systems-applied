@@ -24,9 +24,10 @@ checkpoints.
   tokens (`--font-size-*`, `--font-weight-*`, `--line-height-*`,
   `--letter-spacing-*`, `--font-size-base`). The mapping/validation rules must state
   this explicitly so empty "Token path" cells stop contradicting rule 257.
-- **Rounded model:** `rounded.none` and `rounded.full` required (`0`, `9999px`);
-  `sm`/`md`/`lg` optional with literal defaults. Validation rule 258 is amended:
-  optional tokens fall back to a `var()` reference *or* a documented literal.
+- **Rounded model:** all five `rounded.*` tokens are required (`none` = `0`,
+  `full` = `9999px`; `sm`/`md`/`lg` are design choices). Validation rule 258 is
+  amended: optional tokens fall back to a `var()` reference *or* a documented literal
+  (required by `elevation`, whose defaults are `none`).
 - **Preset rule scope:** rule 261 applies to consuming projects. The self-contained
   reference stylesheet may inline `--elevation-*`/`--border-*`; this exception is
   documented instead of implied.
@@ -78,9 +79,9 @@ checkpoints.
   - Depends: None
 
 - [ ] **Task 5: Fix the rounded token model**
-  - Acceptance: required flags agree between `SKILL.md` and `DESIGN.md`;
-    `rounded.full` default is `9999px` everywhere; `none`/`full` required,
-    `sm`/`md`/`lg` optional with documented defaults; validation rule 258 amended.
+  - Acceptance: required flags agree between `SKILL.md` and `DESIGN.md` (all five
+    required); `rounded.full` is `9999px` everywhere; validation rule 258 amended to
+    allow documented literal defaults.
   - Verify: cross-read the rounded tables and `design-tokens.css`; values match.
   - Files: `skills/design-system-tokens/SKILL.md`,
     `skills/design-system-tokens/references/DESIGN.md`,

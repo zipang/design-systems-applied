@@ -23,8 +23,11 @@ Our _Applied Design System_ approach adds new rules that are not found in the or
 - To change a token value: edit the value in **both** `DESIGN.md` front matter and `design-tokens.css`. Keep them identical.
 - Design tokens inside `DESIGN.md` front matter are structured into categories and sub-categories that make them accessible by their path.
 - Token categories are: `colors` (brand, action, text, surface), `typography` (base, display, mono families; scale xs→display; weights; line heights; letter spacing), `spacing`, `rounded`, `elevation`, `border`.
-- Design tokens re-exposed as CSS variables are flattened, so we need a mapping between the two notations.
-- Mapping rule: dotted path → dashed variable. `colors.text.base` → `--color-text` (drop `.base`). Optional tokens always defined in `design-tokens.css` with a `var()` fallback to a required token.
+- Design tokens re-exposed as CSS variables are flattened, so we need a mapping between the two notations. The tables in sections 2–7 are the source of truth for that mapping.
+- Mapping classes:
+  - **Front-matter-mapped tokens** have a `Token path` and a `CSS variable`, for example `colors.text.base` → `--color-text` (drop `.base`) or `typography.base.fontFamily` → `--font-family-base`. The table row defines the mapping; do not derive it mechanically.
+  - **Stylesheet-only tokens** have no `Token path` (the font-size, font-weight, line-height, and letter-spacing scales). Define them directly in `design-tokens.css`; they do not appear in the front matter.
+- Optional tokens are always defined in `design-tokens.css`. They fall back to a `var()` reference to a required token, or to a documented literal value (for example `--elevation-sm: none`).
 - All size values must be given in `rem` units.
 
 The next sections will now introduce the full list of available tokens:
@@ -50,8 +53,13 @@ Define font family and give each font a semantic role inside: `base` (body), `di
 **Base:** The root base font size (`--font-size-base`) is always equal to `1rem` and is the step 0. It is usually applied to size `md` (`--font-size-md`). Step 0 can also be applied to `sm` or `lg` for specific use cases.
 
 
+The font-size, font-weight, line-height, and letter-spacing tokens have **no front-matter
+path**: they are **stylesheet-only** tokens, defined directly in `design-tokens.css`. An
+empty `Token path` cell marks this class.
+
 | Token path | CSS variable | Required | Default | Description |
 |---|---|---|---|---|
+|   | `--font-size-base` | Y | — | Root base size, fixed `1rem` (step 0) |
 |   | `--font-size-xs` | Y | — | Captions, metadata, timestamps |
 |   | `--font-size-sm` | Y | — | Secondary text, list rows |
 |   | `--font-size-md` | Y | — | Body text |
@@ -181,11 +189,11 @@ Corner radius presets for buttons, cards, inputs, and other rectangular shapes.
 
 | Token path | CSS variable | Required | Default | Description |
 |---|---|---|---|---|
-| `rounded.none` | `--rounded-none` | N | `0` | Square shapes |
-| `rounded.sm` | `--rounded-sm` | N | — | Inputs, small badges, default controls |
-| `rounded.md` | `--rounded-md` | N | — | Cards, buttons, default containers |
-| `rounded.lg` | `--rounded-lg` | N | — | Large panels, prominent cards |
-| `rounded.full` | `--rounded-full` | N | `100%` | Circular shapes — avatars, icons, pills |
+| `rounded.none` | `--rounded-none` | Y | — | Square shapes — fixed value `0` |
+| `rounded.sm` | `--rounded-sm` | Y | — | Inputs, small badges, default controls |
+| `rounded.md` | `--rounded-md` | Y | — | Cards, buttons, default containers |
+| `rounded.lg` | `--rounded-lg` | Y | — | Large panels, prominent cards |
+| `rounded.full` | `--rounded-full` | Y | — | Circular shapes — avatars, icons, pills; fixed value `9999px` |
 
 # 6. Elevation
 
@@ -241,7 +249,7 @@ Inline comments in the front matter map each entry back to its CSS variable in t
 | File | Purpose |
 |------|---------|
 | [references/DESIGN.md](./references/DESIGN.md) | Complete annotated example of a `DESIGN.md` file — front matter plus prose sections. Demonstrates required and optional tokens, stylesheet fallbacks, and the Link component example. |
-| [references/styles.css](./references/styles.css) | Complete example of the design-tokens stylesheet. Exposes every token defined in sections 2–7 as a CSS variable inside a single `:root` block. |
+| [references/design-tokens.css](./references/design-tokens.css) | Complete example of the design-tokens stylesheet. Exposes every token defined in sections 2–7 as a CSS variable inside a single `:root` block. |
 | [references/color-variants.css](./references/color-variants.css) | Derived `muted` / `active` variants for brand and action colors. Include **after** the main design-tokens stylesheet. Not part of the token set. |
 | [references/reset.css](./references/reset.css) | Base CSS reset consuming the theme variables. |
 | [references/utilities.css](./references/utilities.css) | Class-based utilities to apply the theme variables in a Tailwind fashion. |
@@ -254,10 +262,10 @@ Check each of these rules after any edit to the Design System files:
 
 * **Undocumented tokens are FORBIDDEN** in the stylesheet or in the front matter. Contrary to the Google Labs approach, only the tokens listed in sections 2–7 are permitted in our **Design System Applied** approach.
 * **Every Design token must be present in the design-tokens stylesheet** — both required and optional.
-* **The front-matter path → CSS variable mapping must follow the tables** in sections 2–7. The "Token path" column is the front-matter path; the "CSS variable" column is the stylesheet variable.
-* **Non-required token defaults must be `var()` references to required tokens.** The "Default" column for every optional token in the tables specifies its fallback. The stylesheet must use this exact fallback when the token is not defined in the front matter.
+* **The front-matter path → CSS variable mapping must follow the tables** in sections 2–7. The "Token path" column is the front-matter path; the "CSS variable" column is the stylesheet variable. A token with no `Token path` is a **stylesheet-only** token (font sizes, weights, line heights, letter spacing): it is defined only in the stylesheet and is not declared in the front matter.
+* **Non-required token defaults must be explicit.** They are either a `var()` reference to a required token or a documented literal value. The "Default" column for every optional token in the tables specifies its fallback, and the stylesheet must use that exact fallback when the token is absent from the front matter.
 * **The "drop `.base`" rule** — when a token path ends in `.base`, the CSS variable drops the `base` segment (e.g. `colors.text.base` → `--color-text`, not `--color-text-base`).
 * **Derived color variants (`muted` / `active`) are NOT tokens.** They must not appear in the front matter. They are generated in `color-variants.css` from the base brand and action colors via HSL relative color syntax. The `DESIGN.md` `## Colors` section documents the derivation rule in prose only.
-* **Elevation and border width presets must be imported from `presets/`.** Do not redefine `--elevation-*` or `--border-*` in the main stylesheet; import the chosen preset file instead.
+* **In consuming projects, elevation and border width presets must be imported from `presets/`.** Do not redefine `--elevation-*` or `--border-*` in the project stylesheet; import the chosen preset file instead. The self-contained reference stylesheet is exempt: it may inline those values so it can be read on its own.
 * **`border` holds border widths only.** Border *colors* are not tokens — components pick the color tokens they need for their border variants under the `components:` key.
 * **Merged paths in YAML** — when several token paths share the same parent object (e.g. `typography.base.fontFamily` and `typography.base.lineHeight`), they collapse into a single `typography.base` entry in the front matter. See section 8.

@@ -1,6 +1,7 @@
 /* ============================================================================
-   YOUTUBE — Design System Reference Stylesheet
+   NATIONAL GEOGRAPHIC-INSPIRED — Design System Reference Stylesheet
    ----------------------------------------------------------------------------
+   A minimalist, editorial theme: black type, white paper, one yellow accent.
    Every token defined in the design-system-tokens skill is exposed here as
    a CSS variable inside a single :root block, following the naming convention:
        category.role.variant  ->  --category-role-variant
@@ -12,17 +13,15 @@
 
 :root {
 	/* ============================================================================
-       1. TYPOGRAPHY — Roboto everywhere (no separate display face)
-       ----------------------------------------------------------------------------
-       YouTube uses a single family (Roboto) for both body and headings.
-       Arial is the fallback when Roboto fails to load.
+       1. TYPOGRAPHY — System fonts only (no web fonts)
        ========================================================================== */
 
 	/* --- Font families --- */
-	--font-family-base: "Roboto", "Arial", sans-serif;
-	--font-family-display: "Roboto", "Arial", sans-serif;
-	--font-family-mono:
-		ui-monospace, "Courier New", monospace; /* optional → var(--font-family-base) */
+	--font-family-base: ui-serif, "Palatino Linotype", Cambria, Georgia, serif;
+	--font-family-display:
+		system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica,
+		Verdana, sans-serif;
+	--font-family-mono: ui-monospace, "Courier New", monospace;
 
 	/* --- Typographic scale — geometric, ratio 1.5 (Perfect Fifth) ---
        size(step) = 1rem * 1.5^step, base = step 0 (always 1rem).
@@ -60,7 +59,7 @@
 	--letter-spacing-wide: var(--letter-spacing-normal); /* optional → var(--letter-spacing-normal) */
 
 	/* ============================================================================
-       2. COLORS — Brand: Red primary, Blue accent, Gray secondary
+       2. COLORS — Black primary, yellow accent, neutral gray secondary
        ----------------------------------------------------------------------------
        Brand and action colors carry `muted` and `active` variants derived
        automatically in color-variants.css (included after this file):
@@ -71,42 +70,44 @@
        tokens they need for their states (see the Link example in DESIGN.md).
        ========================================================================== */
 
-	/* --- Brand: Primary (YouTube Red) — headings, highlights, logo, header --- */
-	--color-brand-primary: #ff0000;
+	/* --- Brand: Primary (black) — headings, logo, contrast --- */
+	--color-brand-primary: #000000;
 
-	/* --- Brand: Accent (Link Blue) — CTAs, key accents --- */
-	--color-brand-accent: #065fd4;
+	/* --- Brand: Accent (yellow) — CTAs, highlights, selection --- */
+	--color-brand-accent: #ffcc00;
 
-	/* --- Brand: Secondary (Neutral Gray) — additional brand color (overridden) --- */
-	--color-brand-secondary: #606060;
+	/* --- Brand: Secondary (dark gray) --- */
+	--color-brand-secondary: #333333;
 
 	/* --- Brand: Tertiary (optional → primary) --- */
 	--color-brand-tertiary: var(--color-brand-primary);
 
-	/* --- Action: Success (Google Material Green) --- */
-	--color-action-success: #137333;
+	/* --- Action: Success (forest green) --- */
+	--color-action-success: #2e7d4f;
 
-	/* --- Action: Info (Google Blue) --- */
-	--color-action-info: #1a73e8;
+	/* --- Action: Info (slate blue) --- */
+	--color-action-info: #2a6f97;
 
-	/* --- Action: Warning (Google Amber) --- */
-	--color-action-warning: #e37400;
+	/* --- Action: Warning (ochre) --- */
+	--color-action-warning: #b7791f;
 
-	/* --- Action: Danger (Google Error Red) --- */
-	--color-action-danger: #d93025;
+	/* --- Action: Danger (brick red) --- */
+	--color-action-danger: #b23a2e;
 
 	/* --- Text colors ---
        Only --color-text is required; the rest cover hierarchy and emphasis.
-       #0f0f0f is YouTube's "almost-black" primary text (updated 2022).       */
-	--color-text: #0f0f0f;
-	--color-text-accent: #065fd4; /* overridden — links, headings, highlighted text */
-	--color-text-muted: #606060; /* overridden — visited links, captions       */
-	--color-text-ondark: #ffffff; /* overridden — footer, dark sections       */
+       Links and headings stay black. --color-text-accent maps to the brand
+       accent, so it is yellow/orange: use it for highlighted or selected text,
+       not for body copy. */
+	--color-text: #000000;
+	--color-text-accent: var(--color-brand-accent); /* highlighted or selected text */
+	--color-text-muted: #606060; /* overridden — secondary text, captions      */
+	--color-text-ondark: #ffffff; /* overridden — text on dark surfaces        */
 
 	/* --- Surface colors ---
-       #ffffff base, #f9f9f9 alt (sidebar, comments, alt sections).          */
+       White base, light-gray alt for aside panels, near-black dark. */
 	--color-surface: #ffffff;
-	--color-surface-alt: #f9f9f9;
+	--color-surface-alt: #f2f2f2;
 	--color-surface-dark: #0f0f0f; /* overridden — footer, dark sections      */
 	--color-surface-card: var(--color-surface); /* optional → var(--color-surface) */
 
@@ -114,10 +115,10 @@
        3. SPACING — 4px linear scale
        ----------------------------------------------------------------------------
        space.base = 1rem (16px) = step 0. All values in rem.
-       YouTube's internal spacing is 4px-based; this scale mirrors that.
+       A 4px grid keeps the vertical rhythm predictable.
        ========================================================================== */
 	--space-xs: 0.25rem; /*  4px — tight gaps, icon-to-text              */
-	--space-sm: 0.5rem; /*  8px — chip padding, compact list rows       */
+	--space-sm: 0.5rem; /*  8px — chip padding, compact list rows        */
 	--space-md: 0.75rem; /* 12px — button padding, card internal spacing */
 	--space-base: 1rem; /* 16px — default gap, paragraph spacing        */
 	--space-lg: 1.25rem; /* 20px — section padding, larger card gaps     */
@@ -125,7 +126,7 @@
 	--space-xxl: 3rem; /* 48px — page-level vertical rhythm            */
 
 	/* ============================================================================
-       4. ROUNDED — YouTube's corner radii
+       4. ROUNDED — corner radii
        ----------------------------------------------------------------------------
        4px chips, 12px cards, 18px pill buttons, 9999px circular avatars.
        ========================================================================== */
@@ -136,14 +137,14 @@
 	--rounded-full: 9999px; /* circular — avatars, circular icons   */
 
 	/* ============================================================================
-       5. ELEVATION — Flat preset (YouTube is mostly flat, tonal layering)
+       5. ELEVATION — Flat preset (this theme is flat; depth comes from contrast)
        ----------------------------------------------------------------------------
        Elevation presets live in presets/elevation/ and are imported rather
        than redefined — in a real theme use:
            @import url("../presets/elevation/flat.css");
-       The flat preset sets all elevations to `none`; YouTube conveys depth
-       through background contrast rather than shadows. The tokens are listed
-       here only so this reference file remains self-contained.
+       The flat preset sets all elevations to `none`; depth comes from
+       background contrast and spacing rather than shadows. The tokens are
+       listed here only so this reference file remains self-contained.
        ========================================================================== */
 	--elevation-sm: none;
 	--elevation-md: none;
@@ -155,7 +156,7 @@
        Border width presets live in presets/borders/ and are imported rather
        than redefined — in a real theme use:
            @import url("../presets/borders/124.css");
-       YouTube uses 1px borders throughout (dividers, input focus, card edges).
+       This theme uses 1px borders for dividers, inputs, and card edges.
        Border COLORS are not tokens — components pick them.
        ========================================================================== */
 	--border-sm: 1px; /* dividers, card edges, default separators     */

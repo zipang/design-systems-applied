@@ -209,7 +209,7 @@ Available presets (given as examples, they are not the only options):
 
 - [Flat Design](./presets/elevation/flat.css) — all elevations set to `none`
 - [Brutal shadows](./presets/elevation/brutal.css) — solid rectangular offset shadows
-- [Material paper](./presets/elevation/material-paper.css) — Google Material-style soft, realistic, ambient + key shadows
+- [Paper](./presets/elevation/paper.css) — soft, realistic, ambient + key shadows
 - [Neumorphism](./presets/elevation/neumorphism.css) — soft dual light/dark shadows for an extruded-surface feel
 
 # 7. Borders
@@ -253,7 +253,7 @@ Inline comments in the front matter map each entry back to its CSS variable in t
 | [references/color-variants.css](./references/color-variants.css) | Derived `muted` / `active` variants for brand and action colors. Include **after** the main design-tokens stylesheet. Not part of the token set. |
 | [references/reset.css](./references/reset.css) | Base CSS reset consuming the theme variables. |
 | [references/utilities.css](./references/utilities.css) | Class-based utilities to apply the theme variables in a Tailwind fashion. |
-| [presets/elevation/](./presets/elevation/) | Elevation presets: `flat.css`, `brutal.css`, `material-paper.css`, `neumorphism.css`. |
+| [presets/elevation/](./presets/elevation/) | Elevation presets: `flat.css`, `brutal.css`, `paper.css`, `neumorphism.css`. |
 | [presets/borders/](./presets/borders/) | Border width presets: `none.css`, `124.css`, `macos.css`, `windows.css`. |
 
 # 10. Validation rules

@@ -141,7 +141,7 @@ composes layout from design tokens. Four complete themes ship as separate
 
 ### Phase 3: Themes
 
-- [ ] **Task 11: Add shared styles and the theme registry**
+- [x] **Task 11: Add shared styles and the theme registry**
   - Acceptance: `src/styles/{color-variants,reset,utilities}.css` are theme-agnostic;
     `src/lib/theme/` provides the theme list, `ThemeProvider`, and `useTheme`, which
     toggle `<link disabled>`; registry logic has tests.
@@ -150,14 +150,14 @@ composes layout from design tokens. Four complete themes ship as separate
     `demos/radix-ui-starter/src/lib/theme/{themes.ts,ThemeProvider.tsx,themes.test.ts}`
   - Depends: Task 4
 
-- [ ] **Task 12: Author the reference theme**
+- [x] **Task 12: Author the reference theme**
   - Acceptance: `themes/reference/{DESIGN.md,design-tokens.css}` with the NatGeo
     values synced from the skill; front matter and stylesheet identical.
   - Verify: contract test (Task 14) once present; manual render.
   - Files: `demos/radix-ui-starter/themes/reference/{DESIGN.md,design-tokens.css}`
   - Depends: Task 11
 
-- [ ] **Task 13: Author the Monokai and Dracula themes**
+- [x] **Task 13: Author the Monokai and Dracula themes**
   - Acceptance: both themes define the full required token set and stay legible on
     their own surfaces; each has `DESIGN.md` + `design-tokens.css` with matching
     values.
@@ -165,7 +165,7 @@ composes layout from design tokens. Four complete themes ship as separate
   - Files: `demos/radix-ui-starter/themes/{monokai,dracula}/{DESIGN.md,design-tokens.css}`
   - Depends: Task 12
 
-- [ ] **Task 14: Author the Gruvbox theme and the contract test**
+- [x] **Task 14: Author the Gruvbox theme and the contract test**
   - Acceptance: `themes/gruvbox/*` complete; a test asserts every theme defines all
     required tokens and that each `DESIGN.md` matches its `design-tokens.css`.
   - Verify: `bun test`.
@@ -174,8 +174,8 @@ composes layout from design tokens. Four complete themes ship as separate
   - Depends: Task 13
 
 ### Checkpoint: Themes
-- [ ] Four themes switch instantly from a temporary control
-- [ ] Contract test passes
+- [x] Four themes switch instantly from a temporary control
+- [x] Contract test passes
 - [ ] Manual contrast review of each theme
 
 ### Phase 4: ELIZA and the chat UI

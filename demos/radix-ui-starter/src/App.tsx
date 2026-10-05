@@ -16,13 +16,15 @@ import {
 	DropdownMenuTrigger
 } from "./components/ui/DropdownMenu";
 import { TextField } from "./components/ui/TextField";
+import { useTheme } from "./lib/theme/ThemeProvider";
 
 /**
- * Temporary gallery that exercises every core primitive. The chat UI replaces it in
- * Phase 4 (T0002).
+ * Temporary gallery that exercises every core primitive and the theme switcher. The
+ * chat UI replaces it in Phase 4 (T0002).
  */
 export const App: React.FC = () => {
 	const [name, setName] = useState("");
+	const { theme, available, setTheme } = useTheme();
 
 	return (
 		<Container as="main">
@@ -32,10 +34,13 @@ export const App: React.FC = () => {
 					<HStack gap="sm">
 						<Avatar fallback="EL" size="sm" />
 						<DropdownMenu>
-							<DropdownMenuTrigger>Menu</DropdownMenuTrigger>
+							<DropdownMenuTrigger>Theme: {theme}</DropdownMenuTrigger>
 							<DropdownMenuContent>
-								<DropdownMenuItem onSelect={() => setName("")}>Reset</DropdownMenuItem>
-								<DropdownMenuItem disabled>Disabled</DropdownMenuItem>
+								{available.map((item) => (
+									<DropdownMenuItem key={item.id} onSelect={() => setTheme(item.id)}>
+										{item.label}
+									</DropdownMenuItem>
+								))}
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</HStack>

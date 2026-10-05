@@ -1,14 +1,29 @@
 import type * as React from "react";
 import { clsx } from "../../lib/clsx";
+import type { IconName } from "../base/Icon";
+import { Icon } from "../base/Icon";
 import "./Button.css";
 
 /** Visual variants for {@link Button}. */
-export type ButtonVariant = "primary" | "secondary" | "ghost";
+export type ButtonVariant =
+	| "primary"
+	| "secondary"
+	| "ghost"
+	| "success"
+	| "warning"
+	| "danger"
+	| "info";
+
+/** Sizes for {@link Button}. */
+export type ButtonSize = "sm" | "default" | "lg";
 
 interface ButtonProps {
-	label: string;
+	label?: string;
+	icon?: IconName;
+	ariaLabel?: string;
 	onClick?: () => void;
 	variant?: ButtonVariant;
+	size?: ButtonSize;
 	type?: "button" | "submit" | "reset";
 	loading?: boolean;
 	disabled?: boolean;
@@ -21,8 +36,11 @@ interface ButtonProps {
  */
 export const Button: React.FC<ButtonProps> = ({
 	label,
+	icon,
+	ariaLabel,
 	onClick,
 	variant = "primary",
+	size = "default",
 	type = "button",
 	loading = false,
 	disabled = false,
@@ -35,13 +53,16 @@ export const Button: React.FC<ButtonProps> = ({
 		className={clsx(
 			"ui-button",
 			`ui-button--${variant}`,
+			`ui-button--${size}`,
 			{ "is-loading": loading, "is-disabled": disabled },
 			className
 		)}
 		disabled={disabled || loading}
 		aria-busy={loading}
+		aria-label={ariaLabel}
 		onClick={onClick}
 	>
+		{icon ? <Icon name={icon} size={size === "sm" ? "sm" : "md"} /> : null}
 		{label}
 	</button>
 );

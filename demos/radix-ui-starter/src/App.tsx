@@ -58,9 +58,21 @@ export const App: React.FC = () => {
 							onChange={setName}
 							placeholder="Type here"
 						/>
-						<HStack gap="sm">
+						<HStack gap="sm" wrap>
 							<Button label="Primary" />
 							<Button label="Secondary" variant="secondary" />
+							<Button label="Ghost" variant="ghost" />
+							<Button label="Success" variant="success" />
+							<Button label="Warning" variant="warning" />
+							<Button label="Danger" variant="danger" />
+							<Button label="Info" variant="info" />
+						</HStack>
+						<HStack gap="sm" wrap>
+							<Button label="Small" size="sm" />
+							<Button label="Default" />
+							<Button label="Large" size="lg" />
+							<Button icon="send" label="Send" />
+							<Button icon="add" ariaLabel="Add" />
 							<Button label="Loading" loading />
 							<Button label="Disabled" disabled />
 						</HStack>

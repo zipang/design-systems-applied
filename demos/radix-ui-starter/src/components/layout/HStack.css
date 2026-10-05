@@ -62,4 +62,8 @@
 	&.layout-hstack--justify-between {
 		justify-content: space-between;
 	}
+
+	&.layout-hstack--wrap {
+		flex-wrap: wrap;
+	}
 }

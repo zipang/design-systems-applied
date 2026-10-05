@@ -26,9 +26,13 @@ chatbot (Joseph Weizenbaum, MIT, 1966 — public domain algorithm and DOCTOR scr
 Radix UI primitives are re-exposed through our own library:
 
 - `src/components/ui/` — Radix UI wrappers and pure UI primitives (Button, TextField,
-  DropdownMenu, Dialog, Avatar, and so on).
-- `src/components/base/` — typography primitives (Heading, Text) and other primitives
-  that must be used instead of raw HTML text tags.
+  DropdownMenu, Dialog, Avatar, and so on). `Button` supports the sizes `sm`,
+  `default`, and `lg`, and the variants `primary`, `secondary`, `ghost`, `success`,
+  `warning`, `danger`, and `info`, plus an optional leading icon.
+- `src/components/base/` — typography primitives (`Heading`, `Text`) that must be used
+  instead of raw HTML text tags, plus `Icon`, which renders a bundled SVG file inline
+  so its strokes follow `currentColor`. Icons live in `src/assets/icons/` as plain
+  `.svg` files; no external icon library.
 - `src/components/layout/` — `Container`, `VStack`, `HStack`, `Grid`.
 - `src/components/chat/` — product-named components for the demo itself (ChatPanel,
   ChatHeader, ThemeSwitcher, MessageList, Message, Composer, and so on).
@@ -112,11 +116,13 @@ demos/radix-ui-starter/
 │   ├── App.tsx                    composes the chat page
 │   ├── components/
 │   │   ├── AGENTS.md              component rules (tiers, styling, tests)
-│   │   ├── base/                  Heading, Text (replace raw h1–h6, p)
+│   │   ├── base/                  Heading, Text, Icon
 │   │   ├── ui/                    Button, TextField, DropdownMenu, Dialog, Avatar...
 │   │   ├── layout/                Container, VStack, HStack, Grid
 │   │   └── chat/                  ChatPanel, ChatHeader, ThemeSwitcher,
 │   │                              MessageList, Message, Composer...
+│   ├── assets/
+│   │   └── icons/                 add.svg, send.svg
 │   ├── lib/
 │   │   ├── clsx.ts                internal class-name combiner + clsx.test.ts
 │   │   ├── eliza/                 eliza.ts, doctor-script.ts, eliza.test.ts
@@ -257,6 +263,8 @@ export const Button: React.FC<ButtonProps> = ({ label, onClick, loading, disable
       stylesheet is scoped under that class.
 - [ ] Every named component state has an `is-*` class styled in the component
       stylesheet.
+- [ ] `ui/Button` exposes the sizes `sm`/`default`/`lg` and the seven variants, and
+      `base/Icon` renders the bundled SVGs in `currentColor` without an icon library.
 - [ ] `bun run check`, `bun run typecheck`, and `bun test` pass at the repo root.
 - [ ] `follow-the-rules` resolves against the demo's `AGENTS.md` files.
 - [ ] `README.md` explains what the demo shows, the themes, and how to run it.

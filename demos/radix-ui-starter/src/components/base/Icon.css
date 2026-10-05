@@ -1,0 +1,27 @@
+/* Icon.css — every rule is scoped under .base-icon */
+.base-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: currentColor;
+
+	& svg {
+		inline-size: 100%;
+		block-size: 100%;
+	}
+
+	&.base-icon--sm {
+		inline-size: var(--space-md);
+		block-size: var(--space-md);
+	}
+
+	&.base-icon--md {
+		inline-size: var(--space-base);
+		block-size: var(--space-base);
+	}
+
+	&.base-icon--lg {
+		inline-size: var(--space-lg);
+		block-size: var(--space-lg);
+	}
+}

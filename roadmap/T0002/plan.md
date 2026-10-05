@@ -125,6 +125,16 @@ composes layout from design tokens. Four complete themes ship as separate
   - Files: `.../src/components/ui/{Avatar,AvatarFallback}.tsx` and `.css`
   - Depends: Task 4
 
+- [x] **Task 10b: Add `base/Icon`, SVG assets, and extend `ui/Button`**
+  - Acceptance: `base/Icon` renders bundled `.svg` files inline so strokes follow
+    `currentColor`; `src/assets/icons/` holds `add.svg` and `send.svg`; `ui/Button`
+    supports sizes `sm`/`default`/`lg`, the action variants `success`/`warning`/
+    `danger`/`info`, and an optional leading icon.
+  - Verify: `bun run check`, `bun run typecheck`, `bun test`, demo build.
+  - Files: `.../src/components/base/{Icon.tsx,Icon.css,icons.ts}`,
+    `.../src/assets/icons/*.svg`, `.../src/components/ui/Button.{tsx,css}`
+  - Depends: Tasks 5, 7
+
 ### Checkpoint: Core library
 - [x] All primitives render in `App.tsx`; gates pass
 - [ ] Manual visual pass before theming

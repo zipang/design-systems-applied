@@ -7,6 +7,7 @@ interface HStackProps {
 	gap?: Space;
 	align?: "start" | "center" | "end" | "stretch";
 	justify?: "start" | "center" | "end" | "between";
+	wrap?: boolean;
 	children: React.ReactNode;
 	className?: string;
 }
@@ -19,6 +20,7 @@ export const HStack: React.FC<HStackProps> = ({
 	gap = "md",
 	align = "center",
 	justify = "start",
+	wrap = false,
 	children,
 	className
 }) => (
@@ -28,6 +30,7 @@ export const HStack: React.FC<HStackProps> = ({
 			`layout-hstack--gap-${gap}`,
 			`layout-hstack--align-${align}`,
 			`layout-hstack--justify-${justify}`,
+			{ "layout-hstack--wrap": wrap },
 			className
 		)}
 	>

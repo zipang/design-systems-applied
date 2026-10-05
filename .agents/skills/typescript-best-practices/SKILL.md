@@ -132,4 +132,4 @@ if (current == null) return "";
 ## See Also
 
 - `follow-the-rules` — review-time typing checks reference this skill.
-- `use-bun` — tooling and test runner for TypeScript in this project.
+- Root `AGENTS.md` — project tooling, including the `bun` commands used for verification.

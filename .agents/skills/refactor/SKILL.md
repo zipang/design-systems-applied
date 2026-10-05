@@ -1,7 +1,6 @@
 ---
 name: refactor
 description: Run an extremely strict maintainability review for abstraction quality, giant files, and spaghetti-condition growth. Use for refactor tasks, architecture and code quality audit, or especially harsh maintainability review.
-disable-model-invocation: true
 ---
 
 # Code Quality Review

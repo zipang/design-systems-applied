@@ -1,7 +1,7 @@
 ---
 description: Multi-axis code review
 ---
-Invoke the `follow-the-rules` skills to review the following aspects in the project: 
+Invoke the `follow-the-rules` skill to review the following aspects in the project: 
 $ARGUMENTS.
 
 Review the submited code across correctness, readability, adherence to local rules and best practices, architecture, security, and performance. 

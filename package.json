@@ -10,6 +10,7 @@
 		"check": "biome check .",
 		"check:fix": "biome check --write .",
 		"format": "biome format --write .",
+		"generate:themes": "bun tools/generate-theme-overrides.ts",
 		"typecheck": "tsc --noEmit && bun run --cwd demos/radix-ui-starter typecheck",
 		"test": "bun test"
 	},

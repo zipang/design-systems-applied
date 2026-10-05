@@ -32,7 +32,9 @@ warning color makes the label unreadable.
 T0004 introduces a **derived contrast layer**:
 
 - A generator reads each theme's palette and computes, for each colored role, which of
-  the theme's two text colors has the higher WCAG contrast ratio against that role.
+  the theme's two text colors has the higher WCAG contrast ratio against that role. When
+  neither reaches AA, it falls back to pure black or white, so a label stays legible even
+  when a theme has no usable dark ink.
 - It writes the result to `themes/<name>/ui-theme-overrides.css` as a `--color-on-*`
   variable.
 - Components consume `var(--color-on-<role>, <fallback>)`, so they never choose a
@@ -88,7 +90,9 @@ Example output:
   token values. Parse it with the `yaml` dependency, as `contract.test.ts` does.
 - **Selection rule:** for each role, compute the WCAG 2.1 contrast ratio of
   `colors.text.base` and `colors.text.ondark` against the role color. Pick the one with
-  the higher ratio. Tie goes to `colors.text.ondark`.
+  the higher ratio. Tie goes to `colors.text.ondark`. When the chosen ratio is below
+  4.5:1, fall back to pure black or white, whichever contrasts more. This is common on
+  dark themes whose two text tokens are both light.
 - **Output:** overwrite `themes/<name>/ui-theme-overrides.css` for every theme.
 - **Pure core:** export `renderThemeOverrides(theme)` so a test can regenerate the text
   in memory. Keep the file writing in a thin `main` guard.

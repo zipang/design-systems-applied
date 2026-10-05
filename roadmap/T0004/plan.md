@@ -16,7 +16,8 @@ contrast and a normalized type scale.
 - **Source of truth for generation is `DESIGN.md` front matter.** The generator parses it
   with `yaml`, the same way `contract.test.ts` does.
 - **Selection rule:** for each role, choose the higher WCAG contrast of
-  `colors.text.base` and `colors.text.ondark`; tie goes to `ondark`.
+  `colors.text.base` and `colors.text.ondark`; tie goes to `ondark`. When the chosen
+  ratio is below 4.5:1, fall back to pure black or white, whichever contrasts more.
 - **Pure core + thin writer.** `renderThemeOverrides(theme)` returns the file text so a
   drift test can compare without touching disk. The writer overwrites the eight files.
 - **Components keep a fallback.** `var(--color-on-primary, var(--color-text-ondark))`, so
@@ -41,8 +42,9 @@ contrast and a normalized type scale.
 - [ ] **Task 2: Add the generator and the `generate:themes` script**
   - Acceptance: `renderThemeOverrides(theme)` reads the front-matter colors, emits the
     nine `--color-on-*` variables with a "generated, do not edit" header, and is
-    deterministic. A `generate:themes` script writes every theme's file. An unparseable
-    role color fails with a clear message.
+    deterministic. It picks the higher-contrast theme text token, or a black/white ink
+    when neither reaches 4.5:1. A `generate:themes` script writes every theme's file. An
+    unparseable role color fails with a clear message.
   - Verify: `bun run generate:themes`; inspect one file.
   - Files: `tools/generate-theme-overrides.ts`, `package.json`
   - Depends: Task 1

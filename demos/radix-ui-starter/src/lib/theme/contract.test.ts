@@ -95,6 +95,10 @@ for (const id of THEME_IDS) {
 		}
 	});
 
+	test(`${id}: has a generated ui-theme-overrides.css`, () => {
+		expect(existsSync(join(THEMES_DIR, id, "ui-theme-overrides.css"))).toBe(true);
+	});
+
 	test(`${id}: DESIGN.md color values match design-tokens.css`, () => {
 		const vars = cssVariables(readTheme(id, "design-tokens.css"));
 		const data = frontMatter(readTheme(id, "DESIGN.md"));

@@ -1,46 +1,83 @@
 # Design Systems Applied
 
-## The Problem
+## The problem
 
-Vibe coding has irrupted as a practice to produce very quickly screens and apps with whatever features the user may want to throw at them, and has been a successful demonstration of the unrivaled speed of LLMs to produce structured content (code).
-Quickly enough though, this practice has introduced a number of very recurrent problems that have become the nightmares of those that imagined they could deliver products rivaling with established companies: maintainability and performance problems, inconsistent design and patterns across the product, illegible goals.
-One of these minor but very disqualifying problems is the drift: pages that look inconsistent across the whole product. Incoherences in the choice of sizes, borders or colors, or components that behave differently.
-These problems all arise from the start because of the lack of a _Design System_, or the lack of a _Vision_. Like building a house without a plan.
+Vibe coding produces screens and applications fast. It also produces the problems that
+make those applications hard to ship. The code becomes hard to maintain, the performance
+drops, and the design drifts.
+
+**Drift** is the slow loss of visual coherence across a product. Sizes, borders, colors,
+and component behavior differ from page to page. Drift starts at the beginning, when a
+project has no Design System and no vision. This is like building a house without a plan.
 
 ## The first proposal
 
-So Google Labs tried to solve this exact problem: they introduce a spec for a markdown file that would describe your Design System for coding agents. This file was called `DESIGN.md` and the specification was released in open-source at https://github.com/google-labs-code/design.md. The file format combines machine-readable design tokens in YAML front matter with human-readable design rationale in markdown prose.
+Google Labs published a spec for a markdown file that describes a Design System to
+coding agents: [`DESIGN.md`](https://github.com/google-labs-code/design.md). The file
+combines machine-readable design tokens in YAML front matter with human-readable design
+rationale in markdown prose.
 
-We followed this approach. It was clearly a step in the right direction, but the lack of strict rules hampered the intent.
-My main takeaway with the first Google spec is that it wasn't a ready to go recipe in anyway. None of the structures introduced in the spec were mandatory. So we could really each timle come with a different set of tokens with the same prompts and it wasn't for me the way to go : i don't want to restart from scratch every project now that i have clear path to destination. Some conventions needs to be enforced and not re-imaginated each time. So we needed an opiniated way to do the full process of documenting our Design System with some off-the-shelf recipes ready to implement in your library of choice.
+This was a step in the right direction. The spec, however, enforces nothing. None of its
+structures are mandatory. The same prompt can produce a different token set every time.
+When the destination is already known, a new start on every project is not acceptable.
 
 ## Going one step further
 
-The final solution presented in this repository is a set of additional rules, guides, tools, and skills. They complete the specification and enforce its implementation in predictable ways.
+This repository completes the spec with rules, guides, and skills. It started as the
+`the-designer` recipe in the
+[AI lab project](https://github.com/zipang/the-ai-lab/tree/master/recipes/the-designer)
+and became its own foundation. Use it before every other recipe.
 
-Our work started as a recipe inside our >> [AI lab project](https://github.com/zipang/the-ai-lab/tree/master/recipes/the-designer) << but after some real usage to build new project, i thought that this recipe really desserved its own place as it is really a foundation, a recipe you must use before every others..
+The key idea is a **fixed standard list** of design tokens. The list covers the frugal
+needs of a Design System. The setup is minimalist by design. Each token lives in two
+places:
 
-The key idea is to define a _fixed standard list_ of design tokens to cover every frugal needs in our Design System (this setup is definitively minimalist by design) and use them inside the `DESIGN.md` front matter AND separately in a ready-to-use _design-tokens stylesheet_ implementing these tokens with **CSS variables**.
+- in the `DESIGN.md` front matter, the source of truth for token values;
+- in a `design-tokens.css` stylesheet, which exposes every token as a CSS variable.
 
-Because the YAML front-matter is a structured object and CSS variables are flat, we need a translation table that gives us the path to a design token inside `DESIGN.md` (like`{colors.brand.primary}`) and its declaration as a CSS variable in our design-tokens stylesheet : `--colors-brand-primary`.
+The front matter is a structured tree. CSS variables are flat. A fixed table maps one
+notation to the other. For example, `colors.brand.primary` maps to
+`--color-brand-primary`.
 
+## Standard list of design tokens
 
-## Introducing our standard list of design tokens
+The list is fixed and split into categories:
 
-So here is the list of design tokens that should cover 80% of every website design needs (we won't cover the other 20% because they require real designers to do so..)
+- **Colors**: `brand` (primary and accent, plus optional secondary and tertiary),
+  `action` (success, info, warning, danger), `text` (base and optional variants), and
+  `surface` (base, alt, and optional dark and card).
+- **Typography**: `base`, `display`, and `mono` font families, a size scale from `xs`
+  to `display`, font weights, line heights, and letter spacing.
+- **Spacing**: an `xs` to `xxl` scale with `base` at `1rem`.
+- **Shapes**: `rounded` corner radii and `border` widths.
+- **Elevation**: `sm`, `md`, and `lg` shadow presets.
 
-The list is splitted into the same categories you'll 
+The full tables, the defaults, and the validation rules are in the skill:
+[`skills/design-system-tokens/SKILL.md`](skills/design-system-tokens/SKILL.md). That file
+is the source of truth. Do not restate it here.
 
-### Colors
+## How to use it
 
-Colors are splitted into four sub-categories : brand, actions, text, surfaces.
+1. Copy `skills/design-system-tokens/` into the `.agents/skills/` directory of your
+   project. opencode discovers the skill there.
+2. Ask the agent to create `DESIGN.md` and `design-tokens.css` at the project root. The
+   agent picks values from the fixed list and does not invent tokens.
+3. Copy `references/color-variants.css` and `references/reset.css` into your project if
+   you want the derived color variants and the base styles.
 
+## Repository layout
 
-### Typography
+```
+.agents/skills/       Agent skills, including the proxy for the core skill.
+.opencode/commands/   Slash commands for the spec, plan, and review workflow.
+skills/               The canonical, distributable design-system-tokens skill.
+roadmap/TXXXX/        Tickets: a spec.md and a plan.md for each unit of work.
+tools/                Token contract validator and sync CLI (planned).
+packages/             End-to-end demonstration projects (planned).
+AGENTS.md             Rules for AI agents that work in this repository.
+```
 
-### Space
-
-### Shapes
+See `AGENTS.md` for the rules that agents must follow.
 
 ## Glossary
 
@@ -53,6 +90,6 @@ Entries are sorted alphabetically.
 - **DESIGN.md**: A markdown file at the root of a project, defined by the Google Labs spec. It holds the design tokens in YAML front matter and the component rules in prose.
 - **Drift**: The slow loss of visual coherence across the pages of a product: inconsistent sizes, borders, colors, or component behavior. Also called "design derive". Drift is the main problem this project fights.
 - **Recipe**: A self-contained procedure from our AI lab project (the-ai-lab) that combines prompts, rules, and tools to reach one goal. This project started as the "the-designer" recipe.
-- **Skill**: A markdown file under `.agents/skills/` that gives an AI agent instructions for one task (for example: apply the Design System, write a spec, commit changes). The agent loads a skill when its task matches the skill description. The canonical `design-system-tokens` skill lives at `skills/` for distribution; a proxy under `.agents/skills/` points to it.
+- **Skill**: A markdown file under `.agents/skills/` that gives an AI agent instructions for one task (for example: apply the Design System, write a spec, commit changes). The agent loads a skill when its task matches the skill description. The canonical `design-system-tokens` skill lives at `skills/` for distribution. A proxy under `.agents/skills/` points to it.
 - **Ticket**: A unit of planned work under `roadmap/TXXXX/` that holds a `spec.md` (requirements) and a `plan.md` (ordered tasks). Ticket IDs run from `T0001` to `T9999`.
-- **Vibe coding**: The practice of producing software by prompting an LLM without a plan or a specification. Fast, but it causes the problems listed above.
+- **Vibe coding**: The practice of producing software by prompting an LLM without a plan or a specification. It is fast, but it causes the problems listed above.

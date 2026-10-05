@@ -36,7 +36,7 @@ checkpoints.
 
 ### Phase 1: Foundation — packaging and workflow scaffolding
 
-- [ ] **Task 1: Add the `design-system-tokens` proxy skill**
+- [x] **Task 1: Add the `design-system-tokens` proxy skill**
   - Acceptance: `.agents/skills/design-system-tokens/SKILL.md` exists; `name` equals
     the directory name; body points to `skills/design-system-tokens/SKILL.md`; no token
     tables are duplicated; skill appears in the loader list after a session restart.
@@ -45,7 +45,7 @@ checkpoints.
   - Files: `.agents/skills/design-system-tokens/SKILL.md`
   - Depends: None
 
-- [ ] **Task 2: Scaffold the `roadmap/` ticket workflow**
+- [x] **Task 2: Scaffold the `roadmap/` ticket workflow**
   - Acceptance: `roadmap/T0001/spec.md` and `roadmap/T0001/plan.md` exist and match the
     skill templates; README glossary defines "Ticket"; the `/spec`, `/plan`,
     `/implement` commands' paths resolve.
@@ -53,7 +53,7 @@ checkpoints.
   - Files: `roadmap/T0001/spec.md`, `roadmap/T0001/plan.md`, `README.md`
   - Depends: None
 
-- [ ] **Task 3: Create the root `AGENTS.md` and re-scope `follow-the-rules`**
+- [x] **Task 3: Create the root `AGENTS.md` and re-scope `follow-the-rules`**
   - Acceptance: root `AGENTS.md` documents project context and workflow; the
     `src/AGENTS.md` / `src/components/AGENTS.md` references are removed from
     `follow-the-rules` and replaced with the root rules plus the
@@ -63,13 +63,13 @@ checkpoints.
   - Depends: None
 
 ### Checkpoint: Foundation
-- [ ] Proxy skill loads after restart
-- [ ] No dangling path in commands or `follow-the-rules`
-- [ ] Review with human before proceeding
+- [x] Proxy skill loads after restart
+- [x] No dangling path in commands or `follow-the-rules`
+- [x] Review with human before proceeding
 
 ### Phase 2: Reconcile `design-system-tokens` docs with implementation
 
-- [ ] **Task 4: Unify the stylesheet name on `design-tokens.css`**
+- [x] **Task 4: Unify the stylesheet name on `design-tokens.css`**
   - Acceptance: `references/styles.css` renamed to `references/design-tokens.css`; all
     references updated (`SKILL.md` §1 and §9, `DESIGN.md`, `color-variants.css`,
     `reset.css`, `utilities.css` comments, `README.md`).
@@ -78,7 +78,7 @@ checkpoints.
   - Files: `skills/design-system-tokens/**`, `README.md`
   - Depends: None
 
-- [ ] **Task 5: Fix the rounded token model**
+- [x] **Task 5: Fix the rounded token model**
   - Acceptance: required flags agree between `SKILL.md` and `DESIGN.md` (all five
     required); `rounded.full` is `9999px` everywhere; validation rule 258 amended to
     allow documented literal defaults.
@@ -88,7 +88,7 @@ checkpoints.
     `skills/design-system-tokens/references/design-tokens.css`
   - Depends: Task 4
 
-- [ ] **Task 6: Resolve the typography mapping**
+- [x] **Task 6: Resolve the typography mapping**
   - Acceptance: `--font-size-base` is documented as a required stylesheet-only token;
     the mapping rule and validation rules 257/258 distinguish the two token classes;
     the empty "Token path" cells are explained (stylesheet-only).
@@ -98,7 +98,7 @@ checkpoints.
     `skills/design-system-tokens/references/DESIGN.md`
   - Depends: Task 4
 
-- [ ] **Task 7: Scope the elevation/border preset rule**
+- [x] **Task 7: Scope the elevation/border preset rule**
   - Acceptance: rule 261 states it governs consuming projects; the reference
     stylesheet documents its self-contained inline exception; no implied contradiction
     remains.
@@ -108,12 +108,12 @@ checkpoints.
   - Depends: Task 4
 
 ### Checkpoint: Contract coherence
-- [ ] No doc statement contradicts a shipped reference
-- [ ] Manual review of the full skill by human
+- [x] No doc statement contradicts a shipped reference
+- [x] Manual review of the full skill by human
 
 ### Phase 3: Functional toolchain
 
-- [ ] **Task 8: Add the root toolchain gate**
+- [x] **Task 8: Add the root toolchain gate**
   - Acceptance: root `package.json` with `check`, `typecheck`, `test`, `format`
     scripts; Biome installed; `biome.jsonc` schema resolves and excludes nested
     `node_modules` (`!**/node_modules`); `bun run check` passes.
@@ -121,7 +121,7 @@ checkpoints.
   - Files: `package.json`, `bun.lock`, `biome.jsonc`
   - Depends: None
 
-- [ ] **Task 9: Repair dangling skill references**
+- [x] **Task 9: Repair dangling skill references**
   - Acceptance: `typescript-best-practices` no longer references the missing `use-bun`
     skill (or a `use-bun` skill is added); the `planning-and-task-breakdown`
     `definition-of-done.md` link resolves; `refactor` drops the unrecognized
@@ -134,12 +134,12 @@ checkpoints.
   - Depends: None
 
 ### Checkpoint: Toolchain
-- [ ] `bun run check` and `bun run typecheck` pass
-- [ ] No dangling references across skills/commands
+- [x] `bun run check` and `bun run typecheck` pass
+- [x] No dangling references across skills/commands
 
 ### Phase 4: Content and repository hygiene
 
-- [ ] **Task 10: Complete the README**
+- [x] **Task 10: Complete the README**
   - Acceptance: truncated line 32 finished; Colors/Typography/Space/Shapes sections
     written; mapping example corrected to `--color-brand-primary`; glossary updated for
     the proxy-skill layout and "Ticket"; typos fixed.
@@ -148,7 +148,7 @@ checkpoints.
   - Files: `README.md`
   - Depends: Tasks 2, 6
 
-- [ ] **Task 11: Repository hygiene**
+- [x] **Task 11: Repository hygiene**
   - Acceptance: root `.gitignore`; `LICENSE`; `.opencode/.gitignore` no longer ignores
     itself (remove the `.gitignore` line) so ignore rules are committed; CI workflow
     runs `bun install && bun run check`.
@@ -157,7 +157,7 @@ checkpoints.
   - Files: `.gitignore`, `LICENSE`, `.opencode/.gitignore`, `.github/workflows/ci.yml`
   - Depends: Task 8
 
-- [ ] **Task 12: Fix the radix-ui-starter placeholder text**
+- [x] **Task 12: Fix the radix-ui-starter placeholder text**
   - Acceptance: typos fixed; the README explicitly marks the package as a planned
     placeholder and links to its future ticket.
   - Verify: manual proofread.
@@ -165,9 +165,9 @@ checkpoints.
   - Depends: None
 
 ### Checkpoint: Release-ready
-- [ ] README complete and accurate
-- [ ] CI green
-- [ ] Human sign-off
+- [x] README complete and accurate
+- [x] CI green
+- [x] Human sign-off
 
 ### Phase 5: Specify the validator (implementation deferred)
 

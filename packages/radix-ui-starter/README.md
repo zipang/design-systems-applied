@@ -1,3 +1,7 @@
 # Radix UI Starter project
 
-This directory contain a starter project that demonstrate an approach to effectively apply our Design Systeml super set of rules on top of the Radix UI library. Radix UI is a prefect choice for our purpose because it come without any styles applied to the components.
+This directory is a placeholder for a starter project. The starter will show how to
+apply the Design Systems Applied rules on top of the Radix UI library. Radix UI is a
+good choice for this purpose, because its components come with no styles.
+
+The implementation is not written yet. It is planned for a later Ticket.

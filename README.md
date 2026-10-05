@@ -53,5 +53,6 @@ Entries are sorted alphabetically.
 - **DESIGN.md**: A markdown file at the root of a project, defined by the Google Labs spec. It holds the design tokens in YAML front matter and the component rules in prose.
 - **Drift**: The slow loss of visual coherence across the pages of a product: inconsistent sizes, borders, colors, or component behavior. Also called "design derive". Drift is the main problem this project fights.
 - **Recipe**: A self-contained procedure from our AI lab project (the-ai-lab) that combines prompts, rules, and tools to reach one goal. This project started as the "the-designer" recipe.
-- **Skill**: A markdown file under `.agents/skills/` that gives an AI agent instructions for one task (for example: apply the Design System, write a spec, commit changes). The agent loads a skill when its task matches the skill description.
+- **Skill**: A markdown file under `.agents/skills/` that gives an AI agent instructions for one task (for example: apply the Design System, write a spec, commit changes). The agent loads a skill when its task matches the skill description. The canonical `design-system-tokens` skill lives at `skills/` for distribution; a proxy under `.agents/skills/` points to it.
+- **Ticket**: A unit of planned work under `roadmap/TXXXX/` that holds a `spec.md` (requirements) and a `plan.md` (ordered tasks). Ticket IDs run from `T0001` to `T9999`.
 - **Vibe coding**: The practice of producing software by prompting an LLM without a plan or a specification. Fast, but it causes the problems listed above.

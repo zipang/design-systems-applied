@@ -8,13 +8,13 @@ description: Review some code to check conformance against the project's interna
 Review some code changes against the **project rules** before it lands.
 This skill does not restate the rules — it points at them. The rules are:
 
-- `AGENTS.md` (root) — workflow and project context
-- `src/AGENTS.md` — TypeScript: mandatory JSDoc, arrow functions only,
-  interfaces for object params, naming (`Elt` suffix), non-obvious control-flow
-  comments, no `any`, colocated tests
-- `src/components/AGENTS.md` — components as APIs (`React.FC<Props>`),
-  tier placement §0, stylesheet-last import, one test per source, non-trivial
-  tests, design-token styling
+- `AGENTS.md` (root) — project context, working rules, design system invariants,
+  tooling, and commit conventions
+- `skills/design-system-tokens/SKILL.md` — the fixed token list, the dual-file
+  contract, and the validation rules in section 10
+- Any `AGENTS.md` inside the directory under review — the rules for that package.
+  When a package defines its own TypeScript or component conventions, review against
+  them too. This repository has no such package yet.
 
 ## When to Use
 
@@ -38,18 +38,14 @@ Never re-run a command that passed on unchanged files.
 
 Walk the diff once per axis. Cite file:line for every finding.
 
-1. **Rules compliance** — JSDoc present/exported and formal? Arrow-only?
-   Interface for object params? Names obvious and consistent (`headerElt`)?
-   Comments explain *why* only at non-obvious branches? Tests colocated,
-   one-per-source, non-trivial?
-2. **Component placement** — Does the tier match §0 of
-   `src/components/AGENTS.md`? Product-named components never in `layout/`
-   or `ui/`. Dependencies flow downward only.
-3. **Design System** — No raw colors in component CSS; token `var()` only;
-   stylesheet is the last import. **No raw text tags** (`h1`–`h6`, `p`)
-   anywhere in pages or components — typography goes through `base/Heading`
-   and `base/Text` exclusively; flag any direct HTML element used to build a
-   page as a required fix.
+1. **Rules compliance** — Does the change follow root `AGENTS.md`? Fixed token
+   list, dual-file values identical, focused commit? For a package with its own
+   `AGENTS.md`, apply those rules too.
+2. **Design System** — No raw colors, sizes, or radii in component CSS; token
+   `var()` only; the stylesheet is the last import; no undocumented tokens; the
+   derived `muted`/`active` variants are not listed in the front matter.
+3. **Docs** — Markdown follows the `README.md` glossary and the
+   `technical-writing` skill; it does not restate rules documented elsewhere.
 4. **Efficiency** — No duplicated logic where a shared util exists
    (DRY); no over-memoization; no premature abstraction; no dead code left.
 5. **Behavior** — Tests assert observable behavior that would catch a

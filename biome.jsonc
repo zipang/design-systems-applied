@@ -23,6 +23,16 @@
 			"formatter": {
 				"enabled": false
 			}
+		},
+		{
+			"includes": ["**/reset.css"],
+			"linter": {
+				"rules": {
+					"complexity": {
+						"noImportantStyles": "off"
+					}
+				}
+			}
 		}
 	],
 	"formatter": {

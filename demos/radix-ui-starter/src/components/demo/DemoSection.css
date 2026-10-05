@@ -1,0 +1,14 @@
+/* DemoSection.css — every rule is scoped under .demo-section */
+.demo-section {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+	border-block-start: var(--border-sm) solid var(--color-brand-secondary);
+	padding-block-start: var(--space-lg);
+
+	& .demo-section__content {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+	}
+}

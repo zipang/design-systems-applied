@@ -1,0 +1,18 @@
+/* DemoColorPalette.css — every rule is scoped under .demo-color-palette */
+.demo-color-palette {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-lg);
+
+	& .demo-color-palette__item {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xs);
+	}
+
+	& .demo-color-palette__swatch {
+		inline-size: var(--space-xxl);
+		block-size: var(--space-xxl);
+		border: var(--border-sm) solid var(--color-brand-secondary);
+	}
+}

@@ -38,8 +38,13 @@ Radix UI primitives are re-exposed through our own library:
 - `src/components/chat/` — product-named components for the demo itself (ChatPanel,
   ChatHeader, ThemeSwitcher, MessageList, Message, Composer, and so on).
 
-The demo is exemplary, not a mockup. It must be tested, documented, and conform to the
-project rules, so agents can copy its patterns with confidence.
+A `ComponentsDemo` page presents every component in numbered sections: headings, text,
+and the color palette, then the UI components (buttons, icons, avatar, text field,
+dropdown menu, dialog), each showing its variants and sizes. The chat UI is a separate
+page built in a later phase.
+
+The demo is exemplary, not a mockup. It must be tested, documented, and conform to
+the project rules, so agents can copy its patterns with confidence.
 
 ## Theming
 
@@ -114,14 +119,15 @@ demos/radix-ui-starter/
 ├── src/
 │   ├── AGENTS.md                  TypeScript rules for src/
 │   ├── main.tsx                   app entry
-│   ├── App.tsx                    composes the chat page
+│   ├── App.tsx                    renders ComponentsDemo (chat added later)
 │   ├── components/
 │   │   ├── AGENTS.md              component rules (tiers, styling, tests)
 │   │   ├── base/                  Heading, Text, Icon
 │   │   ├── ui/                    Button, TextField, DropdownMenu, Dialog, Avatar...
 │   │   ├── layout/                Container, VStack, HStack, Grid
-│   │   └── chat/                  ChatPanel, ChatHeader, ThemeSwitcher,
-│   │                              MessageList, Message, Composer...
+│   │   ├── chat/                  ChatPanel, ChatHeader, MessageList, Message,
+│   │   │                          Composer...
+│   │   └── demo/                  ComponentsDemo and its sections
 │   ├── assets/
 │   │   └── icons/                 add.svg, send.svg
 │   ├── lib/
@@ -173,6 +179,7 @@ Conventions for the demo, to be written into `src/AGENTS.md` and
 Example:
 
 ```tsx
+import type * as React from "react";
 import { clsx } from "../../lib/clsx";
 import "./Button.css";
 
@@ -266,6 +273,8 @@ export const Button: React.FC<ButtonProps> = ({ label, onClick, loading, disable
       stylesheet.
 - [ ] `ui/Button` exposes the sizes `sm`/`default`/`lg` and the seven variants, and
       `base/Icon` renders the bundled SVGs in `currentColor` without an icon library.
+- [ ] `ComponentsDemo` presents every component in numbered sections, including the
+      color palette, each with its variants and sizes.
 - [ ] `bun run check`, `bun run typecheck`, and `bun test` pass at the repo root.
 - [ ] `follow-the-rules` resolves against the demo's `AGENTS.md` files.
 - [ ] `README.md` explains what the demo shows, the themes, and how to run it.

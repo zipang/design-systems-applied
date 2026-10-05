@@ -5,21 +5,23 @@ root, demo, and `src/AGENTS.md` rules still apply.
 
 ## Tiers
 
-Components live in four tiers. Place each component in the lowest tier that fits.
+Components live in five tiers. Place each component in the lowest tier that fits.
 
-- **`base/`** — typography and low-level primitives (`Heading`, `Text`). These replace
-  raw text tags.
+- **`base/`** — typography and low-level primitives (`Heading`, `Text`, `Icon`). These
+  replace raw text tags.
 - **`ui/`** — Radix UI wrappers and generic UI primitives (`Button`, `TextField`,
-  `DropdownMenu`, `Dialog`, `Avatar`).
+  `DropdownMenu`, `Dialog`, `Avatar`, `ThemeSwitcher`).
 - **`layout/`** — layout primitives only (`Container`, `VStack`, `HStack`, `Grid`).
-- **`chat/`** — product-named components for this demo (`ChatPanel`, `ChatHeader`,
-  `ThemeSwitcher`, `MessageList`, `Message`, `Composer`).
+- **`chat/`** — product-named components for the chat demo (`ChatPanel`, `ChatHeader`,
+  `MessageList`, `Message`, `Composer`).
+- **`demo/`** — product-named page compositions for the demo (`ComponentsDemo` and its
+  sections).
 
 Rules:
 
 - Product-named components never live in `layout/` or `ui/`.
-- Dependencies flow downward only: `chat` may use `ui`, `layout`, and `base`; never the
-  reverse.
+- Dependencies flow downward only: `chat` and `demo` may use `ui`, `layout`, and
+  `base`; never the reverse.
 - **No raw `h1`–`h6` or `p` in pages or components.** Typography goes through
   `base/Heading` and `base/Text` exclusively.
 
@@ -47,6 +49,7 @@ Rules:
 ## Example
 
 ```tsx
+import type * as React from "react";
 import { clsx } from "../../lib/clsx";
 import "./Button.css";
 

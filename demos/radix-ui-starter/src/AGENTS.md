@@ -4,6 +4,8 @@ TypeScript rules for `demos/radix-ui-starter/src/`. The root and demo `AGENTS.md
 still apply.
 
 - **Arrow functions only.** No `function` declarations for components or helpers.
+- **React types.** Use `import type * as React from "react"`. Type-only imports are
+  erased at build time, so they never affect the bundle.
 - **JSDoc is mandatory** on every exported symbol. State the contract, not the obvious.
 - **Object parameters use named interfaces.** Do not inline object types in a signature.
 - **`Elt` suffix** for variables that hold a DOM element (for example `composerElt`).

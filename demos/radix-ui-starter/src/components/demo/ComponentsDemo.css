@@ -1,0 +1,4 @@
+/* ComponentsDemo.css — every rule is scoped under .demo-components */
+.demo-components {
+	padding-block: var(--space-xl);
+}

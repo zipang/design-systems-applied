@@ -135,6 +135,16 @@ composes layout from design tokens. Four complete themes ship as separate
     `.../src/assets/icons/*.svg`, `.../src/components/ui/Button.{tsx,css}`
   - Depends: Tasks 5, 7
 
+- [x] **Task 10c: Build the `ComponentsDemo` page**
+  - Acceptance: `components/demo/` presents every component in numbered sections
+    (headings, text, color palette, buttons, icons, avatar, text field, dropdown menu,
+    dialog), each with its variants and sizes; `App` renders it. The chat UI is a
+    separate page added later.
+  - Verify: `bun run check`, `bun run typecheck`, `bun test`, demo build; browser check.
+  - Files: `.../src/components/demo/*`, `.../src/components/ui/ThemeSwitcher.tsx`,
+    `.../src/App.tsx`
+  - Depends: Tasks 5, 6, 7, 8, 9, 10, 10b
+
 ### Checkpoint: Core library
 - [x] All primitives render in `App.tsx`; gates pass
 - [ ] Manual visual pass before theming

@@ -23,7 +23,6 @@ export const Icon: React.FC<IconProps> = ({ name, size = "md", label, className 
 		? ({ role: "img", "aria-label": label } as const)
 		: ({ "aria-hidden": true } as const);
 
-	// biome-ignore lint/security/noDangerouslySetInnerHtml: the SVG markup is bundled at build time, not user input.
 	const glyph = { dangerouslySetInnerHTML: { __html: icons[name] } };
 
 	return (

@@ -52,7 +52,7 @@ export const DialogContent: React.FC<DialogContentProps> = ({
 			</DialogPrimitive.Title>
 			{description ? (
 				<DialogPrimitive.Description asChild>
-					<Text size="sm" tone="muted">
+					<Text size="md" tone="muted">
 						{description}
 					</Text>
 				</DialogPrimitive.Description>

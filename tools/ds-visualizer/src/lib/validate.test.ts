@@ -42,8 +42,10 @@ describe("validateContract", () => {
 
 	test("flags a wrong optional fallback", () => {
 		const issues = validateContract({
-			...contract,
-			cssValues: { ...contract.cssValues, "--color-surface-card": "#ffffff" }
+			designValues: {},
+			declaredPaths: new Set<string>(),
+			unknownPaths: [],
+			cssValues: { ...contract.cssValues, "--color-surface-card": "#123456" }
 		});
 		expect(issues.some((issue) => issue.code === "optional-fallback")).toBe(true);
 	});

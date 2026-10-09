@@ -48,12 +48,12 @@ describe("theme-api", () => {
 
 	test("saves a valid payload", async () => {
 		const edited = {
-			designMd: designMd.replaceAll("#ffcc00", "#ffcc01"),
-			tokensCss: tokensCss.replaceAll("#ffcc00", "#ffcc01")
+			designMd: designMd.replaceAll("#2d2dff", "#2d2dfe"),
+			tokensCss: tokensCss.replaceAll("#2d2dff", "#2d2dfe")
 		};
 		const issues = await saveTheme(dir, edited);
 		expect(issues.filter((issue) => issue.level === "error")).toEqual([]);
-		expect(await readFile(join(dir, DESIGN_FILE), "utf8")).toContain("#ffcc01");
+		expect(await readFile(join(dir, DESIGN_FILE), "utf8")).toContain("#2d2dfe");
 	});
 
 	test("refuses to save an invalid contract", async () => {

@@ -24,7 +24,7 @@ describe("contract parsing", () => {
 			if (token.required) expect(contract.cssValues[token.variable]).toBeDefined();
 		}
 		expect(contract.unknownPaths).toEqual([]);
-		expect(contract.designValues["--color-brand-accent"]).toBe("#ffcc00");
+		expect(contract.designValues["--color-brand-accent"]).toBe("#2d2dff");
 	});
 
 	test("serializeTokensCss then parseTokensCss is value-stable", async () => {

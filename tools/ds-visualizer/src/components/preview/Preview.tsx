@@ -32,6 +32,8 @@ const num = (values: TokenValues, variable: string): number =>
 	Number.parseFloat(read(values, variable)) || 0;
 const resolved = (values: TokenValues, variable: string): string =>
 	resolveVariables(read(values, variable), values);
+const primaryFamily = (value: string): string =>
+	value.split(",")[0]?.replace(/["']/g, "").trim() ?? value;
 
 /** Offsets from step 0 (`1rem`) for the fixed size scale. */
 const SIZE_OFFSETS: [string, number][] = [
@@ -241,7 +243,9 @@ export const TypographySection: React.FC<SectionProps> = ({ values, update }) =>
 				cogLabel={view.cogLabel}
 				summary={
 					<>
-						<span style={{ fontFamily: `var(${view.familyVariable})` }}>{family}</span>
+						<span style={{ fontFamily: `var(${view.familyVariable})` }}>
+							{primaryFamily(family)}
+						</span>
 						<span className="vz-meta__sep">·</span>
 						<span>×{config.ratio}</span>
 						{view.metaExtra ? (

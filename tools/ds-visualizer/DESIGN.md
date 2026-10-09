@@ -1,76 +1,66 @@
 ---
 version: alpha
-name: Reference Design System
+name: DS Visualizer Default
 
 # ============================================================================
-# COLORS  —  every entry maps to a --color-* CSS variable
-# Required tokens must appear here. Optional tokens appear only when the
-# designer overrides their stylesheet fallback.
+# COLORS — every entry maps to a --color-* CSS variable
 # ============================================================================
 colors:
-  # Brand — primary and accent are required; secondary and tertiary are
-  # optional.
   brand:
-    primary:   "#000000"   # --color-brand-primary   (headings, logo, contrast)
-    accent:    "#ffcc00"   # --color-brand-accent    (CTAs, highlights, selection)
-    secondary: "#333333"   # --color-brand-secondary (optional, overridden)
-    # tertiary: omitted → --color-brand-tertiary: var(--color-brand-primary)
+    primary:   "#0a0a0f"   # --color-brand-primary   (headings, logo, contrast)
+    accent:    "#2d2dff"   # --color-brand-accent    (CTAs, highlights, selection)
+    secondary: "#5b4fe9"   # --color-brand-secondary (supporting brand surface)
+    tertiary:  "#e94f7e"   # --color-brand-tertiary  (accent surface)
 
-  # Action — all four are required
   action:
-    success: "#2e7d4f"     # --color-action-success
-    info:    "#2a6f97"     # --color-action-info
-    warning: "#b7791f"     # --color-action-warning
-    danger:  "#b23a2e"     # --color-action-danger
+    success: "#16a34a"     # --color-action-success
+    info:    "#0ea5e9"     # --color-action-info
+    warning: "#d97706"     # --color-action-warning
+    danger:  "#dc2626"     # --color-action-danger
 
-  # Text  (drop-.base rule: colors.text.base -> --color-text)
   text:
-    base:    "#000000"     # --color-text
-    accent:  "#ffcc00"     # --color-text-accent (highlighted or selected text)
-    muted:   "#606060"     # --color-text-muted
-    ondark:  "#ffffff"     # --color-text-ondark
+    base:    "#0c0c0a"     # --color-text            (drop-.base rule)
+    accent:  "#2d2dff"     # --color-text-accent
+    muted:   "#6b7280"     # --color-text-muted
+    ondark:  "#f0efea"     # --color-text-ondark
 
-  # Surface  (drop-.base rule: colors.surface.base -> --color-surface)
   surface:
-    base: "#ffffff"        # --color-surface
-    alt:  "#f2f2f2"        # --color-surface-alt
-    dark: "#0f0f0f"        # --color-surface-dark      (optional, overridden)
-    # card:  omitted → --color-surface-card: var(--color-surface)
+    base: "#f2f1ed"        # --color-surface         (drop-.base rule)
+    alt:  "#e4e3de"        # --color-surface-alt
+    dark: "#0c0c0a"        # --color-surface-dark
+    card: "#ffffff"        # --color-surface-card
 
 # ============================================================================
-# TYPOGRAPHY  —  entries are objects;
-# fontFamily, fontWeight, lineHeight, letterSpacing values MUST use existing preset values from design-tokens.css (CSS variables)
+# TYPOGRAPHY — fontFamily values must match design-tokens.css exactly
 # ============================================================================
 typography:
-  # Font families — No font size
   base: {
-    fontFamily: 'ui-serif, "Palatino Linotype", Cambria, Georgia, serif',
+    fontFamily: '"Plus Jakarta Sans", system-ui, sans-serif',
     fontWeight: "var(--font-weight-regular)",
     lineHeight: "var(--line-height-normal)"
   }
   display: {
-    fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Verdana, sans-serif',
-    fontWeight: "var(--font-weight-semibold)",
+    fontFamily: '"DM Serif Display", Georgia, serif',
+    fontWeight: "var(--font-weight-bold)",
     lineHeight: "var(--line-height-tight)",
     letterSpacing: "var(--letter-spacing-tight)"
   }
   mono: {
-    fontFamily: 'ui-monospace, "Courier New", monospace'
+    fontFamily: '"JetBrains Mono", ui-monospace, monospace'
   }
 
 # ============================================================================
-# ROUNDED  —  corner radius presets (all five are required)
-# Values in rem, except full (9999px for circular shapes).
+# ROUNDED — corner radius presets (all five required)
 # ============================================================================
 rounded:
   none: "0"
   sm:   "0.25rem"
-  md:   "0.75rem"
-  lg:   "1.125rem"
-  full: "9999px"   # circular — avatars, icons, pills
+  md:   "0.5rem"
+  lg:   "0.75rem"
+  full: "9999px"
 
 # ============================================================================
-# SPACING  —  spatial rhythm scale, 4px linear (all required)
+# SPACING — 4px linear scale, base is always 1rem
 # ============================================================================
 spacing:
   xs:   "0.25rem"
@@ -82,18 +72,15 @@ spacing:
   xxl:  "3rem"
 
 # ============================================================================
-# ELEVATION  —  custom top-level family (shadow presets; optional, default none)
-# Values match the flat preset — import from presets/elevation/flat.css.
+# ELEVATION — shadow presets (optional, default none)
 # ============================================================================
 elevation:
-  sm: "none"
-  md: "none"
-  lg: "none"
+  sm: "0 1px 4px 0 rgb(0 0 0 / 6%)"
+  md: "0 2px 8px -2px rgb(0 0 0 / 10%)"
+  lg: "0 4px 16px -4px rgb(0 0 0 / 12%)"
 
 # ============================================================================
-# BORDER  —  custom top-level family (border WIDTHS; all required)
-# Values match the 124 preset — import from presets/borders/124.css.
-# Border COLORS are not tokens — components pick them under `components`.
+# BORDER — border WIDTHS only (all required); border colors are not tokens
 # ============================================================================
 border:
   sm: "1px"
@@ -103,121 +90,68 @@ border:
 
 ## Overview
 
-This is a reference DESIGN.md demonstrating the dual-file token contract from
-the `design-system-tokens` skill. It describes a minimalist, editorial theme
-inspired by National Geographic: black type, white paper, and one yellow accent.
-The front matter above lists every required token plus a selection of optional
-tokens. Optional tokens that are omitted here still exist in the stylesheet with
-a `var()` fallback to a required token.
+The default Design System for the DS Visualizer. It matches the reference
+visualizer's starting values so the two tools can be compared side by side.
+It is a dual-file contract: the YAML front matter above is the source of truth
+for token values, and `design-tokens.css` exposes every token as a CSS variable.
 
 ## Colors
 
-- **Primary (`#000000`)** — Black. Headings, logo, and contrast.
-- **Accent (`#ffcc00`)** — National Geographic yellow. CTAs, highlights, and
-  selection. Use it for surfaces and marks, not for body text.
-- **Secondary (`#333333`)** — Dark gray. Additional brand color for decorative
-  surfaces.
-- **Tertiary** — omitted; the stylesheet falls back to `var(--color-brand-primary)`.
-- **Success (`#2e7d4f`)** — Forest green. Form success, confirmation.
-- **Info (`#2a6f97`)** — Slate blue. Informational messages.
-- **Warning (`#b7791f`)** — Ochre. Warnings, cautionary messages.
-- **Danger (`#b23a2e`)** — Brick red. Errors, destructive actions.
-- **Text base (`#000000`)** — Body text.
-- **Text accent (`#ffcc00`)** — Highlighted or selected text. It maps to the
-  brand accent, so it is yellow/orange. Do not use it for body copy, links, or
-  headings.
-- **Text muted (`#606060`)** — Subdued text: captions, notes.
-- **Text ondark (`#ffffff`)** — Text on dark surfaces: footer, dark sections.
-- **Surface base (`#ffffff`)** — Default page background.
-- **Surface alt (`#f2f2f2`)** — Alternating sections and aside panels.
-- **Surface dark (`#0f0f0f`)** — Footer, dark sections.
-- **Surface card** — omitted; falls back to `var(--color-surface)`.
+- **Primary (`#0a0a0f`)** — Near-black. Headings, logo, and contrast.
+- **Accent (`#2d2dff`)** — Electric blue. CTAs, highlights, and selection.
+- **Secondary (`#5b4fe9`)** — Indigo. Supporting brand surfaces.
+- **Tertiary (`#e94f7e`)** — Pink. Accent surfaces.
+- **Success / Info / Warning / Danger** — Semantic feedback colors.
+- **Text base (`#0c0c0a`)** — Body text. **Muted (`#6b7280`)** — captions and
+  notes. **On-dark (`#f0efea`)** — text on dark surfaces.
+- **Surface base (`#f2f1ed`)** — page background. **Alt (`#e4e3de`)** —
+  alternating sections. **Dark (`#0c0c0a`)** — dark sections. **Card
+  (`#ffffff`)** — cards and forms.
 
 ### Color variants
 
 Brand and action colors carry `muted` and `active` variants derived
-automatically from the base color via CSS relative color syntax:
-
-- `muted`  — `hsl(from <base> h calc(s * 0.8) calc(l * 1.2))` — less
-  saturated, lighter; the softened, resting variant.
-- `active` — `hsl(from <base> h calc(s * 1.2) calc(l * 1.1))` — more
-  saturated, lighter; the vivid hover/pressed variant.
-
-Only `brand` and `action` colors carry these variants, because they are used
-on interactive elements with states. Text and surface colors define their own
-variants explicitly in the token tables. These derived variants are **not
-design tokens** — do not list them in the front matter. They are generated in
-`color-variants.css`, included after the main design-tokens stylesheet.
+automatically from the base color via CSS relative color syntax
+(`hsl(from <base> h calc(s * 0.8) calc(l * 1.2))` and
+`hsl(from <base> h calc(s * 1.2) calc(l * 1.1))`). These variants are **not
+design tokens** — do not list them in the front matter. They live in
+`color-variants.css`, included after the main stylesheet.
 
 ## Typography
 
-Body text uses a system serif stack (`ui-serif`, Palatino Linotype, Cambria,
-Georgia). Headings use the system sans stack for an editorial contrast. Code and
-labels use `ui-monospace`. The type scale is geometric with ratio 1.5 (Perfect
-Fifth): `size(step) = 1rem * 1.5^step`, so `md` is `1rem`, `lg` `1.5rem`, `xl`
-`2.25rem`, and `xs`/`sm` go down to `0.444rem`/`0.667rem`. Font sizes are
-defined in the stylesheet only — they are not front-matter entries. The
-optional `2xl` and `display` steps fall back to `var(--font-size-xl)` unless
-overridden in the stylesheet.
+Body text uses Plus Jakarta Sans; headings use DM Serif Display; code and
+labels use JetBrains Mono. The size scale is geometric with ratio `1.333`
+(Perfect Fourth) anchored at `1rem`: `xs` `0.5625rem` through `display`
+`3.158rem`. Font sizes, weights, line heights, and letter spacing are
+stylesheet-only tokens — they have no front-matter entry.
 
 ## Layout
 
-A 4px linear spacing scale with 1rem (16px) as the base step. Content is
-constrained to a max-width of 1200px with generous section padding.
+A 4px linear spacing scale with `base` at `1rem`. Content is constrained to a
+max width with generous section padding.
 
 ## Elevation & Depth
 
-The design is flat — all elevation tokens are set to `none` (flat preset).
-Depth is conveyed through color contrast and spacing rather than shadows.
+Three shadow presets (`sm`, `md`, `lg`) convey depth for cards, modals, and
+dropdowns. Use them sparingly; color contrast and spacing carry most of the
+hierarchy.
 
 ## Shapes
 
-Corner radii range from 4px (0.25rem — chips, inputs) to 9999px (circular
-avatars). Cards and thumbnails use 0.75rem. Pill buttons and large chips use
-1.125rem.
+Corner radii run from `none` (`0`) to `full` (`9999px`). Inputs and small
+badges use `sm`; cards and buttons use `md`; large panels use `lg`.
 
 ## Components
 
-Components pick the color tokens they need for their states and variants.
-
-### Link
-
-Links are black and underlined. On hover and active, they get a pale yellow
-highlight derived from the brand accent. Visited links use the muted text color.
-
-- **default** — `textColor: "{colors.text.base}"` → `--color-text`
-- **hover and active** — highlighted with `--color-brand-accent-muted` (the
-  softened accent variant)
-- **visited** — `textColor: "{colors.text.muted}"` → `--color-text-muted`
-
-In the stylesheet this maps to:
-
-```css
-a {
-    color: var(--color-text);
-    text-decoration: underline;
-}
-a:hover,
-a:active {
-    background: var(--color-brand-accent-muted);
-}
-a:visited {
-    color: var(--color-text-muted);
-}
-```
-
-The same pattern applies to other components that need specific colors for
-their variants — e.g. a Card component may pick `colors.surface` for its
-background and `colors.brand.accent` for a highlight bar.
+Components pick the color tokens they need for their states and variants. A
+Button uses `--color-brand-primary` with `--color-on-primary` for its label;
+a Card uses `--color-surface-card` with `--elevation-md`. Border colors are not
+tokens — components choose the color token that fits.
 
 ## DO's and DON'Ts
 
-- Do reserve the accent yellow for highlights, selection, and CTAs
-- Do use `var()` fallbacks for optional tokens in the stylesheet
-- Do use the black primary color for text and links
-- Do use `colors.text.accent` only for highlighted or selected text, never for
-  body copy
-- Do not list the derived `muted` / `active` variants as tokens in the front
-  matter — they are generated in `color-variants.css`
-- Do not redefine `--elevation-*` or `--border-*` in the main stylesheet —
-  import the chosen preset instead
+- Do reserve the accent for highlights, selection, and CTAs.
+- Do use `var()` fallbacks for optional tokens in the stylesheet.
+- Do keep the front matter and `design-tokens.css` identical.
+- Do not list derived `muted` / `active` variants as tokens.
+- Do not write raw colors or sizes in component CSS.

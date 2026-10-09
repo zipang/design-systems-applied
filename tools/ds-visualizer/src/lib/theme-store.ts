@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
-import defaultDesignMd from "../../DESIGN.md" with { type: "text" };
-import defaultTokensCss from "../../design-tokens.css" with { type: "text" };
 import { mergeValues, parseContract, serializeDesignMd, serializeTokensCss } from "./contract";
+import { DEFAULT_DESIGN_MD, DEFAULT_TOKENS_CSS } from "./default-theme";
 import type { TokenValues } from "./design-system";
 import { type Issue, validateContract } from "./validate";
 
@@ -24,7 +23,7 @@ export interface ThemeStore {
 	exportFiles: () => void;
 }
 
-const initialContract = parseContract(defaultDesignMd, defaultTokensCss);
+const initialContract = parseContract(DEFAULT_DESIGN_MD, DEFAULT_TOKENS_CSS);
 const initialValues = mergeValues(initialContract);
 
 const download = (name: string, text: string): void => {
@@ -45,7 +44,7 @@ const errorMessage = (error: unknown): string =>
  * in sync. The editor seeds from the tool's own Design System.
  */
 export const useThemeStore = (): ThemeStore => {
-	const [baseDesignMd, setBaseDesignMd] = useState(defaultDesignMd);
+	const [baseDesignMd, setBaseDesignMd] = useState(DEFAULT_DESIGN_MD);
 	const [values, setValues] = useState<TokenValues>(initialValues);
 	const [dir, setDir] = useState("");
 	const [status, setStatus] = useState<ThemeStatus>("idle");
@@ -66,7 +65,7 @@ export const useThemeStore = (): ThemeStore => {
 	}, []);
 
 	const reset = useCallback(() => {
-		setBaseDesignMd(defaultDesignMd);
+		setBaseDesignMd(DEFAULT_DESIGN_MD);
 		setValues(initialValues);
 		setDirty(true);
 		setStatus("idle");

@@ -1,54 +1,49 @@
-# AGENTS.md — Radix UI Starter
+# AGENTS.md — DS Visualizer
 
-Rules for AI agents that work in this demo. The root `AGENTS.md` still applies; these
-rules add the demo's conventions.
+Rules for AI agents that work in `tools/ds-visualizer/`. The root `AGENTS.md` still
+applies; these rules add the tool's conventions.
 
-## What this demo is
+## What this tool is
 
-A themeable chat application that applies the Design Systems Applied token contract on
-top of Radix UI. It is a reference, not a mockup: agents copy its patterns. Every UI
-element comes from our own component library, and every style consumes a design token.
+A Bun + React + Radix application that edits and previews our Design System contract. It
+is a first-class tool, not a demo. Every element comes from our component library, and
+every style consumes a design token.
 
 ## Layout
 
 ```
-DESIGN.md            reserved for the demo's Design System (added with the themes)
+DESIGN.md            the tool's own Design System (source of truth for its chrome)
+design-tokens.css    the tool's own tokens as CSS variables
 index.html           HTML entrypoint
 tsconfig.json        standalone TypeScript config with the import aliases
 src/
-  server.tsx         Bun dev server (HTML import)
-  main.tsx           React entrypoint
-  App.tsx            composes the page shell and switches pages
+  server.tsx         Bun server: HTML entry, /api/theme read + save
+  main.tsx           React entrypoint; injects the tool theme at runtime
+  App.tsx            composes the toolbar, section nav, and scoped preview host
   components/        our UI library (see src/components/AGENTS.md)
-  lib/               pure logic (clsx, eliza, theme, scroll) with colocated tests
+  lib/               pure contract logic (design-system, contract, validate, theme-api)
   styles/            shared, theme-agnostic stylesheets
-themes/<name>/       one complete Design System per theme (DESIGN.md + design-tokens.css)
 ```
 
-## Rules for this demo
+## Rules
 
-- Follow `src/AGENTS.md` for all TypeScript in this demo.
+- Follow `src/AGENTS.md` for all TypeScript in this package.
 - Follow `src/components/AGENTS.md` for everything under `src/components/`.
-- Component rendering tests are intentionally omitted: Radix UI primitives are already
-  tested upstream, and this library only adds styling. Test pure logic and the token
-  contract instead. This is the documented exception to the root rule "one test per
-  source" (see `roadmap/T0002/spec.md`).
-- Each theme is a complete Design System. Keep each `DESIGN.md` and its
-  `design-tokens.css` identical.
-- No raw colors, sizes, or radii in component CSS. Use `var(--token)` only.
-- No raw `h1`–`h6` or `p`. Use `base/Heading` and `base/Text`.
+- **The token list is fixed.** `src/lib/design-system.ts` is the registry; do not add a
+  token without updating the skill first.
+- **Preview is scoped.** The edited theme applies under `[data-ds-preview]` only. Never
+  apply edited tokens to `:root` — that would restyle the tool's chrome.
+- **Contract logic is pure and tested.** `src/lib/` holds no React and no DOM. Keep it
+  that way; the server and the client both use it.
+- Component rendering tests are intentionally omitted (see `src/components/AGENTS.md`).
+- Run `bun run check`, `bun run typecheck`, and `bun test` before committing.
 
 ## Commands
 
 ```
 Install:  bun install                                  # from the repo root (workspaces)
-Dev:      bun run --cwd demos/radix-ui-starter dev
-Build:    bun run --cwd demos/radix-ui-starter build
+Dev:      bun run --cwd tools/ds-visualizer dev
+Build:    bun run --cwd tools/ds-visualizer build
 Check:    bun run check
 Test:     bun test
 ```
-
-The `dev` server runs `bun --hot` with React Fast Refresh. The root `react-refresh`
-devDependency enables it: Bun detects React at the workspace root, while the isolated
-install keeps React in this package's `node_modules`. Without it, Bun disables Fast
-Refresh and every edit reloads the page. Do not remove it.

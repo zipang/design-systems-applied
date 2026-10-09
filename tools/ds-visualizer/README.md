@@ -1,18 +1,49 @@
-# Radix UI Starter
+# DS Visualizer
 
-A themeable chat demo that shows how to apply the Design Systems Applied token
-contract on top of Radix UI. Radix UI is a good choice for this purpose because its
-components come with no styles. We wrap them and style them with design tokens only.
+An in-repo tool that creates, edits, previews, and saves a Design System as the
+`DESIGN.md` + `design-tokens.css` contract. It is built with Bun, React, and Radix UI,
+and it renders itself with our own components and design tokens — no Tailwind, no
+shadcn.
 
-## Component library
+## What it does
 
-UI components live in `src/components/` where they are organized following the Atomic Design principles. 
+- **Edits the fixed token list.** Every token from the `design-system-tokens` skill has
+  an editor: typography (families, size scale, weights, line heights, letter spacing),
+  colors (brand, action, text, surface) with derived `muted`/`active` variants, spacing
+  (`xs`–`xxl`), shapes (`rounded`, `border`, `elevation`), and the component gallery.
+- **Previews in scope.** The edited theme is serialized and applied under
+  `[data-ds-preview]`, so the preview updates while the tool's own chrome keeps its
+  tokens.
+- **Reads and writes the contract.** A Bun server reads and writes `DESIGN.md` and
+  `design-tokens.css` under a project directory, validating against the section 10 rules
+  before it saves.
+- **Stays honest.** Every value consumes a token; the fixed list is the same one the
+  skill documents.
 
+## Commands
 
-- [`@components/layout/README.md`](src/components/layout/README.md) — layout
-  primitives and the page shell.
-- [`@assets/icons/README.md`](src/assets/icons/README.md) — SVG icons and how to add
-  one.
+```
+Install:    bun install                                   # from the repo root (workspaces)
+Dev:        bun run --cwd tools/ds-visualizer dev
+Build:      bun run --cwd tools/ds-visualizer build
+Typecheck:  bun run --cwd tools/ds-visualizer typecheck
+```
 
-The package is a standalone project with its own `tsconfig.json`. It declares the
-import aliases `@components`, `@assets`, `@lib`, and `@styles`.
+The dev server also exposes the theme API: `GET /api/theme?dir=<project>` and
+`POST /api/theme`.
+
+## Layout
+
+```
+DESIGN.md                 the tool's own Design System
+design-tokens.css         the tool's own tokens as CSS variables
+ui-theme-overrides.css    the theme contrast layer
+src/server.tsx            Bun server: HTML entry + theme API
+src/App.tsx               shell: toolbar, section nav, scoped preview host
+src/lib/                  pure contract logic (model, parse, serialize, validate)
+src/components/editor/    toolbar, fields, token reference, issues
+src/components/preview/   the five preview + editor sections
+src/components/base|ui|layout/   our component library (from radix-ui-starter)
+```
+
+See `AGENTS.md` for the rules that apply in this package.

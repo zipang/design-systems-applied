@@ -1,6 +1,6 @@
-# AGENTS.md — demo TypeScript
+# AGENTS.md — DS Visualizer TypeScript
 
-TypeScript rules for `demos/radix-ui-starter/src/`. The root and demo `AGENTS.md`
+TypeScript rules for `tools/ds-visualizer/src/`. The root and tool `AGENTS.md`
 still apply.
 
 - **Arrow functions only.** No `function` declarations for components or helpers.
@@ -13,7 +13,7 @@ still apply.
 - **Comments explain *why* only**, at non-obvious branches. Do not narrate the code.
 - **Path aliases.** Import across directories with the aliases `@components`,
   `@assets`, `@lib`, and `@styles`. The package declares them in
-  `demos/radix-ui-starter/tsconfig.json`. Keep imports within the same directory
+  `tools/ds-visualizer/tsconfig.json`. Keep imports within the same directory
   relative (for example `./Foo`).
 - **Class names use `clsx()`** from `@lib/clsx`. Never concatenate strings by hand
   and never add an external class-name library.

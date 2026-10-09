@@ -1,28 +1,27 @@
 # AGENTS.md — demo components
 
-Rules for the component library under `demos/radix-ui-starter/src/components/`. The
-root, demo, and `src/AGENTS.md` rules still apply.
+Rules for the component library under `tools/ds-visualizer/src/components/`. The
+root, tool, and `src/AGENTS.md` rules still apply.
 
 ## Tiers
 
-Components live in five tiers. Place each component in the lowest tier that fits.
+Components live in tiers. Place each component in the lowest tier that fits.
 
 - **`base/`** — low-level primitives (`Box`, `Heading`, `Text`, `Icon`). `Heading` and
   `Text` replace raw text tags. `Box` is the token-driven structural primitive.
-- **`ui/`** — Radix UI wrappers and generic UI primitives (`Button`, `TextField`,
-  `DropdownMenu`, `Dialog`, `Avatar`, `ThemeSwitcher`).
+- **`ui/`** — Radix UI wrappers and generic UI primitives (`Button`,
+  `TextField`, `DropdownMenu`, `Dialog`, `ScrollArea`).
 - **`layout/`** — layout primitives only (`Container`, `VStack`, `HStack`, `Grid`, and the
   page shell: `PageLayout`, `PageHeader`, `PageBody`, `PageFooter`,
   `SiteNavigationHeader`).
-- **`chat/`** — product-named components for the chat demo (`ChatPanel`, `ChatHeader`,
-  `MessageList`, `Message`, `Composer`).
-- **`demo/`** — product-named page compositions for the demo (`ComponentsDemo` and its
-  sections).
+- **`editor/`** — visualizer controls (`Toolbar`, `Fields`, `TokenReference`,
+  `IssuesPanel`).
+- **`preview/`** — visualizer preview sections (`Preview`).
 
 Rules:
 
-- Product-named components never live in `layout/` or `ui/`.
-- Dependencies flow downward only: `chat` and `demo` may use `ui`, `layout`, and
+- Product-named components live in `editor/` or `preview/`, never in `layout/` or `ui/`.
+- Dependencies flow downward only: `editor` and `preview` may use `ui`, `layout`, and
   `base`; never the reverse.
 - **No raw `h1`–`h6` or `p` in pages or components.** Typography goes through
   `base/Heading` and `base/Text` exclusively.

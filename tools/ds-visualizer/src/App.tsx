@@ -1,3 +1,4 @@
+import { IssuesPanel } from "@components/editor/IssuesPanel";
 import { TokenReference } from "@components/editor/TokenReference";
 import { Toolbar } from "@components/editor/Toolbar";
 import {
@@ -83,6 +84,7 @@ export const App: React.FC = () => {
 				))}
 			</nav>
 			<main className="app__content">
+				<IssuesPanel issues={store.issues} onShowReference={() => setShowReference(true)} />
 				<TypographySection values={store.values} update={store.update} />
 				<ColorsSection values={store.values} update={store.update} />
 				<SpacingSection values={store.values} update={store.update} />

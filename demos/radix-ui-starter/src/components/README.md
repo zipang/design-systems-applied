@@ -7,7 +7,7 @@ components only. They never use Radix UI directly.
 
 Components live in five tiers. Add a component to the lowest tier that fits.
 
-- `base/` — Typography and low-level primitives: `Heading`, `Text`, `Icon`.
+- `base/` — Low-level primitives: `Box`, `Heading`, `Text`, `Icon`.
 - `ui/` — Radix UI wrappers and generic UI primitives: `Button`, `TextField`,
   `DropdownMenu`, `Dialog`, `Avatar`, `ScrollArea`, `ThemeSwitcher`.
 - `layout/` — Layout primitives and the page shell: `Container`, `VStack`, `HStack`,

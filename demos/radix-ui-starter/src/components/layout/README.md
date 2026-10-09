@@ -15,6 +15,10 @@ spacing tokens only. The rules for the tier are in [`../AGENTS.md`](../AGENTS.md
 The `gap` props use the `Space` type from [`space.ts`](./space.ts): `xs`, `sm`, `md`,
 `base`, `lg`, `xl`, `xxl`.
 
+The primitives also accept the box aspects through `BoxProperties` (`p`, `px`, `py`,
+`m`, `mx`, `my`, `border`, `borderColor`, `elevation`, `rounded`, `background`). They
+merge `boxClassNames` into their root class. `Container` sets the `px` default to `lg`.
+
 ```tsx
 import { Container } from "@components/layout/Container";
 import { HStack } from "@components/layout/HStack";

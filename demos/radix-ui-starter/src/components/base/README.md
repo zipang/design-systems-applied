@@ -1,10 +1,51 @@
 # base/
 
-Typography and low-level primitives. These components replace raw HTML text tags in
-pages and in other components. The rules for the tier are in
-[`../AGENTS.md`](../AGENTS.md).
+Low-level primitives. `Heading` and `Text` replace raw HTML text tags in pages and in
+other components. `Box` is the token-driven structural primitive. The rules for the
+tier are in [`../AGENTS.md`](../AGENTS.md).
 
 Examples use the package aliases declared in [`tsconfig.json`](../../tsconfig.json).
+
+## Box
+
+The token-driven box primitive. Every aspect prop accepts only a token-derived enum, so
+a box cannot drift from the Design System. `as` picks the emitted semantic tag.
+
+| Prop | Type | Default | Notes |
+|------|------|---------|-------|
+| `p`, `px`, `py` | `xs`, `sm`, `md`, `base`, `lg`, `xl`, `xxl` | — | Padding. `px` is inline, `py` is block. |
+| `m`, `mx`, `my` | same steps | — | Margin. `mx` is inline, `my` is block. |
+| `border` | `sm`, `md`, `lg` | — | Border width. The border uses `currentColor` without `borderColor`. |
+| `borderColor` | color role | — | Border color token. |
+| `elevation` | `sm`, `md`, `lg` | — | Shadow token. |
+| `rounded` | `none`, `sm`, `md`, `lg`, `full` | — | Corner radius token. |
+| `background` | color role | — | Background color token. |
+| `as` | `div`, `span`, `section`, `article`, `aside`, `header`, `footer`, `nav`, `main` | `div` | Emitted semantic tag. |
+| `className` | `string` | — | Extra classes. |
+| `ref` | `Ref<HTMLElement>` | — | Element ref. The component forwards it. |
+
+A color role is one of `surface`, `surface-alt`, `surface-dark`, `surface-card`,
+`brand-primary`, `brand-accent`, `brand-secondary`, `brand-tertiary`,
+`action-success`, `action-info`, `action-warning`, `action-danger`.
+
+```tsx
+import { Box } from "@components/base/Box";
+
+<Box
+  as="section"
+  background="surface-alt"
+  border="sm"
+  borderColor="brand-secondary"
+  p="lg"
+  rounded="md"
+  elevation="sm"
+>
+  Box content
+</Box>
+```
+
+Components use `Box` and `BoxProperties` in three modes. The rules are in
+[`../AGENTS.md`](../AGENTS.md).
 
 ## Heading
 

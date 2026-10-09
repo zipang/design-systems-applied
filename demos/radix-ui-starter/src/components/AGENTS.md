@@ -7,8 +7,8 @@ root, demo, and `src/AGENTS.md` rules still apply.
 
 Components live in five tiers. Place each component in the lowest tier that fits.
 
-- **`base/`** — typography and low-level primitives (`Heading`, `Text`, `Icon`). These
-  replace raw text tags.
+- **`base/`** — low-level primitives (`Box`, `Heading`, `Text`, `Icon`). `Heading` and
+  `Text` replace raw text tags. `Box` is the token-driven structural primitive.
 - **`ui/`** — Radix UI wrappers and generic UI primitives (`Button`, `TextField`,
   `DropdownMenu`, `Dialog`, `Avatar`, `ThemeSwitcher`).
 - **`layout/`** — layout primitives only (`Container`, `VStack`, `HStack`, `Grid`, and the
@@ -53,6 +53,26 @@ Rules:
   ref from `layout/page-scroll.ts`. `SiteNavigationHeader` collapses on scroll-down via
   `lib/scroll/useScrollDirection.ts`. Never nest a `<header>` inside another `<header>`:
   a page's own header block goes in `PageBody` (the `article`).
+
+## The box surface
+
+`base/Box` exposes the box aspects as enum props through `BoxProperties`: spacing
+(`p`, `px`, `py`, `m`, `mx`, `my`), `border` and `borderColor`, `elevation`, `rounded`,
+and `background`. A component consumes the surface in one of three modes.
+
+1. **Inherit.** The props extend `BoxProperties`, and the component spreads the
+   remaining props onto an internal `Box`. A caller can override every box aspect.
+   `DialogContent` does this.
+2. **Layout inherit.** A layout primitive extends `BoxProperties` and merges
+   `boxClassNames(props)` into its own root class. `boxClassNames` always returns the
+   root `base-box` class, so the aspect rules always match. `HStack`, `VStack`, `Grid`,
+   and `Container` do this.
+3. **Compose.** The component renders a `Box` internally and keeps its `DESIGN.md` look
+   in CSS. The `Message` bubble does this.
+
+A component that exposes a box aspect must not set that aspect in its own stylesheet.
+`Box.css` and the component stylesheet have equal specificity, so the winner would
+depend on import order. Set the default on the prop instead.
 
 ## Example
 

@@ -47,3 +47,8 @@ Build:    bun run --cwd demos/radix-ui-starter build
 Check:    bun run check
 Test:     bun test
 ```
+
+The `dev` server runs `bun --hot` with React Fast Refresh. The root `react-refresh`
+devDependency enables it: Bun detects React at the workspace root, while the isolated
+install keeps React in this package's `node_modules`. Without it, Bun disables Fast
+Refresh and every edit reloads the page. Do not remove it.

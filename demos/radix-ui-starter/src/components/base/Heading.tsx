@@ -1,4 +1,5 @@
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import type * as React from "react";
 import "./Heading.css";
 
@@ -17,7 +18,7 @@ const DEFAULT_SIZE: Record<HeadingLevel, HeadingSize> = {
 	6: "xs"
 };
 
-interface HeadingProps {
+interface HeadingProps extends CommonProps {
 	level?: HeadingLevel;
 	size?: HeadingSize;
 	children: React.ReactNode;
@@ -29,13 +30,21 @@ interface HeadingProps {
  * Renders a heading element. `level` sets the tag; `size` sets the type size and
  * defaults to the level's step on the token scale.
  */
-export const Heading: React.FC<HeadingProps> = ({ level = 2, size, children, className, ref }) => {
+export const Heading: React.FC<HeadingProps> = ({
+	level = 2,
+	size,
+	children,
+	className,
+	ref,
+	...rest
+}) => {
 	const HeadingElt = `h${level}` as const;
 
 	return (
 		<HeadingElt
 			ref={ref}
 			className={clsx("base-heading", `base-heading--${size ?? DEFAULT_SIZE[level]}`, className)}
+			{...acceptCommonProps(rest)}
 		>
 			{children}
 		</HeadingElt>

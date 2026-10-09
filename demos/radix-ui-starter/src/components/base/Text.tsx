@@ -1,4 +1,5 @@
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import type * as React from "react";
 import "./Text.css";
 
@@ -8,7 +9,7 @@ export type TextSize = "xs" | "sm" | "md" | "lg" | "xl";
 /** Semantic text color roles. */
 export type TextTone = "base" | "muted" | "accent" | "ondark";
 
-interface TextProps {
+interface TextProps extends CommonProps {
 	size?: TextSize;
 	tone?: TextTone;
 	as?: "p" | "span";
@@ -27,7 +28,8 @@ export const Text: React.FC<TextProps> = ({
 	as = "p",
 	children,
 	className,
-	ref
+	ref,
+	...rest
 }) => {
 	const TextElt = as;
 
@@ -35,6 +37,7 @@ export const Text: React.FC<TextProps> = ({
 		<TextElt
 			ref={ref}
 			className={clsx("base-text", `base-text--${size}`, `base-text--${tone}`, className)}
+			{...acceptCommonProps(rest)}
 		>
 			{children}
 		</TextElt>

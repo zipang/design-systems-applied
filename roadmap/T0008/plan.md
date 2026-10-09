@@ -36,7 +36,7 @@ checkpoint per phase.
 
 ### Phase 1: Canonical skill
 
-- [ ] **Task 1: Finalize the typography tables in `SKILL.md`**
+- [x] **Task 1: Finalize the typography tables in `SKILL.md`**
   - Acceptance: the weight table lists exactly `thin`, `regular`, `bold`, `extrabold`
     (three required; `extrabold` optional → `var(--font-weight-bold)`); the line-height and
     letter-spacing tables use `regular`; descriptions point to the three `DESIGN.md` styles
@@ -45,7 +45,7 @@ checkpoint per phase.
   - Files: `skills/design-system-tokens/SKILL.md`
   - Depends: None
 
-- [ ] **Task 2: Align `references/design-tokens.css`**
+- [x] **Task 2: Align `references/design-tokens.css`**
   - Acceptance: the weight block matches the canonical values; `--line-height-regular` and
     `--letter-spacing-regular` replace `normal`; the optional fallbacks reference `regular`;
     the comment states the three styles.
@@ -53,7 +53,7 @@ checkpoint per phase.
   - Files: `skills/design-system-tokens/references/design-tokens.css`
   - Depends: Task 1
 
-- [ ] **Task 3: Update the `references/DESIGN.md` typography block**
+- [x] **Task 3: Update the `references/DESIGN.md` typography block**
   - Acceptance: `base` uses `var(--font-weight-regular)` + `var(--line-height-regular)`;
     `display` uses `var(--font-weight-bold)`, `var(--line-height-tight)`, and
     `var(--letter-spacing-tight)`; `mono` uses `var(--font-weight-thin)` +
@@ -62,7 +62,7 @@ checkpoint per phase.
   - Files: `skills/design-system-tokens/references/DESIGN.md`
   - Depends: Task 2
 
-- [ ] **Task 4: Update `references/utilities.css` and `references/reset.css`**
+- [x] **Task 4: Update `references/utilities.css` and `references/reset.css`**
   - Acceptance: weight utilities are `.font-thin` (was `.font-medium`), `.font-regular`,
     `.font-bold`, (keep `.font-extrabold`), and drop `.font-semibold`; `.leading-regular`
     and `.tracking-regular` replace the `normal` variants; the reset consumes
@@ -73,12 +73,12 @@ checkpoint per phase.
   - Depends: Task 2
 
 ### Checkpoint: Canonical skill
-- [ ] No removed name appears under `skills/design-system-tokens/`
-- [ ] Human review of the skill diff before spreading the change
+- [x] No removed name appears under `skills/design-system-tokens/`
+- [x] Human review of the skill diff before spreading the change
 
 ### Phase 2: DS Visualizer
 
-- [ ] **Task 5: Migrate the visualizer's contract files**
+- [x] **Task 5: Migrate the visualizer's contract files**
   - Acceptance: `design-tokens.css` uses the canonical weight block and renamed
     line-height/letter-spacing values; `DESIGN.md` typography matches the reference styles
     (`mono` gains `fontWeight` and `lineHeight`).
@@ -86,7 +86,7 @@ checkpoint per phase.
   - Files: `tools/ds-visualizer/design-tokens.css`, `tools/ds-visualizer/DESIGN.md`
   - Depends: Task 2
 
-- [ ] **Task 6: Update the fixed registry**
+- [x] **Task 6: Update the fixed registry**
   - Acceptance: `TOKENS` drops `--font-weight-medium`/`--font-weight-semibold`, adds
     `--font-weight-thin` (required), keeps `extrabold` optional → bold, and renames
     `--line-height-normal`/`--letter-spacing-normal` to `regular`.
@@ -94,21 +94,21 @@ checkpoint per phase.
   - Files: `tools/ds-visualizer/src/lib/design-system.ts`
   - Depends: Task 5
 
-- [ ] **Task 7: Sync the embedded default theme**
+- [x] **Task 7: Sync the embedded default theme**
   - Acceptance: the `DEFAULT_DESIGN_MD` and `DEFAULT_TOKENS_CSS` strings match the files in
     Task 5 byte value-for-value.
   - Verify: `bun test tools/ds-visualizer/src/lib/contract.test.ts`.
   - Files: `tools/ds-visualizer/src/lib/default-theme.ts`
   - Depends: Tasks 5, 6
 
-- [ ] **Task 8: Update the tool's shared stylesheets**
+- [x] **Task 8: Update the tool's shared stylesheets**
   - Acceptance: `styles/utilities.css` and `styles/reset.css` follow Task 4's end state.
   - Verify: grep for removed class/variable names.
   - Files: `tools/ds-visualizer/src/styles/utilities.css`,
     `tools/ds-visualizer/src/styles/reset.css`
   - Depends: Task 5
 
-- [ ] **Task 9: Migrate the visualizer component styles**
+- [x] **Task 9: Migrate the visualizer component styles**
   - Acceptance: `--font-weight-medium` → `--font-weight-thin`;
     `--font-weight-semibold` → `--font-weight-bold`; `--line-height-normal` →
     `--line-height-regular`.
@@ -121,14 +121,14 @@ checkpoint per phase.
     `tools/ds-visualizer/src/components/base/Text.css`
   - Depends: Task 5
 
-- [ ] **Task 10: Update the preview variable names**
+- [x] **Task 10: Update the preview variable names**
   - Acceptance: the `mono` track's `weightVariable` is `--font-weight-thin`; body/mono
     line-height and letter-spacing variables use `regular`; heading stays bold.
   - Verify: read `Preview.tsx`; `grep -nE "line-height-normal|letter-spacing-normal"`.
   - Files: `tools/ds-visualizer/src/components/preview/Preview.tsx`
   - Depends: Task 5
 
-- [ ] **Task 11: Confirm the visualizer tests**
+- [x] **Task 11: Confirm the visualizer tests**
   - Acceptance: contract, theme-api, validate, and design-system tests pass with no
     expectation edits beyond what Tasks 5–7 already require.
   - Verify: `bun test tools/ds-visualizer`.
@@ -137,12 +137,12 @@ checkpoint per phase.
   - Depends: Tasks 6, 7
 
 ### Checkpoint: DS Visualizer
-- [ ] `bun test` green
-- [ ] `bun run --cwd tools/ds-visualizer dev` renders with the new vocabulary
+- [x] `bun test` green
+- [x] `bun run --cwd tools/ds-visualizer dev` renders with the new vocabulary
 
 ### Phase 3: radix-ui-starter demo
 
-- [ ] **Task 12: Migrate the eight theme stylesheets**
+- [x] **Task 12: Migrate the eight theme stylesheets**
   - Acceptance: each `themes/*/design-tokens.css` defines `thin` `400`, `regular` `500`,
     `bold` `700`, `extrabold` → `var(--font-weight-bold)`, and uses `regular` for
     line-height and letter-spacing; no `medium`/`semibold`/`normal` remains.
@@ -150,14 +150,14 @@ checkpoint per phase.
   - Files: `demos/radix-ui-starter/themes/{cyan,reference,monokai,gruvbox,dracula,magenta,midnight,paper}/design-tokens.css`
   - Depends: Task 2
 
-- [ ] **Task 13: Update the four `var()`-based theme DESIGN.md files**
+- [x] **Task 13: Update the four `var()`-based theme DESIGN.md files**
   - Acceptance: `--font-weight-semibold` → `--font-weight-bold` and
     `--line-height-normal` → `--line-height-regular`.
   - Verify: grep the four files for removed names.
   - Files: `demos/radix-ui-starter/themes/{reference,monokai,gruvbox,dracula}/DESIGN.md`
   - Depends: Task 12
 
-- [ ] **Task 14: Convert literal theme values to `var()` references**
+- [x] **Task 14: Convert literal theme values to `var()` references**
   - Acceptance: in `cyan`, `magenta`, `midnight`, `paper`, `base` uses
     `var(--font-weight-regular)` + `var(--line-height-regular)`, `display` uses
     `var(--font-weight-bold)` + `var(--line-height-tight)`, and `mono` gains
@@ -167,7 +167,7 @@ checkpoint per phase.
   - Files: `demos/radix-ui-starter/themes/{cyan,magenta,midnight,paper}/DESIGN.md`
   - Depends: Task 12
 
-- [ ] **Task 15: Migrate the demo styles and components**
+- [x] **Task 15: Migrate the demo styles and components**
   - Acceptance: `styles/utilities.css` and `styles/reset.css` follow Task 4;
     component styles map medium → thin, semibold → bold, and line-height `normal` →
     `regular`.
@@ -183,23 +183,23 @@ checkpoint per phase.
   - Depends: Task 12
 
 ### Checkpoint: Demo
-- [ ] `bun run --cwd demos/radix-ui-starter dev` renders each theme
-- [ ] No theme front matter declares a literal `fontWeight` or `lineHeight`
+- [x] `bun run --cwd demos/radix-ui-starter dev` renders each theme
+- [x] No theme front matter declares a literal `fontWeight` or `lineHeight`
 
 ### Phase 4: Verification and commit
 
-- [ ] **Task 16: Run the gate and commit**
+- [x] **Task 16: Run the gate and commit**
   - Acceptance: `bun run check`, `bun run typecheck`, and `bun test` pass; the repository
     grep gate returns no source hit; both dev servers show correct typography.
   - Verify:
-    `grep -rnE "font-weight-(medium|semibold)|line-height-normal|letter-spacing-normal" --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=.tmp .`
-    returns nothing.
+    `grep -rnE "font-weight-(medium|semibold)|line-height-normal|letter-spacing-normal" --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=.tmp --exclude-dir=roadmap .`
+    returns nothing (the ticket itself names the removed tokens).
   - Files: none (verification only)
   - Depends: Tasks 1–15
 
 ### Checkpoint: Done
-- [ ] All success criteria in the spec are checked
-- [ ] Human sign-off
+- [x] All success criteria in the spec are checked
+- [x] Human sign-off
 
 ## Risks and Mitigations
 

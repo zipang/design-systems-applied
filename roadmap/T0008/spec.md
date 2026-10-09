@@ -136,18 +136,17 @@ Format:     bun run format
 
 ## Success Criteria
 
-- [ ] The skill documents exactly four font weights (three required, one optional).
-- [ ] `--line-height-regular` and `--letter-spacing-regular` are documented and used.
-- [ ] No file references `--font-weight-medium`, `--font-weight-semibold`,
+- [x] The skill documents exactly four font weights (three required, one optional).
+- [x] `--line-height-regular` and `--letter-spacing-regular` are documented and used.
+- [x] No file references `--font-weight-medium`, `--font-weight-semibold`,
       `--line-height-normal`, or `--letter-spacing-normal` (excluding `dist/`, `.tmp/`).
-- [ ] The visualizer registry, its `DESIGN.md`, and its `design-tokens.css` agree.
-- [ ] The `radix-ui-starter` themes and component styles use the new names.
-- [ ] No theme front matter declares a literal `fontWeight` or `lineHeight`; all such
+- [x] The visualizer registry, its `DESIGN.md`, and its `design-tokens.css` agree.
+- [x] The `radix-ui-starter` themes and component styles use the new names.
+- [x] No theme front matter declares a literal `fontWeight` or `lineHeight`; all such
       values are `var()` references.
-- [ ] `bun run check`, `bun run typecheck`, and `bun test` pass.
+- [x] `bun run check`, `bun run typecheck`, and `bun test` pass.
 
 ## Open Questions
 
-1. Every `radix-ui-starter` theme adopts the canonical weight scale (thin `400`, regular
-   `500`, bold `700`, extrabold → `var(--font-weight-bold)`). Confirm no theme should keep
-   a distinct value.
+None. Resolved: every `radix-ui-starter` theme adopts the canonical weight scale —
+thin `400`, regular `500`, bold `700`, extrabold → `var(--font-weight-bold)`.

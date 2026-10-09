@@ -27,9 +27,11 @@ apply the same class map.
 - **Types live in `box-classes.ts`, re-exported from `Box.tsx`.** The pure module has no
   CSS import, so `box-classes.test.ts` stays pure (component rendering tests are
   omitted; logic tests are not). `Box.tsx` owns the component and re-exports the types.
-- **Class-based mapping, CSS owns the token values.** `boxClassNames` emits enum classes
-  (`base-box--p-md`); `Box.css` maps each class to exactly one `var(--token)`. No token
-  name leaks into TSX and no raw value enters CSS.
+- **Class-based mapping, CSS owns the token values.** `boxClassNames` emits the root
+  `base-box` class plus enum classes (`base-box--p-md`); `Box.css` maps each aspect class
+  to exactly one `var(--token)`. No token name leaks into TSX and no raw value enters
+  CSS. The mapping always includes the root, so a consumer cannot emit an aspect class
+  without the class its rule is scoped under.
 - **Source order resolves uniform vs axis.** `p` and `px` have equal specificity, so the
   axis rules are ordered after the uniform rules. Documented in `Box.css`.
 - **`border` is width + `borderColor`.** Border colors are not tokens, so `Box` (a
@@ -47,9 +49,9 @@ apply the same class map.
 - [ ] **Task 1: Add the pure box model — enums, `BoxProperties`, `boxClassNames`, and its test**
   - Acceptance: `box-classes.ts` defines `BoxSpace`, `BoxRounded`, `BoxElevation`,
     `BoxBorderWidth`, `BoxColor`, and the `BoxProperties` interface exactly as the spec.
-    `boxClassNames(props)` returns only the aspect classes (`base-box` is added by the
-    component), one class per provided prop, nothing for omitted props, and the axis
-    class when both uniform and axis are set. The module imports no CSS.
+    `boxClassNames(props)` returns the root `base-box` class followed by one class per
+    provided prop, nothing extra for omitted props, and the axis class when both uniform
+    and axis are set. The module imports no CSS.
   - Verify: `bun test box-classes`
   - Files: `src/components/base/box-classes.ts`,
     `src/components/base/box-classes.test.ts`

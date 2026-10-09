@@ -58,7 +58,7 @@ export const Box: React.FC<BoxProps> = ({ as = "div", className, children, ref, 
 	const BoxElt = as as React.ElementType<BoxElementProps>;
 
 	return (
-		<BoxElt ref={ref} className={clsx("base-box", boxClassNames(props), className)}>
+		<BoxElt ref={ref} className={clsx(boxClassNames(props), className)}>
 			{children}
 		</BoxElt>
 	);

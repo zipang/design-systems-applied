@@ -124,7 +124,8 @@ Notes:
   decides.
 - `border` sets width only. Without `borderColor` the border uses `currentColor`, which
   is the documented default and needs no rule.
-- Omitted props emit no class. `Box` is otherwise unstyled and inherits typography.
+- Omitted props emit no aspect class. `boxClassNames` always returns the root `base-box`
+  class first, so every consumer carries the class the aspect rules are scoped under.
 
 ## Project structure
 
@@ -153,7 +154,8 @@ demos/radix-ui-starter/src/components/
 
 ## Class vocabulary
 
-Root class `base-box`. Each prop value maps to one class:
+`boxClassNames` always returns the root class `base-box` first, then one class per
+provided aspect:
 
 | Prop | Class pattern | Token |
 |------|---------------|-------|
@@ -198,7 +200,7 @@ export const Box: React.FC<BoxProps> = ({ as = "div", className, children, ref, 
 	const BoxElt = as;
 
 	return (
-		<BoxElt ref={ref} className={clsx("base-box", boxClassNames(props), className)}>
+		<BoxElt ref={ref} className={clsx(boxClassNames(props), className)}>
 			{children}
 		</BoxElt>
 	);

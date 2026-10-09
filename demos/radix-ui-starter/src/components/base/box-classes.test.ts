@@ -10,58 +10,60 @@ import {
 	boxClassNames
 } from "./box-classes";
 
+const ROOT = "base-box";
+
 /** Split the space-joined class string into individual class names. */
 const classesOf = (props: BoxProperties): string[] =>
 	boxClassNames(props).split(" ").filter(Boolean);
 
 describe("boxClassNames", () => {
-	test("returns an empty string for an empty props object", () => {
-		expect(boxClassNames({})).toBe("");
+	test("returns only the root class for an empty props object", () => {
+		expect(boxClassNames({})).toBe(ROOT);
 	});
 
-	test("never returns the root class — Box adds base-box itself", () => {
-		expect(classesOf({ p: "md" })).not.toContain("base-box");
+	test("always includes the root class, so aspect rules always match", () => {
+		expect(classesOf({ p: "md" })).toContain(ROOT);
 	});
 
 	test("maps every spacing step for each spacing prop", () => {
 		for (const step of BOX_SPACES) {
-			expect(boxClassNames({ p: step })).toBe(`base-box--p-${step}`);
-			expect(boxClassNames({ px: step })).toBe(`base-box--px-${step}`);
-			expect(boxClassNames({ py: step })).toBe(`base-box--py-${step}`);
-			expect(boxClassNames({ m: step })).toBe(`base-box--m-${step}`);
-			expect(boxClassNames({ mx: step })).toBe(`base-box--mx-${step}`);
-			expect(boxClassNames({ my: step })).toBe(`base-box--my-${step}`);
+			expect(boxClassNames({ p: step })).toBe(`${ROOT} ${ROOT}--p-${step}`);
+			expect(boxClassNames({ px: step })).toBe(`${ROOT} ${ROOT}--px-${step}`);
+			expect(boxClassNames({ py: step })).toBe(`${ROOT} ${ROOT}--py-${step}`);
+			expect(boxClassNames({ m: step })).toBe(`${ROOT} ${ROOT}--m-${step}`);
+			expect(boxClassNames({ mx: step })).toBe(`${ROOT} ${ROOT}--mx-${step}`);
+			expect(boxClassNames({ my: step })).toBe(`${ROOT} ${ROOT}--my-${step}`);
 		}
 	});
 
 	test("maps every rounded value", () => {
 		for (const value of BOX_ROUNDED) {
-			expect(boxClassNames({ rounded: value })).toBe(`base-box--rounded-${value}`);
+			expect(boxClassNames({ rounded: value })).toBe(`${ROOT} ${ROOT}--rounded-${value}`);
 		}
 	});
 
 	test("maps every elevation value", () => {
 		for (const value of BOX_ELEVATIONS) {
-			expect(boxClassNames({ elevation: value })).toBe(`base-box--elevation-${value}`);
+			expect(boxClassNames({ elevation: value })).toBe(`${ROOT} ${ROOT}--elevation-${value}`);
 		}
 	});
 
 	test("maps every border width value", () => {
 		for (const value of BOX_BORDER_WIDTHS) {
-			expect(boxClassNames({ border: value })).toBe(`base-box--border-${value}`);
+			expect(boxClassNames({ border: value })).toBe(`${ROOT} ${ROOT}--border-${value}`);
 		}
 	});
 
 	test("maps every color role for background and borderColor", () => {
 		for (const role of BOX_COLORS) {
-			expect(boxClassNames({ background: role })).toBe(`base-box--bg-${role}`);
-			expect(boxClassNames({ borderColor: role })).toBe(`base-box--border-color-${role}`);
+			expect(boxClassNames({ background: role })).toBe(`${ROOT} ${ROOT}--bg-${role}`);
+			expect(boxClassNames({ borderColor: role })).toBe(`${ROOT} ${ROOT}--border-color-${role}`);
 		}
 	});
 
 	test("orders uniform spacing before its axis so the axis class wins", () => {
 		expect(boxClassNames({ p: "sm", px: "lg", m: "xs", mx: "xl" })).toBe(
-			"base-box--p-sm base-box--px-lg base-box--m-xs base-box--mx-xl"
+			`${ROOT} ${ROOT}--p-sm ${ROOT}--px-lg ${ROOT}--m-xs ${ROOT}--mx-xl`
 		);
 	});
 
@@ -82,17 +84,18 @@ describe("boxClassNames", () => {
 			})
 		).toBe(
 			[
-				"base-box--p-md",
-				"base-box--px-lg",
-				"base-box--py-base",
-				"base-box--m-xs",
-				"base-box--mx-sm",
-				"base-box--my-xl",
-				"base-box--border-sm",
-				"base-box--border-color-brand-primary",
-				"base-box--elevation-lg",
-				"base-box--rounded-md",
-				"base-box--bg-surface-alt"
+				ROOT,
+				`${ROOT}--p-md`,
+				`${ROOT}--px-lg`,
+				`${ROOT}--py-base`,
+				`${ROOT}--m-xs`,
+				`${ROOT}--mx-sm`,
+				`${ROOT}--my-xl`,
+				`${ROOT}--border-sm`,
+				`${ROOT}--border-color-brand-primary`,
+				`${ROOT}--elevation-lg`,
+				`${ROOT}--rounded-md`,
+				`${ROOT}--bg-surface-alt`
 			].join(" ")
 		);
 	});
@@ -106,6 +109,8 @@ const emittableClasses = (): string[] => {
 			classes.add(cls);
 		}
 	};
+
+	add({});
 
 	for (const step of BOX_SPACES) {
 		add({ p: step, px: step, py: step, m: step, mx: step, my: step });

@@ -20,7 +20,7 @@ colors:
 
   text:
     base:    "#0c0c0a"     # --color-text            (drop-.base rule)
-    accent:  "#2d2dff"     # --color-text-accent
+    accent:  "#000"        # --color-text-accent
     muted:   "#6b7280"     # --color-text-muted
     ondark:  "#f0efea"     # --color-text-ondark
 

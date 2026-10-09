@@ -1,10 +1,11 @@
 import { type BoxProperties, boxClassNames } from "@components/base/Box";
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import type * as React from "react";
 import "./VStack.css";
 import type { Space } from "./space";
 
-interface VStackProps extends BoxProperties {
+interface VStackProps extends BoxProperties, CommonProps {
 	gap?: Space;
 	align?: "start" | "center" | "end" | "stretch";
 	children: React.ReactNode;
@@ -20,16 +21,17 @@ export const VStack: React.FC<VStackProps> = ({
 	align = "stretch",
 	children,
 	className,
-	...box
+	...rest
 }) => (
 	<div
 		className={clsx(
 			"layout-vstack",
 			`layout-vstack--gap-${gap}`,
 			`layout-vstack--align-${align}`,
-			boxClassNames(box),
+			boxClassNames(rest),
 			className
 		)}
+		{...acceptCommonProps(rest)}
 	>
 		{children}
 	</div>

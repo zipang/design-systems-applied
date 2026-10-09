@@ -1,10 +1,11 @@
 import { type BoxProperties, boxClassNames } from "@components/base/Box";
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import type * as React from "react";
 import "./HStack.css";
 import type { Space } from "./space";
 
-interface HStackProps extends BoxProperties {
+interface HStackProps extends BoxProperties, CommonProps {
 	gap?: Space;
 	align?: "start" | "center" | "end" | "stretch";
 	justify?: "start" | "center" | "end" | "between";
@@ -24,7 +25,7 @@ export const HStack: React.FC<HStackProps> = ({
 	wrap = false,
 	children,
 	className,
-	...box
+	...rest
 }) => (
 	<div
 		className={clsx(
@@ -33,9 +34,10 @@ export const HStack: React.FC<HStackProps> = ({
 			`layout-hstack--align-${align}`,
 			`layout-hstack--justify-${justify}`,
 			{ "layout-hstack--wrap": wrap },
-			boxClassNames(box),
+			boxClassNames(rest),
 			className
 		)}
+		{...acceptCommonProps(rest)}
 	>
 		{children}
 	</div>

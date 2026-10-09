@@ -1,10 +1,11 @@
 import { type BoxProperties, boxClassNames } from "@components/base/Box";
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import type * as React from "react";
 import "./Grid.css";
 import type { Space } from "./space";
 
-interface GridProps extends BoxProperties {
+interface GridProps extends BoxProperties, CommonProps {
 	columns?: 1 | 2 | 3 | 4;
 	gap?: Space;
 	children: React.ReactNode;
@@ -19,16 +20,17 @@ export const Grid: React.FC<GridProps> = ({
 	gap = "md",
 	children,
 	className,
-	...box
+	...rest
 }) => (
 	<div
 		className={clsx(
 			"layout-grid",
 			`layout-grid--columns-${columns}`,
 			`layout-grid--gap-${gap}`,
-			boxClassNames(box),
+			boxClassNames(rest),
 			className
 		)}
+		{...acceptCommonProps(rest)}
 	>
 		{children}
 	</div>

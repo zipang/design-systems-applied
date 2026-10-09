@@ -131,6 +131,8 @@ export const BoxDemo: React.FC = () => (
 
 		<Heading level={3}>Layout primitives</Heading>
 		<HStack
+			id="box-layout-demo"
+			data-testid="box-layout"
 			gap="md"
 			background="surface-alt"
 			border="sm"

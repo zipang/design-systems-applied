@@ -1,5 +1,6 @@
 import { type BoxProperties, boxClassNames } from "@components/base/Box";
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import type * as React from "react";
 import "./Container.css";
 
@@ -9,7 +10,7 @@ import "./Container.css";
  */
 export type ContainerWidth = "fluid" | "lg" | "prose";
 
-interface ContainerProps extends BoxProperties {
+interface ContainerProps extends BoxProperties, CommonProps {
 	as?: "div" | "main" | "section" | "nav";
 	width?: ContainerWidth;
 	children: React.ReactNode;
@@ -27,7 +28,7 @@ export const Container: React.FC<ContainerProps> = ({
 	px = "lg",
 	children,
 	className,
-	...box
+	...rest
 }) => {
 	const ContainerElt: React.ElementType = as;
 
@@ -36,9 +37,10 @@ export const Container: React.FC<ContainerProps> = ({
 			className={clsx(
 				"layout-container",
 				`layout-container--${width}`,
-				boxClassNames({ px, ...box }),
+				boxClassNames({ px, ...rest }),
 				className
 			)}
+			{...acceptCommonProps(rest)}
 		>
 			{children}
 		</ContainerElt>

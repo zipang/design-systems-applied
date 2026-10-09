@@ -45,6 +45,22 @@
 	text-transform: none;
 }
 
+.editor-field__pair {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+}
+
+.editor-field__pair .editor-field__select {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.editor-field__number {
+	flex: 0 0 auto;
+	width: 5.5rem;
+}
+
 .editor-color {
 	display: grid;
 	grid-template-columns: auto 1fr;

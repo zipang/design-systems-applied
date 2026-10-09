@@ -1,7 +1,7 @@
 import { Heading } from "@components/base/Heading";
 import { Text } from "@components/base/Text";
 import { EditableText } from "@components/editor/EditableText";
-import { NumberField, SelectField, TextInput } from "@components/editor/Fields";
+import { NumberField, TextInput, TokenField } from "@components/editor/Fields";
 import { FontPicker } from "@components/editor/FontPicker";
 import { SettingsCog } from "@components/editor/SettingsCog";
 import { Button } from "@components/ui/Button";
@@ -323,31 +323,25 @@ export const TypographySection: React.FC<TypographySectionProps> = ({
 					max={track === "heading" ? 9 : 5}
 					onChange={(value) => setConfig({ steps: Math.round(value) })}
 				/>
-				<SelectField
+				<TokenField
 					label="Weight"
-					value={weightVariable}
-					options={WEIGHT_OPTIONS}
-					onChange={(variable) => updateTypography(view.styleKey, "fontWeight", variable)}
-				/>
-				<NumberField
-					label={`${weightName} value`}
+					token={weightVariable}
+					tokens={WEIGHT_OPTIONS}
 					value={resolvedNumber(values, weightVariable)}
 					step={100}
 					min={100}
 					max={900}
-					onChange={(value) => update(weightVariable, String(value))}
+					onTokenChange={(variable) => updateTypography(view.styleKey, "fontWeight", variable)}
+					onValueChange={(value) => update(weightVariable, String(value))}
 				/>
-				<SelectField
+				<TokenField
 					label="Line height"
-					value={lineHeightVariable}
-					options={LINE_HEIGHT_OPTIONS}
-					onChange={(variable) => updateTypography(view.styleKey, "lineHeight", variable)}
-				/>
-				<NumberField
-					label={`${lineHeightName} value`}
+					token={lineHeightVariable}
+					tokens={LINE_HEIGHT_OPTIONS}
 					value={resolvedNumber(values, lineHeightVariable)}
 					step={0.01}
-					onChange={(value) => update(lineHeightVariable, String(value))}
+					onTokenChange={(variable) => updateTypography(view.styleKey, "lineHeight", variable)}
+					onValueChange={(value) => update(lineHeightVariable, String(value))}
 				/>
 			</MetaRow>
 

@@ -63,29 +63,61 @@ export interface SelectFieldOption {
 	label: string;
 }
 
-export interface SelectFieldProps {
+export interface TokenFieldProps {
 	label: string;
-	value: string;
-	options: SelectFieldOption[];
-	onChange: (value: string) => void;
+	token: string;
+	tokens: SelectFieldOption[];
+	value: number;
+	min?: number;
+	max?: number;
+	step?: number;
+	onTokenChange: (token: string) => void;
+	onValueChange: (value: number) => void;
 }
 
-/** Labeled native select for token-bound choices. */
-export const SelectField: React.FC<SelectFieldProps> = ({ label, value, options, onChange }) => (
-	<label className="editor-field">
+/**
+ * One label with a token picker and its value on the same line: choose which token a
+ * style uses, then edit that token's value. The value is never free — it belongs to the
+ * selected token.
+ */
+export const TokenField: React.FC<TokenFieldProps> = ({
+	label,
+	token,
+	tokens,
+	value,
+	min,
+	max,
+	step = 1,
+	onTokenChange,
+	onValueChange
+}) => (
+	<div className="editor-field">
 		<span className="editor-field__label">{label}</span>
-		<select
-			className="editor-field__input editor-field__select"
-			value={value}
-			onChange={(event) => onChange(event.currentTarget.value)}
-		>
-			{options.map((option) => (
-				<option key={option.value} value={option.value}>
-					{option.label}
-				</option>
-			))}
-		</select>
-	</label>
+		<span className="editor-field__pair">
+			<select
+				className="editor-field__input editor-field__select"
+				aria-label={`${label} token`}
+				value={token}
+				onChange={(event) => onTokenChange(event.currentTarget.value)}
+			>
+				{tokens.map((option) => (
+					<option key={option.value} value={option.value}>
+						{option.label}
+					</option>
+				))}
+			</select>
+			<input
+				className="editor-field__input editor-field__number"
+				type="number"
+				aria-label={`${label} value`}
+				value={Number.isFinite(value) ? value : ""}
+				min={min}
+				max={max}
+				step={step}
+				onChange={(event) => onValueChange(Number.parseFloat(event.currentTarget.value))}
+			/>
+		</span>
+	</div>
 );
 
 export interface ColorFieldProps {

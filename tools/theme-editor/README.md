@@ -32,6 +32,9 @@ Typecheck:  bun run --cwd tools/theme-editor typecheck
 The dev server also exposes the theme API: `GET /api/theme?dir=<project>` and
 `POST /api/theme`.
 
+The server listens on `http://localhost:4444` by default. Set `PORT` to override it
+(for example `PORT=5555 bun run theme-editor:dev`).
+
 ## Layout
 
 ```

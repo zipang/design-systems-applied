@@ -1,7 +1,7 @@
 import index from "../index.html";
 import { readTheme, saveTheme, ThemeApiError } from "./lib/theme-api";
 
-const port = Number(process.env.PORT ?? 3000);
+const port = Number(process.env.PORT ?? 4444);
 
 const json = (data: unknown, status = 200): Response =>
 	new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json" } });

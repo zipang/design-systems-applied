@@ -47,3 +47,5 @@ Build:    bun run --cwd tools/theme-editor build
 Check:    bun run check
 Test:     bun test
 ```
+
+The dev server listens on port `4444` by default (override with `PORT`).

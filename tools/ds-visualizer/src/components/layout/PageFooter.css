@@ -1,0 +1,4 @@
+/* PageFooter.css — every rule is scoped under .layout-page-footer */
+.layout-page-footer {
+	grid-row: 3;
+}

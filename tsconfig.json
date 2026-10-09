@@ -16,5 +16,5 @@
 		"forceConsistentCasingInFileNames": true
 	},
 	"include": ["**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules", ".opencode", ".tmp", "demos"]
+	"exclude": ["node_modules", ".opencode", ".tmp", "demos", "tools/ds-visualizer"]
 }

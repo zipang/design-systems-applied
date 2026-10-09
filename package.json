@@ -4,14 +4,15 @@
 	"private": true,
 	"type": "module",
 	"workspaces": [
-		"demos/*"
+		"demos/*",
+		"tools/*"
 	],
 	"scripts": {
 		"check": "biome check .",
 		"check:fix": "biome check --write .",
 		"format": "biome format --write .",
 		"generate:themes": "bun tools/generate-theme-overrides.ts",
-		"typecheck": "tsc --noEmit && bun run --cwd demos/radix-ui-starter typecheck",
+		"typecheck": "tsc --noEmit && bun run --cwd demos/radix-ui-starter typecheck && bun run --cwd tools/ds-visualizer typecheck",
 		"test": "bun test"
 	},
 	"devDependencies": {

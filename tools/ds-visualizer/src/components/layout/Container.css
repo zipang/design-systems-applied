@@ -1,0 +1,18 @@
+/* Container.css — every rule is scoped under .layout-container */
+.layout-container {
+	inline-size: 100%;
+	margin-inline: auto;
+
+	&.layout-container--fluid {
+		max-inline-size: none;
+	}
+
+	&.layout-container--lg {
+		max-inline-size: 52rem;
+	}
+
+	/* 70 characters: a comfortable reading measure. */
+	&.layout-container--prose {
+		max-inline-size: 70ch;
+	}
+}

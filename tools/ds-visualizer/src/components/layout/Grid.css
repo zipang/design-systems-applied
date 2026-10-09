@@ -1,0 +1,48 @@
+/* Grid.css — every rule is scoped under .layout-grid */
+.layout-grid {
+	display: grid;
+
+	&.layout-grid--columns-1 {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	&.layout-grid--columns-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	&.layout-grid--columns-3 {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	&.layout-grid--columns-4 {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	&.layout-grid--gap-xs {
+		gap: var(--space-xs);
+	}
+
+	&.layout-grid--gap-sm {
+		gap: var(--space-sm);
+	}
+
+	&.layout-grid--gap-md {
+		gap: var(--space-md);
+	}
+
+	&.layout-grid--gap-base {
+		gap: var(--space-base);
+	}
+
+	&.layout-grid--gap-lg {
+		gap: var(--space-lg);
+	}
+
+	&.layout-grid--gap-xl {
+		gap: var(--space-xl);
+	}
+
+	&.layout-grid--gap-xxl {
+		gap: var(--space-xxl);
+	}
+}

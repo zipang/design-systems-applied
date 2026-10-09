@@ -1,0 +1,22 @@
+/* ScrollArea.css — every rule is scoped under .ui-scroll-area */
+.ui-scroll-area {
+	overflow: hidden;
+
+	& .ui-scroll-area__viewport {
+		inline-size: 100%;
+		block-size: 100%;
+	}
+
+	& .ui-scroll-area__scrollbar {
+		display: flex;
+		inline-size: var(--space-sm);
+		padding: var(--space-xs);
+		user-select: none;
+		touch-action: none;
+	}
+
+	& .ui-scroll-area__thumb {
+		flex: 1;
+		background: var(--color-brand-secondary);
+	}
+}

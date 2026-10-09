@@ -1,0 +1,37 @@
+/* Heading.css — every rule is scoped under .base-heading */
+.base-heading {
+	margin: 0;
+	color: var(--color-text);
+	font-family: var(--font-family-display);
+	font-weight: var(--font-weight-bold);
+	line-height: var(--line-height-tight);
+	letter-spacing: var(--letter-spacing-tight);
+
+	&.base-heading--xs {
+		font-size: var(--font-size-xs);
+	}
+
+	&.base-heading--sm {
+		font-size: var(--font-size-sm);
+	}
+
+	&.base-heading--md {
+		font-size: var(--font-size-md);
+	}
+
+	&.base-heading--lg {
+		font-size: var(--font-size-lg);
+	}
+
+	&.base-heading--xl {
+		font-size: var(--font-size-xl);
+	}
+
+	&.base-heading--2xl {
+		font-size: var(--font-size-2xl);
+	}
+
+	&.base-heading--display {
+		font-size: var(--font-size-display);
+	}
+}

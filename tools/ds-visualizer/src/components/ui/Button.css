@@ -1,0 +1,91 @@
+/* Button.css — every rule is scoped under .ui-button */
+.ui-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-sm);
+	border: 0;
+	border-radius: var(--rounded-none);
+	color: var(--color-text);
+	font-family: var(--font-family-mono);
+	font-weight: var(--font-weight-medium);
+	line-height: var(--line-height-tight);
+	cursor: pointer;
+
+	/* Trim the font leading so labels sit optically centered, not on the baseline. */
+	& .ui-button__label {
+		text-box-trim: trim-both;
+		text-box-edge: cap alphabetic;
+	}
+
+	/* --- Variants --- */
+	&.ui-button--primary {
+		background: var(--color-brand-primary);
+		color: var(--color-text-ondark);
+	}
+
+	/* Bright accent: use the theme's darkest ink for contrast. */
+	&.ui-button--accent {
+		background: var(--color-brand-accent);
+		color: var(--color-surface-dark);
+	}
+
+	&.ui-button--secondary {
+		background: var(--color-surface-alt);
+		color: var(--color-text);
+	}
+
+	&.ui-button--ghost {
+		background: transparent;
+		color: var(--color-text);
+	}
+
+	&.ui-button--success {
+		background: var(--color-action-success);
+		color: var(--color-text-ondark);
+	}
+
+	&.ui-button--warning {
+		background: var(--color-action-warning);
+		color: var(--color-text-ondark);
+	}
+
+	&.ui-button--danger {
+		background: var(--color-action-danger);
+		color: var(--color-text-ondark);
+	}
+
+	&.ui-button--info {
+		background: var(--color-action-info);
+		color: var(--color-text-ondark);
+	}
+
+	/* --- Sizes — min-block-size keeps icon and text-only buttons equal height --- */
+	&.ui-button--sm {
+		min-block-size: calc(var(--space-lg) + var(--space-sm));
+		padding: var(--space-xs) var(--space-md);
+		font-size: var(--font-size-sm);
+	}
+
+	&.ui-button--default {
+		min-block-size: calc(var(--space-xl) + var(--space-base));
+		padding: var(--space-xs) var(--space-lg);
+		font-size: var(--font-size-md);
+	}
+
+	&.ui-button--lg {
+		min-block-size: calc(var(--space-xl) + var(--space-base) + var(--space-sm));
+		padding: var(--space-sm) var(--space-xl);
+		font-size: var(--font-size-lg);
+	}
+
+	/* --- States --- */
+	&.is-loading {
+		cursor: progress;
+	}
+
+	&.is-disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+}

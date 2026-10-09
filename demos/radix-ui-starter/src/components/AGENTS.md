@@ -74,6 +74,29 @@ A component that exposes a box aspect must not set that aspect in its own styles
 `Box.css` and the component stylesheet have equal specificity, so the winner would
 depend on import order. Set the default on the prop instead.
 
+## Common props
+
+Every base and layout component extends `CommonProps` and forwards the result of
+`acceptCommonProps(rest)` to its root element. The helper keeps a curated set and drops
+every other key, so a component's own props cannot leak onto the DOM.
+
+- Named attributes: `id`, `role`, `title`, `tabIndex`, `hidden`, `lang`, `dir`.
+- Families: every `aria-*` attribute, every `data-*` attribute, and every `on*` handler.
+
+`className` and `style` are not common props. A component owns its `className` and its
+token styling. Destructure the component's own props, then spread the result:
+
+```tsx
+export const Thing: React.FC<ThingProps> = ({ label, className, ...rest }) => (
+	<div className={clsx("ui-thing", className)} {...acceptCommonProps(rest)}>
+		{label}
+	</div>
+);
+```
+
+`acceptCommonProps` and `CommonProps` live in `@lib/common-props`. Add them to a
+component in `ui/`, `chat/`, or `demo/` when you next touch it.
+
 ## Example
 
 ```tsx

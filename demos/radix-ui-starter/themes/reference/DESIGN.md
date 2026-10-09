@@ -46,11 +46,11 @@ typography:
   base: {
     fontFamily: 'ui-serif, "Palatino Linotype", Cambria, Georgia, serif',
     fontWeight: "var(--font-weight-regular)",
-    lineHeight: "var(--line-height-normal)"
+    lineHeight: "var(--line-height-regular)"
   }
   display: {
     fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Verdana, sans-serif',
-    fontWeight: "var(--font-weight-semibold)",
+    fontWeight: "var(--font-weight-bold)",
     lineHeight: "var(--line-height-tight)",
     letterSpacing: "var(--letter-spacing-tight)"
   }

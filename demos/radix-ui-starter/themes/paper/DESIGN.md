@@ -27,16 +27,18 @@ colors:
 typography:
   base: {
     fontFamily: '"DM Sans", sans-serif',
-    fontWeight: "400",
-    lineHeight: "1.5"
+    fontWeight: "var(--font-weight-regular)",
+    lineHeight: "var(--line-height-regular)"
   }
   display: {
     fontFamily: '"DM Sans", sans-serif',
-    fontWeight: "700",
-    lineHeight: "1.2"
+    fontWeight: "var(--font-weight-bold)",
+    lineHeight: "var(--line-height-tight)"
   }
   mono: {
-    fontFamily: '"DM Sans", sans-serif'
+    fontFamily: '"DM Sans", sans-serif',
+    fontWeight: "var(--font-weight-thin)",
+    lineHeight: "var(--line-height-regular)"
   }
 
 rounded:

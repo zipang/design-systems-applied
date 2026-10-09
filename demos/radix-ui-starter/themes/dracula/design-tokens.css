@@ -39,24 +39,24 @@
 	--font-size-display: var(--font-size-xl); /* optional → var(--font-size-xl) */
 
 	/* --- Font weights ---
-       Use Medium (500) for buttons, labels, and navigation;
-       Bold (700) for headings and emphasized titles.
-       semibold and extrabold are optional and fall back to bold. */
-	--font-weight-regular: 400;
-	--font-weight-medium: 500;
-	--font-weight-semibold: var(--font-weight-bold); /* optional → var(--font-weight-bold) */
+       One weight per typographic style: thin (mono / UI), regular (base / body),
+       bold (display / headings). extrabold is optional and falls back to bold. */
+	--font-weight-thin: 400;
+	--font-weight-regular: 500;
 	--font-weight-bold: 700;
 	--font-weight-extrabold: var(--font-weight-bold); /* optional → var(--font-weight-bold) */
 
 	/* --- Line heights --- */
 	--line-height-tight: 1.15; /* headings, single-line titles            */
-	--line-height-normal: 1.55; /* body text, multi-line descriptions      */
-	--line-height-relaxed: var(--line-height-normal); /* optional → var(--line-height-normal) */
+	--line-height-regular: 1.55; /* body text, multi-line descriptions      */
+	--line-height-relaxed: var(--line-height-regular); /* optional → var(--line-height-regular) */
 
 	/* --- Letter spacing --- */
 	--letter-spacing-tight: -0.02em; /* large headings, display text       */
-	--letter-spacing-normal: 0; /* body text, default tracking             */
-	--letter-spacing-wide: var(--letter-spacing-normal); /* optional → var(--letter-spacing-normal) */
+	--letter-spacing-regular: 0; /* body text, default tracking             */
+	--letter-spacing-wide: var(
+		--letter-spacing-regular
+	); /* optional → var(--letter-spacing-regular) */
 
 	/* ============================================================================
        2. COLORS — Purple primary, pink accent, blue-gray secondary

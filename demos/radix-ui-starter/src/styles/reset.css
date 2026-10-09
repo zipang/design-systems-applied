@@ -28,7 +28,7 @@ body {
 	/* UI default. `base/Text` (base) and `base/Heading` (display) override this. */
 	font-family: var(--font-family-mono);
 	font-size: var(--font-size-base);
-	line-height: var(--line-height-normal);
+	line-height: var(--line-height-regular);
 	color: var(--color-text);
 	background: var(--color-surface);
 	-webkit-font-smoothing: antialiased;

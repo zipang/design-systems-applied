@@ -39,6 +39,6 @@
 
 	& .ui-avatar__fallback {
 		font-size: var(--font-size-sm);
-		font-weight: var(--font-weight-medium);
+		font-weight: var(--font-weight-thin);
 	}
 }

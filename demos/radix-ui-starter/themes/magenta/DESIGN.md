@@ -27,16 +27,18 @@ colors:
 typography:
   base: {
     fontFamily: '"Azeret Mono", monospace',
-    fontWeight: "400",
-    lineHeight: "1.5"
+    fontWeight: "var(--font-weight-regular)",
+    lineHeight: "var(--line-height-regular)"
   }
   display: {
     fontFamily: '"Azeret Mono", monospace',
-    fontWeight: "700",
-    lineHeight: "1.2"
+    fontWeight: "var(--font-weight-bold)",
+    lineHeight: "var(--line-height-tight)"
   }
   mono: {
-    fontFamily: '"Azeret Mono", monospace'
+    fontFamily: '"Azeret Mono", monospace',
+    fontWeight: "var(--font-weight-thin)",
+    lineHeight: "var(--line-height-regular)"
   }
 
 rounded:

@@ -13,7 +13,7 @@
 
 	& .chat-message__speaker {
 		padding: 0 var(--space-sm);
-		font-weight: var(--font-weight-semibold);
+		font-weight: var(--font-weight-bold);
 	}
 
 	& .chat-message__bubble {

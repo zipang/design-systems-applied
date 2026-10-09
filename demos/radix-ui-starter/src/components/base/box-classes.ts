@@ -61,7 +61,7 @@ export interface BoxProperties {
 }
 
 /**
- * Translate box aspect props into the scoped class list. Returns only the aspect
+ * Translate box aspect props into the scoped class string. Returns only the aspect
  * classes; the root `base-box` class is the caller's concern. The order is uniform
  * spacing, then its axis, so the axis class wins on equal specificity.
  */
@@ -77,7 +77,7 @@ export const boxClassNames = ({
 	elevation,
 	rounded,
 	background
-}: BoxProperties): string[] => {
+}: BoxProperties): string => {
 	const classes: string[] = [];
 
 	if (p) {
@@ -124,5 +124,5 @@ export const boxClassNames = ({
 		classes.push(`base-box--bg-${background}`);
 	}
 
-	return classes;
+	return classes.join(" ");
 };

@@ -1,10 +1,11 @@
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import { useHideOnScroll } from "@lib/scroll/useScrollDirection";
 import type * as React from "react";
 import { usePageScroll } from "./page-scroll";
 import "./SiteNavigationHeader.css";
 
-interface SiteNavigationHeaderProps {
+interface SiteNavigationHeaderProps extends CommonProps {
 	children: React.ReactNode;
 	className?: string;
 }
@@ -16,13 +17,17 @@ interface SiteNavigationHeaderProps {
  */
 export const SiteNavigationHeader: React.FC<SiteNavigationHeaderProps> = ({
 	children,
-	className
+	className,
+	...rest
 }) => {
 	const pageScroll = usePageScroll();
 	const hidden = useHideOnScroll(pageScroll?.element ?? null);
 
 	return (
-		<div className={clsx("layout-site-navigation", { "is-hidden": hidden }, className)}>
+		<div
+			className={clsx("layout-site-navigation", { "is-hidden": hidden }, className)}
+			{...acceptCommonProps(rest)}
+		>
 			<div
 				className="layout-site-navigation__inner"
 				inert={hidden || undefined}

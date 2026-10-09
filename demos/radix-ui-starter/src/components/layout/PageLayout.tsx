@@ -1,10 +1,11 @@
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import type * as React from "react";
 import { useMemo, useState } from "react";
 import { PageScrollContext } from "./page-scroll";
 import "./PageLayout.css";
 
-interface PageLayoutProps {
+interface PageLayoutProps extends CommonProps {
 	children: React.ReactNode;
 	className?: string;
 }
@@ -16,13 +17,15 @@ interface PageLayoutProps {
  * context; holding the element (not a ref) lets consumers re-subscribe when a page swap
  * replaces the body.
  */
-export const PageLayout: React.FC<PageLayoutProps> = ({ children, className }) => {
+export const PageLayout: React.FC<PageLayoutProps> = ({ children, className, ...rest }) => {
 	const [element, setElement] = useState<HTMLElement | null>(null);
 	const value = useMemo(() => ({ element, setElement }), [element]);
 
 	return (
 		<PageScrollContext.Provider value={value}>
-			<main className={clsx("layout-page", className)}>{children}</main>
+			<main className={clsx("layout-page", className)} {...acceptCommonProps(rest)}>
+				{children}
+			</main>
 		</PageScrollContext.Provider>
 	);
 };

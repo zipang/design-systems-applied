@@ -1,13 +1,16 @@
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import type * as React from "react";
 import "./PageHeader.css";
 
-interface PageHeaderProps {
+interface PageHeaderProps extends CommonProps {
 	children: React.ReactNode;
 	className?: string;
 }
 
 /** The page's fixed top region. Scoped to the shell, so it is not a banner landmark. */
-export const PageHeader: React.FC<PageHeaderProps> = ({ children, className }) => (
-	<header className={clsx("layout-page-header", className)}>{children}</header>
+export const PageHeader: React.FC<PageHeaderProps> = ({ children, className, ...rest }) => (
+	<header className={clsx("layout-page-header", className)} {...acceptCommonProps(rest)}>
+		{children}
+	</header>
 );

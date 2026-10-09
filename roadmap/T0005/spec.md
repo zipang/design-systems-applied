@@ -185,22 +185,53 @@ export type BoxTag =
 	| "nav"
 	| "main";
 
-export interface BoxProps extends BoxProperties {
+export interface BoxProps
+	extends BoxProperties,
+		Omit<React.HTMLAttributes<HTMLElement>, keyof BoxProperties> {
 	as?: BoxTag;
 	children?: React.ReactNode;
 	className?: string;
 	ref?: React.Ref<HTMLElement>;
 }
 
+`Box` forwards every remaining HTML attribute (`role`, `aria-*`, `data-*`, event
+handlers) to the element, so it works as a Radix `asChild` target. It forwards `ref`
+for the same reason.
+
 /**
  * A token-driven box. Every aspect prop accepts only a token-derived enum; the `as`
- * prop picks the emitted semantic tag. Forwards `ref` so Radix `asChild` works.
+ * prop picks the emitted semantic tag. Forwards `ref` and the remaining HTML attributes
+ * to the element, so it works as a Radix `asChild` target.
  */
-export const Box: React.FC<BoxProps> = ({ as = "div", className, children, ref, ...props }) => {
-	const BoxElt = as;
+export const Box: React.FC<BoxProps> = ({
+	as = "div",
+	className,
+	children,
+	ref,
+	p,
+	px,
+	py,
+	m,
+	mx,
+	my,
+	border,
+	borderColor,
+	elevation,
+	rounded,
+	background,
+	...rest
+}) => {
+	const BoxElt = as as React.ElementType;
 
 	return (
-		<BoxElt ref={ref} className={clsx(boxClassNames(props), className)}>
+		<BoxElt
+			ref={ref}
+			className={clsx(
+				boxClassNames({ p, px, py, m, mx, my, border, borderColor, elevation, rounded, background }),
+				className
+			)}
+			{...rest}
+		>
 			{children}
 		</BoxElt>
 	);
@@ -351,7 +382,7 @@ pure mapping and the token contract:
 - [ ] `base/Box.css` has one class per enum value, each referencing exactly one token
       with `var()`; axis rules override uniform rules by source order.
 - [ ] `Box` emits a restricted semantic tag through `as` (`div` default) and forwards
-      `ref`.
+      `ref` and the remaining HTML attributes.
 - [ ] `boxClassNames` is pure and tested; a drift test proves every emittable class
       exists in `Box.css`.
 - [ ] `DialogContent` extends `BoxProperties` and renders a `Box` through Radix

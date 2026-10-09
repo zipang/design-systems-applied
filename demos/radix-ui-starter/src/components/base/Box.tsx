@@ -35,7 +35,9 @@ export type BoxTag =
 	| "nav"
 	| "main";
 
-export interface BoxProps extends BoxProperties {
+export interface BoxProps
+	extends BoxProperties,
+		Omit<React.HTMLAttributes<HTMLElement>, keyof BoxProperties> {
 	as?: BoxTag;
 	children?: React.ReactNode;
 	className?: string;
@@ -52,13 +54,50 @@ type BoxElementProps = React.HTMLAttributes<HTMLElement> & {
 
 /**
  * A token-driven box. Every aspect prop accepts only a token-derived enum; the `as`
- * prop picks the emitted semantic tag. Forwards `ref` so Radix `asChild` works.
+ * prop picks the emitted semantic tag. Forwards `ref` and the remaining HTML attributes
+ * to the element, so it works as a Radix `asChild` target.
  */
-export const Box: React.FC<BoxProps> = ({ as = "div", className, children, ref, ...props }) => {
+export const Box: React.FC<BoxProps> = ({
+	as = "div",
+	className,
+	children,
+	ref,
+	p,
+	px,
+	py,
+	m,
+	mx,
+	my,
+	border,
+	borderColor,
+	elevation,
+	rounded,
+	background,
+	...rest
+}) => {
 	const BoxElt = as as React.ElementType<BoxElementProps>;
 
 	return (
-		<BoxElt ref={ref} className={clsx(boxClassNames(props), className)}>
+		<BoxElt
+			ref={ref}
+			className={clsx(
+				boxClassNames({
+					p,
+					px,
+					py,
+					m,
+					mx,
+					my,
+					border,
+					borderColor,
+					elevation,
+					rounded,
+					background
+				}),
+				className
+			)}
+			{...rest}
+		>
 			{children}
 		</BoxElt>
 	);

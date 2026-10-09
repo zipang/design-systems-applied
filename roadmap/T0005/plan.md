@@ -39,14 +39,16 @@ apply the same class map.
   border uses `currentColor`.
 - **Uniform border/rounded by design.** No directional borders and no per-corner radii;
   `ChatHeader`/`Composer`/`Message` keep those in their own CSS.
-- **Ref forwarding is required.** `DialogContent` renders `Box` through Radix `Content
-  asChild`; Radix passes a ref to the child, so `Box` must forward it.
+- **Ref and attribute forwarding are required.** `DialogContent` renders `Box` through
+  Radix `Content asChild`; Radix passes a ref and HTML attributes (including
+  `role="dialog"` and `aria-*`) to the child, so `Box` forwards both. Dropping the
+  attributes removes the dialog role.
 
 ## Task List
 
 ### Phase 1: Foundation
 
-- [ ] **Task 1: Add the pure box model — enums, `BoxProperties`, `boxClassNames`, and its test**
+- [x] **Task 1: Add the pure box model — enums, `BoxProperties`, `boxClassNames`, and its test**
   - Acceptance: `box-classes.ts` defines `BoxSpace`, `BoxRounded`, `BoxElevation`,
     `BoxBorderWidth`, `BoxColor`, and the `BoxProperties` interface exactly as the spec.
     `boxClassNames(props)` returns the root `base-box` class followed by one class per
@@ -57,7 +59,7 @@ apply the same class map.
     `src/components/base/box-classes.test.ts`
   - Depends: None
 
-- [ ] **Task 2: Add `Box.css` and the class/CSS drift test**
+- [x] **Task 2: Add `Box.css` and the class/CSS drift test**
   - Acceptance: `Box.css` defines every class `boxClassNames` can emit; each rule
     references exactly one token with `var()`; `.base-box` sets `box-sizing: border-box`;
     axis rules follow the uniform rules. The drift test reads `Box.css` and asserts every
@@ -67,7 +69,7 @@ apply the same class map.
     `src/components/base/box-classes.test.ts`
   - Depends: Task 1
 
-- [ ] **Task 3: Add the `Box` component**
+- [x] **Task 3: Add the `Box` component**
   - Acceptance: `Box.tsx` exports `Box` (`React.FC<BoxProps>`) and re-exports the enum
     unions and `BoxProperties`. `as` defaults to `div` and is typed to `BoxTag`; `ref` is
     forwarded to the emitted element; `className` is merged with `clsx`; the stylesheet
@@ -77,12 +79,12 @@ apply the same class map.
   - Depends: Tasks 1, 2
 
 ### Checkpoint: Foundation
-- [ ] `bun test box-classes` passes (mapping + drift)
-- [ ] `bun run check` and `bun run typecheck` pass
+- [x] `bun test box-classes` passes (mapping + drift)
+- [x] `bun run check` and `bun run typecheck` pass
 
 ### Phase 2: Adoption
 
-- [ ] **Task 4: Make `DialogContent` inherit `BoxProperties` and compose `Box`**
+- [x] **Task 4: Make `DialogContent` inherit `BoxProperties` and compose `Box`**
   - Acceptance: `DialogContentProps extends BoxProperties`. `DialogContent` renders
     `DialogPrimitive.Content asChild` wrapping a `Box` with the token defaults
     (`background="surface"`, `border="sm"`, `borderColor="brand-secondary"`,
@@ -95,7 +97,7 @@ apply the same class map.
   - Files: `src/components/ui/Dialog.tsx`, `src/components/ui/Dialog.css`
   - Depends: Task 3
 
-- [ ] **Task 5: Compose `Box` inside the `Message` bubble**
+- [x] **Task 5: Compose `Box` inside the `Message` bubble**
   - Acceptance: the bubble renders `Box` with
     `background={isEliza ? "surface-alt" : "surface-dark"}`, `py="base"`, `px="lg"`, and
     the existing `chat-message__bubble` class. `Message.css` keeps only the asymmetric
@@ -105,7 +107,7 @@ apply the same class map.
   - Files: `src/components/chat/Message.tsx`, `src/components/chat/Message.css`
   - Depends: Task 3
 
-- [ ] **Task 6: Make the layout primitives inherit `BoxProperties`**
+- [x] **Task 6: Make the layout primitives inherit `BoxProperties`**
   - Acceptance: `HStackProps`, `VStackProps`, and `GridProps` extend `BoxProperties`;
     each destructures its own props and passes the rest to `boxClassNames`, merged into
     the root `clsx`. Their own `gap`/`align`/`justify`/`wrap`/`columns` behavior is
@@ -116,7 +118,7 @@ apply the same class map.
     `src/components/layout/Grid.tsx`
   - Depends: Task 3
 
-- [ ] **Task 7: Make `Container` inherit `BoxProperties` and move its padding to a `px` default**
+- [x] **Task 7: Make `Container` inherit `BoxProperties` and move its padding to a `px` default**
   - Acceptance: `ContainerProps extends BoxProperties`. `Container` defaults `px = "lg"`
     and passes it, with the rest of the box props, to `boxClassNames`. `Container.css`
     drops `padding-inline` and keeps `inline-size` and the `margin-inline: auto`
@@ -128,13 +130,13 @@ apply the same class map.
   - Depends: Task 3
 
 ### Checkpoint: Adoption
-- [ ] `DialogContent` accepts box props and its surface comes from `Box`
-- [ ] `HStack`, `VStack`, `Grid`, and `Container` accept the full box surface
-- [ ] Chat bubbles render through `Box` and keep their asymmetric corners
+- [x] `DialogContent` accepts box props and its surface comes from `Box`
+- [x] `HStack`, `VStack`, `Grid`, and `Container` accept the full box surface
+- [x] Chat bubbles render through `Box` and keep their asymmetric corners
 
 ### Phase 3: Showcase and documentation
 
-- [ ] **Task 8: Add a `Box` section to `ComponentsDemo`**
+- [x] **Task 8: Add a `Box` section to `ComponentsDemo`**
   - Acceptance: a numbered "Box" section shows all spacing props (`p`, `px`, `py`, and
     `m`/`mx`/`my`), border widths with `borderColor` roles, `elevation`, every `rounded`
     value, every background role, and one example per `as` tag. It uses existing demo
@@ -144,7 +146,7 @@ apply the same class map.
     `src/components/demo/ComponentsDemo.css`
   - Depends: Task 3
 
-- [ ] **Task 9: Document `Box` and the adoption modes**
+- [x] **Task 9: Document `Box` and the adoption modes**
   - Acceptance: `base/README.md` gains a `Box` section (prop table + a short example) and
     states the three adoption modes; `components/README.md` lists `Box` under `base/`;
     `components/AGENTS.md` states when a component extends `BoxProperties`, when it
@@ -157,13 +159,13 @@ apply the same class map.
   - Depends: Tasks 4, 5, 6, 7
 
 ### Checkpoint: Documented
-- [ ] `Box` appears in the demo and in the base/README
-- [ ] The adoption modes and the "no hardcoded aspect" rule are written in
+- [x] `Box` appears in the demo and in the base/README
+- [x] The adoption modes and the "no hardcoded aspect" rule are written in
       `components/AGENTS.md`
 
 ### Phase 4: Verification
 
-- [ ] **Task 10: Gates and browser dogfood**
+- [x] **Task 10: Gates and browser dogfood**
   - Acceptance: `bun run check`, `bun run typecheck`, `bun test`, and the demo build pass.
     In the browser, the Box demo section, the dialog, a padded/bordered layout primitive,
     and both message bubbles render on at least two themes; the dialog still traps focus
@@ -173,8 +175,8 @@ apply the same class map.
   - Depends: Task 9
 
 ### Checkpoint: Complete
-- [ ] All success criteria in `spec.md` met
-- [ ] Ready for review
+- [x] All success criteria in `spec.md` met
+- [x] Ready for review
 
 ## Risks and Mitigations
 

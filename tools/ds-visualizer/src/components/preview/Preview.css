@@ -16,7 +16,7 @@
 
 .vz-section__index {
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	color: var(--color-text-muted);
 }
 
@@ -56,7 +56,7 @@
 
 .vz-label {
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	letter-spacing: var(--letter-spacing-wide);
 	text-transform: uppercase;
 	color: var(--color-text-muted);
@@ -64,7 +64,7 @@
 
 .vz-code {
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	color: var(--color-text-muted);
 }
 
@@ -103,7 +103,7 @@
 	& .vz-type-row__meta {
 		display: grid;
 		font-family: var(--font-family-mono);
-		font-size: var(--font-size-xs);
+		font-size: var(--font-size-sm);
 		color: var(--color-text-muted);
 	}
 
@@ -185,7 +185,7 @@
 
 .vz-contrast {
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	padding: 0 var(--space-xs);
 	border-radius: var(--rounded-sm);
 	color: var(--color-text-ondark);
@@ -216,7 +216,7 @@
 	gap: var(--space-sm);
 	align-items: center;
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 }
 
 .vz-space-row__name {

@@ -42,7 +42,7 @@
 .ui-dropdown__label {
 	padding: var(--space-xs) var(--space-md);
 	color: var(--color-text-muted);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 }
 
 .ui-dropdown__separator {

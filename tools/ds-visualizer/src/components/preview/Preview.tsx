@@ -576,7 +576,7 @@ export const ComponentsSection: React.FC<SectionProps> = ({ values }) => {
 					elevation="md"
 					p="lg"
 				>
-					<Text size="xs" tone="accent">
+					<Text size="sm" tone="accent">
 						Article
 					</Text>
 					<Heading level={3} size="md">
@@ -593,7 +593,7 @@ export const ComponentsSection: React.FC<SectionProps> = ({ values }) => {
 					p="lg"
 					className="vz-card--dark"
 				>
-					<Text size="xs" tone={onDark ? "base" : "ondark"}>
+					<Text size="sm" tone={onDark ? "base" : "ondark"}>
 						Design tokens
 					</Text>
 					<Heading level={3} size="xl" className="vz-stat">
@@ -604,7 +604,7 @@ export const ComponentsSection: React.FC<SectionProps> = ({ values }) => {
 					</Text>
 				</Box>
 				<Box background="surface-alt" border="sm" borderColor="surface" rounded="lg" p="lg">
-					<Text size="xs" tone="muted">
+					<Text size="sm" tone="muted">
 						Spacing · Color · Type
 					</Text>
 					<Heading level={3} size="md">

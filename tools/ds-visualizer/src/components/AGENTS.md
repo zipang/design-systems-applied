@@ -32,6 +32,9 @@ Rules:
   Never write a raw value.
 - **Mono for UI.** Every UI component uses `--font-family-mono`. Only `base/Heading`
   (display) and `base/Text` (base) use the other font families.
+- **Minimum UI text size.** UI chrome and controls never use `--font-size-xs`; the
+  smallest UI size is `--font-size-sm`. (`--font-size-xs` stays defined for the token
+  scale and may only be rendered as previewed content, never as tool UI.)
 - **One unique class per component, prefixed by tier.** The root element carries one
   class: `base-<name>`, `ui-<name>`, `layout-<name>`, or `chat-<name>` (for example
   `ui-button`, never `.button`).

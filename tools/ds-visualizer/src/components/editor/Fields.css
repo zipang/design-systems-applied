@@ -10,7 +10,7 @@
 		gap: var(--space-sm);
 		padding: var(--space-xs) var(--space-sm);
 		font-family: var(--font-family-mono);
-		font-size: var(--font-size-xs);
+		font-size: var(--font-size-sm);
 		letter-spacing: var(--letter-spacing-wide);
 		text-transform: uppercase;
 		color: var(--color-text-muted);
@@ -41,7 +41,7 @@
 
 .editor-field__label {
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	letter-spacing: var(--letter-spacing-wide);
 	text-transform: uppercase;
 	color: var(--color-text-muted);
@@ -72,7 +72,7 @@
 
 .editor-field__suffix {
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	color: var(--color-text-muted);
 }
 
@@ -124,7 +124,7 @@
 	background: none;
 	color: var(--color-text-muted);
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	text-transform: uppercase;
 
 	&:focus-visible {
@@ -135,7 +135,7 @@
 
 .editor-color__token {
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	color: var(--color-text-muted);
 	overflow: hidden;
 	text-overflow: ellipsis;

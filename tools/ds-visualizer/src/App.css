@@ -55,7 +55,7 @@
 
 .app__nav-label {
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	letter-spacing: var(--letter-spacing-wide);
 	text-transform: uppercase;
 	opacity: 0;
@@ -76,7 +76,7 @@
 	padding: var(--space-lg) var(--space-lg) var(--space-lg) var(--space-xxl);
 	border-top: var(--border-sm) solid var(--color-surface-alt);
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	color: var(--color-text-muted);
 }
 

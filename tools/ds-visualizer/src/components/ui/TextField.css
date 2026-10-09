@@ -29,7 +29,7 @@
 
 	& .ui-field__error {
 		color: var(--color-action-danger);
-		font-size: var(--font-size-xs);
+		font-size: var(--font-size-sm);
 	}
 
 	&.is-invalid {

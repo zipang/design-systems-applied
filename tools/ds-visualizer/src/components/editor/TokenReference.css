@@ -47,7 +47,7 @@
 	display: block;
 	margin-bottom: var(--space-xs);
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	letter-spacing: var(--letter-spacing-wide);
 	text-transform: uppercase;
 	color: var(--color-text-muted);
@@ -57,7 +57,7 @@
 	width: 100%;
 	border-collapse: collapse;
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 
 	& th {
 		text-align: left;

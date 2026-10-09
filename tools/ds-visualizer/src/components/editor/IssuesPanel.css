@@ -26,6 +26,6 @@
 	padding: 0;
 	list-style: none;
 	font-family: var(--font-family-mono);
-	font-size: var(--font-size-xs);
+	font-size: var(--font-size-sm);
 	color: var(--color-text);
 }

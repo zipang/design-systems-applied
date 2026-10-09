@@ -24,12 +24,7 @@
 	gap: var(--space-md);
 	inline-size: fit-content;
 	max-inline-size: calc(100% - (2 * var(--space-lg)));
-	border: var(--border-sm) solid var(--color-brand-secondary);
-	border-radius: var(--rounded-none);
-	background: var(--color-surface);
-	box-shadow: var(--elevation-lg);
 	font-family: var(--font-family-mono);
-	padding: var(--space-lg);
 
 	& .ui-dialog__close {
 		position: absolute;

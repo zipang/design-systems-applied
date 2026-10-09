@@ -60,39 +60,42 @@ empty `Token path` cell marks this class.
 | Token path | CSS variable | Required | Default | Description |
 |---|---|---|---|---|
 |   | `--font-size-base` | Y | — | Root base size, fixed `1rem` (step 0) |
-|   | `--font-size-xs` | Y | — | Captions, metadata, timestamps |
+|   | `--font-size-xs` | N | `var(--font-size-sm)` | Captions, metadata, timestamps |
 |   | `--font-size-sm` | Y | — | Secondary text, list rows |
 |   | `--font-size-md` | Y | — | Body text |
 |   | `--font-size-lg` | Y | — | Section titles, card titles |
 |   | `--font-size-xl` | Y | — | Page titles, large prompts |
-|   | `--font-size-2xl` | N | `var(--font-size-xl)` | Hero titles, large headings |
+|   | `--font-size-2xl` | Y | — | Hero titles, large headings |
 |   | `--font-size-display` | N | `var(--font-size-xl)` | Hero / banner headlines |
 
 ## Font weights
 
+The only available weights are the four below. How they combine with a font family, line
+height, and letter spacing is defined by the three typographic styles — `base`,
+`display`, and `mono` — in `DESIGN.md`.
+
 | Token path | CSS variable | Required | Default | Description |
 |---|---|---|---|---|
-|  | `--font-weight-regular` | Y | — | Body text, default weight |
-|  | `--font-weight-medium` | Y | — | Buttons, labels, navigation |
-|  | `--font-weight-semibold` | N | `var(--font-weight-bold)` | Emphasized labels, sub-headings |
-|  | `--font-weight-bold` | Y | — | Headings, emphasized titles |
-|  | `--font-weight-extrabold` | N | `var(--font-weight-bold)` | Strong emphasis, display text |
+|  | `--font-weight-thin`      | Y | — | Lightest — the `mono` (UI) style |
+|  | `--font-weight-regular`   | Y | — | Default — the `base` (body) style |
+|  | `--font-weight-bold`      | Y | — | Strong — the `display` (headings) style |
+|  | `--font-weight-extrabold` | N | `var(--font-weight-bold)` | Optional stronger emphasis |
 
 ## Line heights
 
 | Token path | CSS variable | Required | Default | Description |
 |---|---|---|---|---|
-|  | `--line-height-tight` | Y | — | Headings, single-line titles |
-|  | `--line-height-normal` | Y | — | Body text, multi-line descriptions |
-|  | `--line-height-relaxed` | N | `var(--line-height-normal)` | Long-form reading, comments |
+|  | `--line-height-tight`   | Y | — | Headings, single-line titles |
+|  | `--line-height-regular` | Y | — | Body text, multi-line descriptions |
+|  | `--line-height-relaxed` | N | `var(--line-height-regular)` | Long-form reading, comments |
 
 ## Letter spacing
 
 | Token path | CSS variable | Required | Default | Description |
 |---|---|---|---|---|
 |  | `--letter-spacing-tight` | Y | — | Large headings, display text |
-|  | `--letter-spacing-normal` | Y | — | Body text, default tracking |
-|  | `--letter-spacing-wide` | N | `var(--letter-spacing-normal)` | Small labels, metadata |
+|  | `--letter-spacing-regular` | Y | — | Body text, default tracking |
+|  | `--letter-spacing-wide` | N | `var(--letter-spacing-regular)` | Small labels, metadata |
 
 # 3. Colors
 

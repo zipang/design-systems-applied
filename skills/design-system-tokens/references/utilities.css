@@ -123,14 +123,11 @@
 }
 
 /* --- Font weights --- */
+.font-thin {
+	font-weight: var(--font-weight-thin);
+}
 .font-regular {
 	font-weight: var(--font-weight-regular);
-}
-.font-medium {
-	font-weight: var(--font-weight-medium);
-}
-.font-semibold {
-	font-weight: var(--font-weight-semibold);
 }
 .font-bold {
 	font-weight: var(--font-weight-bold);
@@ -143,8 +140,8 @@
 .leading-tight {
 	line-height: var(--line-height-tight);
 }
-.leading-normal {
-	line-height: var(--line-height-normal);
+.leading-regular {
+	line-height: var(--line-height-regular);
 }
 .leading-relaxed {
 	line-height: var(--line-height-relaxed);
@@ -154,8 +151,8 @@
 .tracking-tight {
 	letter-spacing: var(--letter-spacing-tight);
 }
-.tracking-normal {
-	letter-spacing: var(--letter-spacing-normal);
+.tracking-regular {
+	letter-spacing: var(--letter-spacing-regular);
 }
 .tracking-wide {
 	letter-spacing: var(--letter-spacing-wide);

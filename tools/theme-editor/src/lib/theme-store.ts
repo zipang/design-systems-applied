@@ -1,5 +1,13 @@
 import { useCallback, useMemo, useState } from "react";
-import { mergeValues, parseContract, serializeDesignMd, serializeTokensCss } from "./contract";
+import {
+	mergeValues,
+	parseContract,
+	parseDesignMd,
+	serializeDesignMd,
+	serializeTokensCss,
+	type TypographyField,
+	type TypographyRefs
+} from "./contract";
 import { DEFAULT_DESIGN_MD, DEFAULT_TOKENS_CSS } from "./default-theme";
 import type { TokenValues } from "./design-system";
 import {
@@ -25,12 +33,14 @@ export interface ThemeStore {
 	status: ThemeStatus;
 	message: string;
 	dirty: boolean;
+	typography: TypographyRefs;
 	currentThemeName: string;
 	localThemes: LocalThemeSummary[];
 	saveDialogOpen: boolean;
 	loadDialogOpen: boolean;
 	setDir: (dir: string) => void;
 	update: (variable: string, value: string) => void;
+	updateTypography: (style: string, field: TypographyField, variable: string) => void;
 	reset: () => void;
 	requestOpen: () => void;
 	requestSave: () => void;
@@ -82,6 +92,10 @@ export const useThemeStore = (): ThemeStore => {
 			return initialValues;
 		}
 	});
+	const [typography, setTypography] = useState<TypographyRefs>(() => {
+		const theme = readLastTheme();
+		return parseDesignMd(theme?.designMd ?? DEFAULT_DESIGN_MD).typography;
+	});
 	const [dir, setDir] = useState("");
 	const [status, setStatus] = useState<ThemeStatus>("idle");
 	const [message, setMessage] = useState("");
@@ -94,7 +108,10 @@ export const useThemeStore = (): ThemeStore => {
 	const [loadDialogOpen, setLoadDialogOpen] = useState(false);
 
 	const tokensCss = useMemo(() => serializeTokensCss(values), [values]);
-	const designMd = useMemo(() => serializeDesignMd(values, baseDesignMd), [values, baseDesignMd]);
+	const designMd = useMemo(
+		() => serializeDesignMd(values, baseDesignMd, typography),
+		[values, baseDesignMd, typography]
+	);
 	const issues = useMemo(
 		() => validateContract(parseContract(designMd, tokensCss)),
 		[designMd, tokensCss]
@@ -110,9 +127,19 @@ export const useThemeStore = (): ThemeStore => {
 		setStatus("idle");
 	}, []);
 
+	const updateTypography = useCallback(
+		(style: string, field: TypographyField, variable: string) => {
+			setTypography((prev) => ({ ...prev, [style]: { ...prev[style], [field]: variable } }));
+			setDirty(true);
+			setStatus("idle");
+		},
+		[]
+	);
+
 	const reset = useCallback(() => {
 		setBaseDesignMd(DEFAULT_DESIGN_MD);
 		setValues(initialValues);
+		setTypography(parseDesignMd(DEFAULT_DESIGN_MD).typography);
 		setCurrentThemeName("");
 		writeLastThemeName("");
 		setDirty(true);
@@ -137,6 +164,7 @@ export const useThemeStore = (): ThemeStore => {
 			const contract = parseContract(data.designMd, data.tokensCss);
 			setBaseDesignMd(data.designMd);
 			setValues(mergeValues(contract));
+			setTypography(parseDesignMd(data.designMd).typography);
 			setCurrentThemeName("");
 			setDirty(false);
 			setStatus("saved");
@@ -227,6 +255,7 @@ export const useThemeStore = (): ThemeStore => {
 			const contract = parseContract(theme.designMd, theme.tokensCss);
 			setBaseDesignMd(theme.designMd);
 			setValues(mergeValues(contract));
+			setTypography(parseDesignMd(theme.designMd).typography);
 			writeLastThemeName(name);
 			setCurrentThemeName(name);
 			setDirty(false);
@@ -264,12 +293,14 @@ export const useThemeStore = (): ThemeStore => {
 		status,
 		message,
 		dirty,
+		typography,
 		currentThemeName,
 		localThemes,
 		saveDialogOpen,
 		loadDialogOpen,
 		setDir,
 		update,
+		updateTypography,
 		reset,
 		requestOpen,
 		requestSave,

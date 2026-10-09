@@ -40,6 +40,11 @@
 	color: var(--color-text-muted);
 }
 
+.editor-field__select {
+	cursor: pointer;
+	text-transform: none;
+}
+
 .editor-color {
 	display: grid;
 	grid-template-columns: auto 1fr;

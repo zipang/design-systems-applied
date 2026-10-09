@@ -7,6 +7,12 @@ import {
 	tokenByVariable
 } from "./design-system";
 
+/** Fields of a typographic style that reference a token variable. */
+export type TypographyField = "fontWeight" | "lineHeight" | "letterSpacing";
+
+/** Style → field → referenced CSS variable, e.g. `display.fontWeight` → `--font-weight-bold`. */
+export type TypographyRefs = Record<string, Partial<Record<TypographyField, string>>>;
+
 /** Result of parsing a `DESIGN.md` front matter block. */
 export interface ParsedDesignMd {
 	/** Variable → value, for every known token declared in the front matter. */
@@ -15,6 +21,8 @@ export interface ParsedDesignMd {
 	declaredPaths: Set<string>;
 	/** Front-matter paths that match no token and are not ignored. */
 	unknownPaths: string[];
+	/** Style → field → token variable, for `typography.<style>.{fontWeight,lineHeight,letterSpacing}`. */
+	typography: TypographyRefs;
 	/** The original parsed front-matter object, for lossless re-serialization. */
 	frontMatter: Record<string, unknown>;
 	/** The markdown body after the front matter. */
@@ -76,6 +84,23 @@ export const resolveVariables = (value: string, values: TokenValues, depth = 0):
 
 const FRONT_MATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/;
 
+const TYPOGRAPHY_PATH = /^typography\.([^.]+)\.(fontWeight|lineHeight|letterSpacing)$/;
+const VARIABLE_NAME = /var\(\s*(--[\w-]+)/;
+
+/** Collect the token variable each typographic style references for weight/line-height/etc. */
+const collectTypography = (flat: Record<string, string>): TypographyRefs => {
+	const refs: TypographyRefs = {};
+	for (const [path, value] of Object.entries(flat)) {
+		const match = TYPOGRAPHY_PATH.exec(path);
+		const variable = VARIABLE_NAME.exec(value)?.[1];
+		const style = match?.[1];
+		const field = match?.[2] as TypographyField | undefined;
+		if (!style || !field || !variable) continue;
+		refs[style] = { ...refs[style], [field]: variable };
+	}
+	return refs;
+};
+
 /** Parse a `DESIGN.md` file into token values and preserved metadata. */
 export const parseDesignMd = (text: string): ParsedDesignMd => {
 	const match = FRONT_MATTER.exec(text);
@@ -100,14 +125,26 @@ export const parseDesignMd = (text: string): ParsedDesignMd => {
 		declaredPaths.add(path);
 	}
 
-	return { values, declaredPaths, unknownPaths, frontMatter, body: match[2] ?? "" };
+	return {
+		values,
+		declaredPaths,
+		unknownPaths,
+		typography: collectTypography(flat),
+		frontMatter,
+		body: match[2] ?? ""
+	};
 };
 
 /**
  * Rebuild the `DESIGN.md` front matter from token values, preserving metadata and prose.
  * Optional tokens that still equal their documented fallback are omitted, per the contract.
+ * The `typography` map writes each style's token references back as `var(...)`.
  */
-export const serializeDesignMd = (values: TokenValues, original: string): string => {
+export const serializeDesignMd = (
+	values: TokenValues,
+	original: string,
+	typography?: TypographyRefs
+): string => {
 	const parsed = parseDesignMd(original);
 	const frontMatter = structuredClone(parsed.frontMatter);
 
@@ -124,6 +161,12 @@ export const serializeDesignMd = (values: TokenValues, original: string): string
 			continue;
 		}
 		setPath(frontMatter, token.path, value);
+	}
+
+	for (const [style, fields] of Object.entries(typography ?? {})) {
+		for (const [field, variable] of Object.entries(fields)) {
+			if (variable) setPath(frontMatter, `typography.${style}.${field}`, `var(${variable})`);
+		}
 	}
 
 	const yamlText = stringifyYaml(frontMatter, { lineWidth: 0 });

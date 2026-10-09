@@ -58,6 +58,36 @@ export const TextInput: React.FC<TextInputProps> = ({ label, value, onChange }) 
 	</label>
 );
 
+export interface SelectFieldOption {
+	value: string;
+	label: string;
+}
+
+export interface SelectFieldProps {
+	label: string;
+	value: string;
+	options: SelectFieldOption[];
+	onChange: (value: string) => void;
+}
+
+/** Labeled native select for token-bound choices. */
+export const SelectField: React.FC<SelectFieldProps> = ({ label, value, options, onChange }) => (
+	<label className="editor-field">
+		<span className="editor-field__label">{label}</span>
+		<select
+			className="editor-field__input editor-field__select"
+			value={value}
+			onChange={(event) => onChange(event.currentTarget.value)}
+		>
+			{options.map((option) => (
+				<option key={option.value} value={option.value}>
+					{option.label}
+				</option>
+			))}
+		</select>
+	</label>
+);
+
 export interface ColorFieldProps {
 	label: string;
 	token: string;

@@ -86,7 +86,12 @@ export const App: React.FC = () => {
 			</nav>
 			<main className="app__content">
 				<IssuesPanel issues={store.issues} onShowReference={() => setShowReference(true)} />
-				<TypographySection values={store.values} update={store.update} />
+				<TypographySection
+					values={store.values}
+					update={store.update}
+					typography={store.typography}
+					updateTypography={store.updateTypography}
+				/>
 				<ColorsSection values={store.values} update={store.update} />
 				<SpacingSection values={store.values} update={store.update} />
 				<ShapesSection values={store.values} update={store.update} />

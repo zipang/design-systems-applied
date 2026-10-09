@@ -1,15 +1,15 @@
 import { Heading } from "@components/base/Heading";
 import { Text } from "@components/base/Text";
 import { EditableText } from "@components/editor/EditableText";
-import { NumberField, TextInput } from "@components/editor/Fields";
+import { NumberField, SelectField, TextInput } from "@components/editor/Fields";
 import { FontPicker } from "@components/editor/FontPicker";
 import { SettingsCog } from "@components/editor/SettingsCog";
 import { Button } from "@components/ui/Button";
 import { Tabs } from "@components/ui/Tabs";
 import { TextField } from "@components/ui/TextField";
-import { resolveVariables } from "@lib/contract";
+import { resolveVariables, type TypographyField, type TypographyRefs } from "@lib/contract";
 import { contrastLevel, contrastRatio, isLight } from "@lib/contrast";
-import type { TokenValues } from "@lib/design-system";
+import { TOKENS, type TokenValues } from "@lib/design-system";
 import { formatRem } from "@lib/scale";
 import type * as React from "react";
 import { useState } from "react";
@@ -21,6 +21,12 @@ export interface SectionProps {
 	update: (variable: string, value: string) => void;
 }
 
+/** Typography additionally manages each style's token references. */
+export interface TypographySectionProps extends SectionProps {
+	typography: TypographyRefs;
+	updateTypography: (style: string, field: TypographyField, variable: string) => void;
+}
+
 const read = (values: TokenValues, variable: string): string => values[variable] ?? "";
 const px = (values: TokenValues, variable: string): number => {
 	const raw = read(values, variable);
@@ -28,12 +34,14 @@ const px = (values: TokenValues, variable: string): number => {
 	if (Number.isNaN(parsed)) return 0;
 	return raw.endsWith("px") ? parsed : parsed * 16;
 };
-const num = (values: TokenValues, variable: string): number =>
-	Number.parseFloat(read(values, variable)) || 0;
 const resolved = (values: TokenValues, variable: string): string =>
 	resolveVariables(read(values, variable), values);
+const resolvedNumber = (values: TokenValues, variable: string): number =>
+	Number.parseFloat(resolveVariables(read(values, variable), values)) || 0;
 const primaryFamily = (value: string): string =>
 	value.split(",")[0]?.replace(/["']/g, "").trim() ?? value;
+const tokenName = (variable: string, prefix: string): string =>
+	variable.startsWith(prefix) ? variable.slice(prefix.length) : variable;
 
 /** Offsets from step 0 (`1rem`) for the fixed size scale. */
 const SIZE_OFFSETS: [string, number][] = [
@@ -45,6 +53,33 @@ const SIZE_OFFSETS: [string, number][] = [
 	["2xl", 3],
 	["display", 4]
 ];
+
+/** The fixed weight and line-height tokens, as selectable options. */
+const WEIGHT_OPTIONS = TOKENS.filter((token) => token.kind === "font-weight").map((token) => ({
+	value: token.variable,
+	label: tokenName(token.variable, "--font-weight-")
+}));
+const LINE_HEIGHT_OPTIONS = TOKENS.filter((token) => token.kind === "line-height").map((token) => ({
+	value: token.variable,
+	label: tokenName(token.variable, "--line-height-")
+}));
+
+/** Fallback token per track when the loaded `DESIGN.md` omits a style reference. */
+const DEFAULT_WEIGHT: Record<TrackKey, string> = {
+	heading: "--font-weight-bold",
+	body: "--font-weight-regular",
+	mono: "--font-weight-thin"
+};
+const DEFAULT_LINE_HEIGHT: Record<TrackKey, string> = {
+	heading: "--line-height-tight",
+	body: "--line-height-regular",
+	mono: "--line-height-regular"
+};
+const DEFAULT_LETTER_SPACING: Record<TrackKey, string | undefined> = {
+	heading: "--letter-spacing-tight",
+	body: undefined,
+	mono: undefined
+};
 
 const SectionHeader: React.FC<{ index: string; title: string }> = ({ index, title }) => (
 	<header className="vz-section__head">
@@ -117,21 +152,23 @@ const stepSizes = (base: number, ratio: number, steps: number): number[] =>
 
 interface TrackView {
 	key: TrackKey;
+	styleKey: string;
 	familyVariable: string;
 	defaultFamily: string;
-	lineHeightVariable: string;
-	weightVariable: string;
-	assistVariable: string;
 	cogLabel: string;
 	tabLabel: string;
 	labels: string[];
 	texts: string[];
-	textStyle: (size: number) => React.CSSProperties;
 	metaExtra: string;
 }
 
 /** Typography: Headings / Body / Mono tracks, one cog each, faithful to the reference. */
-export const TypographySection: React.FC<SectionProps> = ({ values, update }) => {
+export const TypographySection: React.FC<TypographySectionProps> = ({
+	values,
+	update,
+	typography,
+	updateTypography
+}) => {
 	const [track, setTrack] = useState<TrackKey>("heading");
 	const [configs, setConfigs] = useState<Record<TrackKey, TrackConfig>>(TRACK_DEFAULTS);
 	const [texts, setTexts] = useState<Record<TrackKey, string[]>>({
@@ -166,66 +203,56 @@ export const TypographySection: React.FC<SectionProps> = ({ values, update }) =>
 	const views: Record<TrackKey, TrackView> = {
 		heading: {
 			key: "heading",
+			styleKey: "display",
 			familyVariable: "--font-family-display",
 			defaultFamily: "DM Serif Display",
-			lineHeightVariable: "--line-height-tight",
-			weightVariable: "--font-weight-bold",
-			assistVariable: "--letter-spacing-tight",
 			cogLabel: "Heading Scale",
 			tabLabel: "Headings",
 			labels: HEADING_LABELS,
 			texts: texts.heading,
-			textStyle: (size) => ({
-				fontFamily: "var(--font-family-display)",
-				fontSize: `${size / 16}rem`,
-				lineHeight: "var(--line-height-tight)",
-				fontWeight: "var(--font-weight-bold)",
-				letterSpacing: "var(--letter-spacing-tight)",
-				whiteSpace: "nowrap"
-			}),
 			metaExtra: `${config.steps} steps`
 		},
 		body: {
 			key: "body",
+			styleKey: "base",
 			familyVariable: "--font-family-base",
 			defaultFamily: "Plus Jakarta Sans",
-			lineHeightVariable: "--line-height-regular",
-			weightVariable: "--font-weight-regular",
-			assistVariable: "--letter-spacing-regular",
 			cogLabel: "Body Scale",
 			tabLabel: "Body",
 			labels: BODY_LABELS,
 			texts: texts.body,
-			textStyle: (size) => ({
-				fontFamily: "var(--font-family-base)",
-				fontSize: `${size / 16}rem`,
-				lineHeight: "var(--line-height-regular)",
-				fontWeight: "var(--font-weight-regular)"
-			}),
 			metaExtra: ""
 		},
 		mono: {
 			key: "mono",
+			styleKey: "mono",
 			familyVariable: "--font-family-mono",
 			defaultFamily: "JetBrains Mono",
-			lineHeightVariable: "--line-height-regular",
-			weightVariable: "--font-weight-thin",
-			assistVariable: "--letter-spacing-regular",
 			cogLabel: "Mono Scale",
 			tabLabel: "Mono",
 			labels: MONO_LABELS,
 			texts: texts.mono,
-			textStyle: (size) => ({
-				fontFamily: "var(--font-family-mono)",
-				fontSize: `${size / 16}rem`,
-				lineHeight: "var(--line-height-regular)"
-			}),
 			metaExtra: ""
 		}
 	};
 
 	const view = views[track];
 	const family = read(values, view.familyVariable) || view.defaultFamily;
+	const weightVariable = typography[view.styleKey]?.fontWeight ?? DEFAULT_WEIGHT[view.key];
+	const lineHeightVariable = typography[view.styleKey]?.lineHeight ?? DEFAULT_LINE_HEIGHT[view.key];
+	const letterSpacingVariable =
+		typography[view.styleKey]?.letterSpacing ?? DEFAULT_LETTER_SPACING[view.key];
+	const weightName = tokenName(weightVariable, "--font-weight-");
+	const lineHeightName = tokenName(lineHeightVariable, "--line-height-");
+
+	const textStyle = (size: number): React.CSSProperties => ({
+		fontFamily: `var(${view.familyVariable})`,
+		fontSize: `${size / 16}rem`,
+		lineHeight: `var(${lineHeightVariable})`,
+		fontWeight: `var(${weightVariable})`,
+		...(letterSpacingVariable ? { letterSpacing: `var(${letterSpacingVariable})` } : {}),
+		...(track === "heading" ? { whiteSpace: "nowrap" as const } : {})
+	});
 
 	return (
 		<section id="typography" className="vz-section">
@@ -255,7 +282,9 @@ export const TypographySection: React.FC<SectionProps> = ({ values, update }) =>
 							</>
 						) : null}
 						<span className="vz-meta__sep">·</span>
-						<span>lh {read(values, view.lineHeightVariable)}</span>
+						<span>w {weightName}</span>
+						<span className="vz-meta__sep">·</span>
+						<span>lh {lineHeightName}</span>
 					</>
 				}
 			>
@@ -294,19 +323,31 @@ export const TypographySection: React.FC<SectionProps> = ({ values, update }) =>
 					max={track === "heading" ? 9 : 5}
 					onChange={(value) => setConfig({ steps: Math.round(value) })}
 				/>
-				<NumberField
-					label="Line height"
-					value={Number.parseFloat(read(values, view.lineHeightVariable)) || 0}
-					step={0.01}
-					onChange={(value) => update(view.lineHeightVariable, String(value))}
+				<SelectField
+					label="Weight"
+					value={weightVariable}
+					options={WEIGHT_OPTIONS}
+					onChange={(variable) => updateTypography(view.styleKey, "fontWeight", variable)}
 				/>
 				<NumberField
-					label="Weight"
-					value={num(values, view.weightVariable)}
+					label={`${weightName} value`}
+					value={resolvedNumber(values, weightVariable)}
 					step={100}
 					min={100}
 					max={900}
-					onChange={(value) => update(view.weightVariable, String(value))}
+					onChange={(value) => update(weightVariable, String(value))}
+				/>
+				<SelectField
+					label="Line height"
+					value={lineHeightVariable}
+					options={LINE_HEIGHT_OPTIONS}
+					onChange={(variable) => updateTypography(view.styleKey, "lineHeight", variable)}
+				/>
+				<NumberField
+					label={`${lineHeightName} value`}
+					value={resolvedNumber(values, lineHeightVariable)}
+					step={0.01}
+					onChange={(value) => update(lineHeightVariable, String(value))}
 				/>
 			</MetaRow>
 
@@ -317,7 +358,7 @@ export const TypographySection: React.FC<SectionProps> = ({ values, update }) =>
 							<div>{view.labels[index] ?? `step-${index}`}</div>
 							<div>{`${(size / 16).toFixed(3)}rem`}</div>
 						</div>
-						<div className="vz-sample__body" style={view.textStyle(size)}>
+						<div className="vz-sample__body" style={textStyle(size)}>
 							<EditableText
 								value={view.texts[index] ?? "Sample text"}
 								onChange={(value) => setText(index, value)}

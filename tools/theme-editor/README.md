@@ -11,6 +11,8 @@ shadcn.
   an editor: typography (families, size scale, weights, line heights, letter spacing),
   colors (brand, action, text, surface) with derived `muted`/`active` variants, spacing
   (`xs`–`xxl`), shapes (`rounded`, `border`, `elevation`), and the component gallery.
+  Each typographic style (`base`, `display`, `mono`) selects its weight and line-height
+  token; the same control edits that token's value.
 - **Previews in scope.** The edited theme is serialized and applied under
   `[data-ds-preview]`, so the preview updates while the tool's own chrome keeps its
   tokens.

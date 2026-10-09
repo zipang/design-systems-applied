@@ -25,6 +25,9 @@
 	inline-size: fit-content;
 	max-inline-size: calc(100% - (2 * var(--space-lg)));
 	font-family: var(--font-family-mono);
+	/* Radix locks the body with `pointer-events: none`; re-enable the dialog subtree
+	   because `Box` drops the inline style Radix would otherwise inject. */
+	pointer-events: auto;
 
 	& .ui-dialog__close {
 		position: absolute;

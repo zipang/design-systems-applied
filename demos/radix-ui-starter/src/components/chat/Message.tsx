@@ -1,3 +1,4 @@
+import { Box } from "@components/base/Box";
 import { Icon } from "@components/base/Icon";
 import { Text } from "@components/base/Text";
 import { clsx } from "@lib/clsx";
@@ -21,7 +22,12 @@ export const Message: React.FC<MessageProps> = ({ message }) => {
 			<Text as="span" size="sm" tone="muted" className="chat-message__speaker">
 				{isEliza ? "Eliza" : "You"}
 			</Text>
-			<div className="chat-message__bubble">
+			<Box
+				background={isEliza ? "surface-alt" : "surface-dark"}
+				py="base"
+				px="lg"
+				className="chat-message__bubble"
+			>
 				<Text size="md" tone={isEliza ? "base" : "ondark"}>
 					{message.text}
 				</Text>
@@ -38,7 +44,7 @@ export const Message: React.FC<MessageProps> = ({ message }) => {
 						</span>
 					</div>
 				) : null}
-			</div>
+			</Box>
 		</li>
 	);
 };

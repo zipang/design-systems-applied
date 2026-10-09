@@ -18,8 +18,6 @@
 
 	& .chat-message__bubble {
 		border-radius: var(--rounded-none) var(--rounded-lg) var(--rounded-lg) var(--rounded-lg);
-		background: var(--color-surface-alt);
-		padding: var(--space-base) var(--space-lg);
 		color: var(--color-text);
 
 		& p {
@@ -29,7 +27,6 @@
 
 	&.is-you .chat-message__bubble {
 		border-radius: var(--rounded-lg) var(--rounded-none) var(--rounded-lg) var(--rounded-lg);
-		background: var(--color-surface-dark);
 		color: var(--color-text-ondark);
 	}
 

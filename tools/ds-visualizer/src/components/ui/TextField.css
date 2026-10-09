@@ -8,7 +8,7 @@
 		color: var(--color-text-muted);
 		font-family: var(--font-family-mono);
 		font-size: var(--font-size-sm);
-		font-weight: var(--font-weight-medium);
+		font-weight: var(--font-weight-thin);
 		letter-spacing: var(--letter-spacing-wide);
 	}
 
@@ -20,7 +20,7 @@
 		color: var(--color-text);
 		font-family: var(--font-family-mono);
 		font-size: var(--font-size-md);
-		line-height: var(--line-height-normal);
+		line-height: var(--line-height-regular);
 
 		&::placeholder {
 			color: var(--color-text-muted);

@@ -82,15 +82,8 @@ export const TOKENS: TokenDef[] = [
 	},
 
 	// Typography — weights (stylesheet-only)
+	{ variable: "--font-weight-thin", group: "typography", kind: "font-weight", required: true },
 	{ variable: "--font-weight-regular", group: "typography", kind: "font-weight", required: true },
-	{ variable: "--font-weight-medium", group: "typography", kind: "font-weight", required: true },
-	{
-		variable: "--font-weight-semibold",
-		group: "typography",
-		kind: "font-weight",
-		required: false,
-		fallback: "var(--font-weight-bold)"
-	},
 	{ variable: "--font-weight-bold", group: "typography", kind: "font-weight", required: true },
 	{
 		variable: "--font-weight-extrabold",
@@ -102,13 +95,13 @@ export const TOKENS: TokenDef[] = [
 
 	// Typography — line heights (stylesheet-only)
 	{ variable: "--line-height-tight", group: "typography", kind: "line-height", required: true },
-	{ variable: "--line-height-normal", group: "typography", kind: "line-height", required: true },
+	{ variable: "--line-height-regular", group: "typography", kind: "line-height", required: true },
 	{
 		variable: "--line-height-relaxed",
 		group: "typography",
 		kind: "line-height",
 		required: false,
-		fallback: "var(--line-height-normal)"
+		fallback: "var(--line-height-regular)"
 	},
 
 	// Typography — letter spacing (stylesheet-only)
@@ -119,7 +112,7 @@ export const TOKENS: TokenDef[] = [
 		required: true
 	},
 	{
-		variable: "--letter-spacing-normal",
+		variable: "--letter-spacing-regular",
 		group: "typography",
 		kind: "letter-spacing",
 		required: true
@@ -129,7 +122,7 @@ export const TOKENS: TokenDef[] = [
 		group: "typography",
 		kind: "letter-spacing",
 		required: false,
-		fallback: "var(--letter-spacing-normal)"
+		fallback: "var(--letter-spacing-regular)"
 	},
 
 	// Colors — brand

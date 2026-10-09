@@ -27,16 +27,16 @@
 	--font-weight-thin: 400;
 	--font-weight-regular: 500;
 	--font-weight-bold: 700;
-	--font-weight-extrabold: 800;
+	--font-weight-extrabold: var(--font-weight-bold);
 
 	/* --- Line heights --- */
 	--line-height-tight: 1.12;
-	--line-height-normal: 1.65;
+	--line-height-regular: 1.65;
 	--line-height-relaxed: 1.75;
 
 	/* --- Letter spacing --- */
 	--letter-spacing-tight: -0.02em;
-	--letter-spacing-normal: 0;
+	--letter-spacing-regular: 0;
 	--letter-spacing-wide: 0.02em;
 
 	/* --- Colors: brand --- */

@@ -189,9 +189,9 @@ export const TypographySection: React.FC<SectionProps> = ({ values, update }) =>
 			key: "body",
 			familyVariable: "--font-family-base",
 			defaultFamily: "Plus Jakarta Sans",
-			lineHeightVariable: "--line-height-normal",
+			lineHeightVariable: "--line-height-regular",
 			weightVariable: "--font-weight-regular",
-			assistVariable: "--letter-spacing-normal",
+			assistVariable: "--letter-spacing-regular",
 			cogLabel: "Body Scale",
 			tabLabel: "Body",
 			labels: BODY_LABELS,
@@ -199,7 +199,7 @@ export const TypographySection: React.FC<SectionProps> = ({ values, update }) =>
 			textStyle: (size) => ({
 				fontFamily: "var(--font-family-base)",
 				fontSize: `${size / 16}rem`,
-				lineHeight: "var(--line-height-normal)",
+				lineHeight: "var(--line-height-regular)",
 				fontWeight: "var(--font-weight-regular)"
 			}),
 			metaExtra: ""
@@ -208,9 +208,9 @@ export const TypographySection: React.FC<SectionProps> = ({ values, update }) =>
 			key: "mono",
 			familyVariable: "--font-family-mono",
 			defaultFamily: "JetBrains Mono",
-			lineHeightVariable: "--line-height-normal",
-			weightVariable: "--font-weight-regular",
-			assistVariable: "--letter-spacing-normal",
+			lineHeightVariable: "--line-height-regular",
+			weightVariable: "--font-weight-thin",
+			assistVariable: "--letter-spacing-regular",
 			cogLabel: "Mono Scale",
 			tabLabel: "Mono",
 			labels: MONO_LABELS,
@@ -218,7 +218,7 @@ export const TypographySection: React.FC<SectionProps> = ({ values, update }) =>
 			textStyle: (size) => ({
 				fontFamily: "var(--font-family-mono)",
 				fontSize: `${size / 16}rem`,
-				lineHeight: "var(--line-height-normal)"
+				lineHeight: "var(--line-height-regular)"
 			}),
 			metaExtra: ""
 		}

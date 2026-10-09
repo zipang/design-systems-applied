@@ -37,7 +37,7 @@ typography:
   base: {
     fontFamily: '"Plus Jakarta Sans", system-ui, sans-serif',
     fontWeight: "var(--font-weight-regular)",
-    lineHeight: "var(--line-height-normal)"
+    lineHeight: "var(--line-height-regular)"
   }
   display: {
     fontFamily: '"DM Serif Display", Georgia, serif',
@@ -46,7 +46,9 @@ typography:
     letterSpacing: "var(--letter-spacing-tight)"
   }
   mono: {
-    fontFamily: '"JetBrains Mono", ui-monospace, monospace'
+    fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+    fontWeight: "var(--font-weight-thin)",
+    lineHeight: "var(--line-height-regular)"
   }
 
 # ============================================================================

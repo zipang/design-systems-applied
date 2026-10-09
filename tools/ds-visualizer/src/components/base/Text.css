@@ -3,7 +3,7 @@
 	margin: 0;
 	color: var(--color-text);
 	font-family: var(--font-family-base);
-	line-height: var(--line-height-normal);
+	line-height: var(--line-height-regular);
 
 	&.base-text--xs {
 		font-size: var(--font-size-xs);

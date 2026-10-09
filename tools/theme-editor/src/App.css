@@ -50,7 +50,7 @@
 .app__nav-item.is-active .app__nav-dot {
 	width: 0.625rem;
 	height: 0.625rem;
-	background: var(--color-brand-accent);
+	background: var(--color-text-accent);
 }
 
 .app__nav-label {

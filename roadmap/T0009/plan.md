@@ -27,7 +27,7 @@ verify.
 
 ### Phase 1: Move and rewire the workspace
 
-- [ ] **Task 1: Move the directory and rename the package**
+- [x] **Task 1: Move the directory and rename the package**
   - Acceptance: `tools/ds-visualizer/` is moved to `tools/theme-editor/`; the package's
     `name` is `@tools/theme-editor`.
   - Verify: `git status` shows renames; `bun run --cwd tools/theme-editor typecheck` runs.
@@ -35,7 +35,7 @@ verify.
     `tools/theme-editor/package.json`
   - Depends: None
 
-- [ ] **Task 2: Update the root wiring**
+- [x] **Task 2: Update the root wiring**
   - Acceptance: root `package.json` scripts (`theme-editor`, `theme-editor:dev`,
     `typecheck`) point at `tools/theme-editor`; root `tsconfig.json` excludes
     `tools/theme-editor`; `bun.lock` workspace entry and package index use the new path and
@@ -45,11 +45,11 @@ verify.
   - Depends: Task 1
 
 ### Checkpoint: Workspace
-- [ ] `bun run typecheck` passes from the root
+- [x] `bun run typecheck` passes from the root
 
 ### Phase 2: User-facing strings and docs
 
-- [ ] **Task 3: Rename the tool's user-facing strings**
+- [x] **Task 3: Rename the tool's user-facing strings**
   - Acceptance: the server banner, `index.html` title, toolbar wordmark, default theme
     name, the tool's `DESIGN.md`/`design-tokens.css` headers, and the internal comments no
     longer say "visualizer"; the default theme is named `Theme Editor Default`; the
@@ -65,7 +65,7 @@ verify.
     `tools/theme-editor/src/components/editor/SettingsCog.tsx`
   - Depends: Task 1
 
-- [ ] **Task 4: Update the tool's docs**
+- [x] **Task 4: Update the tool's docs**
   - Acceptance: the tool `README.md` title and commands use `theme-editor`;
     `AGENTS.md`, `src/AGENTS.md`, and `src/components/AGENTS.md` use the new path and name.
   - Verify: grep for `ds-visualizer` / `DS Visualizer` under `tools/theme-editor`.
@@ -74,11 +74,11 @@ verify.
   - Depends: Task 1
 
 ### Checkpoint: Naming
-- [ ] No `ds-visualizer` or `visualizer` reference in active code or docs
+- [x] No `ds-visualizer` or `visualizer` reference in active code or docs
 
 ### Phase 3: Verification
 
-- [ ] **Task 5: Verify and commit**
+- [x] **Task 5: Verify and commit**
   - Acceptance: `bun install`, `bun run check`, `bun run typecheck`, and `bun test` pass;
     both `bun run theme-editor` and `bun run theme-editor:dev` serve the app; the grep gate
     is clean.
@@ -89,8 +89,8 @@ verify.
   - Depends: Tasks 1–4
 
 ### Checkpoint: Done
-- [ ] All success criteria in the spec are checked
-- [ ] Human sign-off
+- [x] All success criteria in the spec are checked
+- [x] Human sign-off
 
 ## Risks and Mitigations
 

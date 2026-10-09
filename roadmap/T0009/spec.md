@@ -75,11 +75,11 @@ Dev:        bun run theme-editor:dev    # hot reload
 
 ## Success Criteria
 
-- [ ] `tools/ds-visualizer/` no longer exists; `tools/theme-editor/` holds the tool.
-- [ ] The package is named `@tools/theme-editor`.
-- [ ] `bun run theme-editor` and `bun run theme-editor:dev` launch the tool.
-- [ ] No `ds-visualizer` or `visualizer` reference remains in active code or docs.
-- [ ] `bun run check`, `bun run typecheck`, and `bun test` pass.
+- [x] `tools/ds-visualizer/` no longer exists; `tools/theme-editor/` holds the tool.
+- [x] The package is named `@tools/theme-editor`.
+- [x] `bun run theme-editor` and `bun run theme-editor:dev` launch the tool.
+- [x] No `ds-visualizer` or `visualizer` reference remains in active code or docs.
+- [x] `bun run check`, `bun run typecheck`, and `bun test` pass.
 
 ## Open Questions
 

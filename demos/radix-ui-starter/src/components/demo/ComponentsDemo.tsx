@@ -18,6 +18,7 @@ import {
 import { TextField } from "@components/ui/TextField";
 import type * as React from "react";
 import { useState } from "react";
+import { BoxDemo } from "./BoxDemo";
 import { DemoColorPalette } from "./DemoColorPalette";
 import { DemoSection } from "./DemoSection";
 import "./ComponentsDemo.css";
@@ -82,7 +83,11 @@ export const ComponentsDemo: React.FC = () => {
 					<DemoColorPalette />
 				</DemoSection>
 
-				<DemoSection index={4} title="Buttons">
+				<DemoSection index={4} title="Box">
+					<BoxDemo />
+				</DemoSection>
+
+				<DemoSection index={5} title="Buttons">
 					<VStack gap="md">
 						<HStack gap="sm" wrap>
 							{BUTTON_VARIANTS.map((variant) => (
@@ -103,7 +108,7 @@ export const ComponentsDemo: React.FC = () => {
 					</VStack>
 				</DemoSection>
 
-				<DemoSection index={5} title="Icons">
+				<DemoSection index={6} title="Icons">
 					<HStack gap="lg" wrap>
 						{ICON_NAMES.map((name) =>
 							ICON_SIZES.map((size) => (
@@ -113,7 +118,7 @@ export const ComponentsDemo: React.FC = () => {
 					</HStack>
 				</DemoSection>
 
-				<DemoSection index={6} title="Avatar">
+				<DemoSection index={7} title="Avatar">
 					<HStack gap="lg" wrap>
 						<Avatar fallback="SM" size="sm" shape="rounded" />
 						<Avatar fallback="MD" size="md" shape="rounded" />
@@ -122,7 +127,7 @@ export const ComponentsDemo: React.FC = () => {
 					</HStack>
 				</DemoSection>
 
-				<DemoSection index={7} title="Text field">
+				<DemoSection index={8} title="Text field">
 					<VStack gap="md">
 						<TextField
 							id="demo-name"
@@ -148,7 +153,7 @@ export const ComponentsDemo: React.FC = () => {
 					</VStack>
 				</DemoSection>
 
-				<DemoSection index={8} title="Dropdown menu">
+				<DemoSection index={9} title="Dropdown menu">
 					<DropdownMenu>
 						<DropdownMenuTrigger>Open menu</DropdownMenuTrigger>
 						<DropdownMenuContent>
@@ -162,7 +167,7 @@ export const ComponentsDemo: React.FC = () => {
 					</DropdownMenu>
 				</DemoSection>
 
-				<DemoSection index={9} title="Dialog">
+				<DemoSection index={10} title="Dialog">
 					<Dialog>
 						<DialogTrigger>Open dialog</DialogTrigger>
 						<DialogContent title="Dialog title" description="A token-styled modal on any theme.">

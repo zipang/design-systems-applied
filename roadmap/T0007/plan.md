@@ -284,7 +284,7 @@ panels map onto our fixed token categories; its Tailwind/shadcn styling is dropp
   - Files: `roadmap/T0007/reference/screenshots/`
   - Depends: Task 1
 
-- [ ] **Task 23: Add a Tabs primitive and a single settings cog**
+- [x] **Task 23: Add a Tabs primitive and a single settings cog**
   - Acceptance: `ui/Tabs` renders the reference tab bar (uppercase labels, active
     underline). `editor/SettingsCog` replaces the multiple `<details>` panels with one cog
     button per section/track that opens a popover titled with the track name and a close
@@ -294,7 +294,7 @@ panels map onto our fixed token categories; its Tailwind/shadcn styling is dropp
     `tools/ds-visualizer/src/components/editor/SettingsCog.tsx` (+ CSS)
   - Depends: Task 22
 
-- [ ] **Task 24: Port the font catalog and the font picker modal**
+- [x] **Task 24: Port the font catalog and the font picker modal**
   - Acceptance: `lib/fonts.ts` holds the Google and system catalogs and a lazy loader;
     `editor/FontPicker` is a modal with provider tabs (Google/System/Adobe-disabled),
     category filters (All/Serif/Sans/Display/Mono/Script), search, preview text, and a
@@ -304,7 +304,7 @@ panels map onto our fixed token categories; its Tailwind/shadcn styling is dropp
     (+ CSS)
   - Depends: Task 23
 
-- [ ] **Task 25: Rebuild Typography to match the reference**
+- [x] **Task 25: Rebuild Typography to match the reference**
   - Acceptance: Headings/Body/Mono tabs; one cog per track opening Font Family (with a
     browse button), Base Size, Scale Ratio, Steps, Line Height, and Weight; a meta row
     (`family · ×ratio · N steps · lh`); sample rows with a label + computed `rem` on the
@@ -314,14 +314,14 @@ panels map onto our fixed token categories; its Tailwind/shadcn styling is dropp
     `src/components/editor/EditableText.tsx` (+ CSS)
   - Depends: Tasks 23-24
 
-- [ ] **Task 26: Add Palette/Usage and Components tabs**
+- [x] **Task 26: Add Palette/Usage and Components tabs**
   - Acceptance: Colors has Palette/Usage tabs; Components has Buttons/Containers/Cards
     tabs, matching the reference composition.
   - Verify: screenshot comparison with `ref-colors-usage.png`, `ref-components-*.png`
   - Files: `src/components/preview/Preview.tsx`, `src/components/preview/Preview.css`
   - Depends: Task 25
 
-- [ ] **Task 27: Gates and visual dogfood**
+- [x] **Task 27: Gates and visual dogfood**
   - Acceptance: `bun run check`, `bun run typecheck`, `bun test`, and the build pass; a
     fresh `agent-browser` pass matches the reference screenshots and the console is clean.
   - Verify: the four commands plus an `agent-browser` pass

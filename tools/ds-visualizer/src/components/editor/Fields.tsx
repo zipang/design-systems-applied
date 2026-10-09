@@ -1,25 +1,5 @@
-import { clsx } from "@lib/clsx";
 import type * as React from "react";
 import "./Fields.css";
-
-export interface CogPanelProps {
-	label: string;
-	children: React.ReactNode;
-	className?: string;
-}
-
-/** A collapsible editor panel, styled off the tool's own tokens. */
-export const CogPanel: React.FC<CogPanelProps> = ({ label, children, className }) => (
-	<details className={clsx("editor-cog", className)}>
-		<summary className="editor-cog__summary" title={`${label} settings`}>
-			<span className="editor-cog__label">{label}</span>
-			<span className="editor-cog__cog" aria-hidden="true">
-				⚙
-			</span>
-		</summary>
-		<div className="editor-cog__body">{children}</div>
-	</details>
-);
 
 export interface NumberFieldProps {
 	label: string;
@@ -31,7 +11,7 @@ export interface NumberFieldProps {
 	onChange: (value: number) => void;
 }
 
-/** Labeled numeric input for the editor panels. */
+/** Labeled numeric input for the settings menus. */
 export const NumberField: React.FC<NumberFieldProps> = ({
 	label,
 	value,

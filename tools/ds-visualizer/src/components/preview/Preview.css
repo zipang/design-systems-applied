@@ -1,9 +1,8 @@
 .vz-section {
-	padding: var(--space-xl) var(--space-lg);
-	border-top: var(--border-sm) solid var(--color-surface-alt);
+	padding: var(--space-xxl) var(--space-lg);
 
 	&:first-child {
-		border-top: 0;
+		padding-top: var(--space-xl);
 	}
 }
 
@@ -11,6 +10,8 @@
 	display: flex;
 	align-items: baseline;
 	gap: var(--space-sm);
+	padding-bottom: var(--space-sm);
+	border-bottom: var(--border-sm) solid var(--color-surface-alt);
 	margin-bottom: var(--space-lg);
 }
 
@@ -24,34 +25,26 @@
 	margin: 0;
 }
 
-.vz-section__body {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) 18rem;
-	gap: var(--space-lg);
-	align-items: start;
+.vz-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-md);
+	padding: var(--space-sm) 0;
 }
 
-@media (max-width: 60rem) {
-	.vz-section__body {
-		grid-template-columns: minmax(0, 1fr);
-	}
+.vz-meta__text {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	flex-wrap: wrap;
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-sm);
+	color: var(--color-text-muted);
 }
 
-.vz-section__preview {
-	display: grid;
-	gap: var(--space-lg);
-	padding: var(--space-lg);
-	background: var(--color-surface);
-	border: var(--border-sm) solid var(--color-surface-alt);
-	border-radius: var(--rounded-lg);
-	color: var(--color-text);
-}
-
-.vz-section__controls {
-	display: grid;
-	gap: var(--space-sm);
-	position: sticky;
-	top: var(--space-lg);
+.vz-meta__sep {
+	opacity: 0.4;
 }
 
 .vz-label {
@@ -68,6 +61,12 @@
 	color: var(--color-text-muted);
 }
 
+.vz-preview {
+	display: grid;
+	gap: var(--space-lg);
+	padding: var(--space-lg) 0;
+}
+
 .vz-row {
 	display: flex;
 	flex-wrap: wrap;
@@ -76,64 +75,71 @@
 }
 
 /* Typography */
-.vz-families {
-	display: grid;
-	gap: var(--space-sm);
-	padding-bottom: var(--space-md);
-	border-bottom: var(--border-sm) solid var(--color-surface-alt);
+.vz-family {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	min-width: 0;
+}
 
-	& > span {
-		line-height: var(--line-height-tight);
+.vz-family__input {
+	flex: 1;
+	min-width: 0;
+	padding: var(--space-xs) var(--space-sm);
+	border: var(--border-sm) solid var(--color-surface-alt);
+	border-radius: var(--rounded-sm);
+	background: var(--color-surface);
+	color: var(--color-text);
+	font-size: var(--font-size-sm);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	&:focus-visible {
+		outline: none;
+		border-color: var(--color-brand-accent);
 	}
 }
 
-.vz-type-scale {
-	display: grid;
+.vz-family__browse {
+	flex: none;
+	padding: var(--space-xs) var(--space-sm);
+	border: var(--border-sm) solid var(--color-surface-alt);
+	border-radius: var(--rounded-sm);
+	background: var(--color-surface);
+	color: var(--color-text-muted);
+	cursor: pointer;
+
+	&:hover {
+		color: var(--color-text);
+	}
 }
 
-.vz-type-row {
+.vz-sample {
 	display: grid;
-	grid-template-columns: 5rem minmax(0, 1fr);
-	gap: var(--space-md);
+	grid-template-columns: 5.5rem minmax(0, 1fr);
+	gap: var(--space-lg);
 	align-items: baseline;
-	padding: var(--space-xs) 0;
+	padding: var(--space-sm) 0;
 	border-bottom: var(--border-sm) solid var(--color-surface-alt);
 	overflow: hidden;
-
-	& .vz-type-row__meta {
-		display: grid;
-		font-family: var(--font-family-mono);
-		font-size: var(--font-size-sm);
-		color: var(--color-text-muted);
-	}
-
-	& .vz-type-row__sample {
-		font-family: var(--font-family-display);
-		line-height: var(--line-height-tight);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
 }
 
-.vz-weights {
+.vz-sample__meta {
 	display: grid;
-	gap: var(--space-xs);
+	gap: 0.125rem;
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-sm);
+	color: var(--color-text-muted);
 }
 
-.vz-weight {
-	display: flex;
-	justify-content: space-between;
-	gap: var(--space-md);
-	font-size: var(--font-size-lg);
+.vz-sample__body {
+	min-width: 0;
+	overflow: hidden;
+	color: var(--color-text);
 }
 
 /* Colors */
-.vz-palette {
-	display: grid;
-	gap: var(--space-lg);
-}
-
 .vz-palette__group {
 	display: grid;
 	gap: var(--space-sm);
@@ -141,19 +147,31 @@
 
 .vz-swatches {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
-	gap: var(--space-sm);
+	grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+	gap: var(--space-md);
 }
 
 .vz-swatch {
 	display: grid;
-	gap: 0.125rem;
+	gap: var(--space-xs);
 }
 
 .vz-swatch__chip {
-	height: 3.5rem;
-	border-radius: var(--rounded-sm);
+	position: relative;
+	height: 4.5rem;
 	border: var(--border-sm) solid var(--color-surface-alt);
+	border-radius: var(--rounded-sm);
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.vz-swatch__picker {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
 }
 
 .vz-swatch__name {
@@ -163,8 +181,8 @@
 
 .vz-surfaces {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-	gap: var(--space-sm);
+	grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+	gap: var(--space-md);
 }
 
 .vz-surface {
@@ -256,7 +274,6 @@
 
 /* Shapes */
 .vz-rounded,
-.vz-borders,
 .vz-elevations {
 	display: flex;
 	flex-wrap: wrap;
@@ -274,19 +291,6 @@
 	height: 4.5rem;
 	background: var(--color-brand-accent);
 	border: var(--border-md) solid var(--color-text);
-}
-
-.vz-border-sample {
-	width: 4.5rem;
-	height: 4.5rem;
-	background: var(--color-surface-alt);
-	border-radius: var(--rounded-sm);
-}
-
-.vz-border-item {
-	display: grid;
-	gap: var(--space-xs);
-	justify-items: center;
 }
 
 .vz-elevation {
@@ -310,10 +314,18 @@
 }
 
 /* Components */
-.vz-form {
+.vz-containers {
+	display: grid;
+	gap: var(--space-lg);
+}
+
+.vz-container {
 	display: grid;
 	gap: var(--space-sm);
-	max-width: 24rem;
+	padding: var(--space-lg);
+	border: var(--border-sm) solid var(--color-surface-alt);
+	border-radius: var(--rounded-lg);
+	max-width: 32rem;
 }
 
 .vz-cards {
@@ -322,8 +334,15 @@
 	gap: var(--space-md);
 }
 
-.vz-card--dark {
-	color: var(--color-text-ondark);
+.vz-card {
+	display: grid;
+	gap: var(--space-xs);
+	align-content: start;
+	padding: var(--space-lg);
+	background: var(--color-surface-card);
+	border: var(--border-sm) solid var(--color-surface-alt);
+	border-radius: var(--rounded-lg);
+	box-shadow: var(--elevation-md);
 }
 
 .vz-stat {

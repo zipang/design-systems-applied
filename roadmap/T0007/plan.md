@@ -273,6 +273,61 @@ panels map onto our fixed token categories; its Tailwind/shadcn styling is dropp
   - Files: none
   - Depends: Task 20
 
+### Phase 7: Reference fidelity (Typography and beyond)
+
+- [x] **Task 22: Capture the running reference**
+  - Acceptance: the original `ds-visualizer` runs locally and per-section screenshots
+    (Headings/Body/Mono tabs, the settings cog popover, the font picker modal, Colors
+    Palette/Usage, Components Buttons/Containers/Cards, full page) are saved under
+    `roadmap/T0007/reference/screenshots/`.
+  - Verify: screenshots open and match the running app
+  - Files: `roadmap/T0007/reference/screenshots/`
+  - Depends: Task 1
+
+- [ ] **Task 23: Add a Tabs primitive and a single settings cog**
+  - Acceptance: `ui/Tabs` renders the reference tab bar (uppercase labels, active
+    underline). `editor/SettingsCog` replaces the multiple `<details>` panels with one cog
+    button per section/track that opens a popover titled with the track name and a close
+    control.
+  - Verify: `bun run typecheck`; browser check of the popover
+  - Files: `tools/ds-visualizer/src/components/ui/Tabs.tsx` (+ CSS),
+    `tools/ds-visualizer/src/components/editor/SettingsCog.tsx` (+ CSS)
+  - Depends: Task 22
+
+- [ ] **Task 24: Port the font catalog and the font picker modal**
+  - Acceptance: `lib/fonts.ts` holds the Google and system catalogs and a lazy loader;
+    `editor/FontPicker` is a modal with provider tabs (Google/System/Adobe-disabled),
+    category filters (All/Serif/Sans/Display/Mono/Script), search, preview text, and a
+    two-column card grid that applies on click.
+  - Verify: `agent-browser` comparison with the reference font picker
+  - Files: `tools/ds-visualizer/src/lib/fonts.ts`, `src/components/editor/FontPicker.tsx`
+    (+ CSS)
+  - Depends: Task 23
+
+- [ ] **Task 25: Rebuild Typography to match the reference**
+  - Acceptance: Headings/Body/Mono tabs; one cog per track opening Font Family (with a
+    browse button), Base Size, Scale Ratio, Steps, Line Height, and Weight; a meta row
+    (`family · ×ratio · N steps · lh`); sample rows with a label + computed `rem` on the
+    left, the sample on the right, dividers, and inline-editable text.
+  - Verify: screenshot comparison with `ref-typo-*.png`
+  - Files: `src/components/preview/Preview.tsx`, `src/components/preview/Preview.css`,
+    `src/components/editor/EditableText.tsx` (+ CSS)
+  - Depends: Tasks 23-24
+
+- [ ] **Task 26: Add Palette/Usage and Components tabs**
+  - Acceptance: Colors has Palette/Usage tabs; Components has Buttons/Containers/Cards
+    tabs, matching the reference composition.
+  - Verify: screenshot comparison with `ref-colors-usage.png`, `ref-components-*.png`
+  - Files: `src/components/preview/Preview.tsx`, `src/components/preview/Preview.css`
+  - Depends: Task 25
+
+- [ ] **Task 27: Gates and visual dogfood**
+  - Acceptance: `bun run check`, `bun run typecheck`, `bun test`, and the build pass; a
+    fresh `agent-browser` pass matches the reference screenshots and the console is clean.
+  - Verify: the four commands plus an `agent-browser` pass
+  - Files: none
+  - Depends: Task 26
+
 ### Checkpoint: Complete
 - [ ] All success criteria in `spec.md` met
 - [ ] Ready for review

@@ -1,0 +1,261 @@
+.ui-fontpicker {
+	position: fixed;
+	inset: 0;
+	z-index: 60;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: var(--space-lg);
+}
+
+.ui-fontpicker__scrim {
+	position: absolute;
+	inset: 0;
+	border: 0;
+	background: color-mix(in srgb, var(--color-text) 52%, transparent);
+	backdrop-filter: blur(6px);
+	cursor: default;
+}
+
+.ui-fontpicker__panel {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: min(44rem, 100%);
+	height: min(82vh, 44rem);
+	background: var(--color-surface-card);
+	border: var(--border-sm) solid var(--color-surface-alt);
+	border-radius: var(--rounded-lg);
+	box-shadow: var(--elevation-lg);
+	overflow: hidden;
+}
+
+.ui-fontpicker__head {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+	padding: var(--space-md) var(--space-lg);
+	border-bottom: var(--border-sm) solid var(--color-surface-alt);
+}
+
+.ui-fontpicker__title {
+	display: block;
+	font-size: var(--font-size-lg);
+	font-weight: var(--font-weight-semibold);
+	color: var(--color-text);
+}
+
+.ui-fontpicker__current {
+	display: block;
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-sm);
+	color: var(--color-text-muted);
+}
+
+.ui-fontpicker__search {
+	flex: 1;
+	max-width: 16rem;
+	margin-left: auto;
+	padding: var(--space-xs) var(--space-sm);
+	border: var(--border-sm) solid var(--color-surface-alt);
+	border-radius: var(--rounded-sm);
+	background: var(--color-surface);
+	color: var(--color-text);
+	font-size: var(--font-size-sm);
+
+	&:focus-visible {
+		outline: none;
+		border-color: var(--color-brand-accent);
+	}
+}
+
+.ui-fontpicker__close {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	font-size: var(--font-size-xl);
+	line-height: 1;
+	color: var(--color-text-muted);
+
+	&:hover {
+		color: var(--color-text);
+	}
+}
+
+.ui-fontpicker__providers {
+	display: flex;
+	padding: 0 var(--space-md);
+	background: var(--color-surface-alt);
+	border-bottom: var(--border-sm) solid var(--color-surface-alt);
+}
+
+.ui-fontpicker__provider {
+	position: relative;
+	padding: var(--space-sm) var(--space-md);
+	background: none;
+	border: 0;
+	cursor: pointer;
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-sm);
+	letter-spacing: var(--letter-spacing-wide);
+	text-transform: uppercase;
+	color: var(--color-text-muted);
+
+	&:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+	}
+
+	&.is-active {
+		color: var(--color-text);
+	}
+
+	&.is-active::after {
+		content: "";
+		position: absolute;
+		left: var(--space-md);
+		right: var(--space-md);
+		bottom: 0;
+		height: var(--border-md);
+		background: var(--color-text);
+	}
+}
+
+.ui-fontpicker__count {
+	margin-left: var(--space-xs);
+	color: var(--color-text-muted);
+}
+
+.ui-fontpicker__filters {
+	display: flex;
+	align-items: center;
+	gap: var(--space-sm);
+	flex-wrap: wrap;
+	padding: var(--space-sm) var(--space-md);
+	border-bottom: var(--border-sm) solid var(--color-surface-alt);
+}
+
+.ui-fontpicker__categories {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs);
+	flex: 1;
+}
+
+.ui-fontpicker__category {
+	padding: var(--space-xs) var(--space-sm);
+	border: 0;
+	border-radius: var(--rounded-full);
+	background: var(--color-surface-alt);
+	color: var(--color-text-muted);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-sm);
+	cursor: pointer;
+
+	&.is-active {
+		background: var(--color-text);
+		color: var(--color-surface-card);
+	}
+}
+
+.ui-fontpicker__preview {
+	width: 12rem;
+	padding: var(--space-xs) var(--space-sm);
+	border: var(--border-sm) solid var(--color-surface-alt);
+	border-radius: var(--rounded-sm);
+	background: var(--color-surface);
+	color: var(--color-text);
+	font-size: var(--font-size-sm);
+}
+
+.ui-fontpicker__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-sm);
+	padding: var(--space-sm) var(--space-md);
+	overflow-y: auto;
+	flex: 1;
+}
+
+.ui-fontcard {
+	display: grid;
+	gap: var(--space-xs);
+	padding: var(--space-sm);
+	text-align: left;
+	background: none;
+	border: var(--border-sm) solid var(--color-surface-alt);
+	border-radius: var(--rounded-md);
+	cursor: pointer;
+
+	&:hover {
+		background: var(--color-surface-alt);
+	}
+
+	&.is-selected {
+		background: var(--color-text);
+		border-color: var(--color-text);
+		color: var(--color-surface-card);
+	}
+}
+
+.ui-fontcard__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-sm);
+}
+
+.ui-fontcard__name {
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-sm);
+	color: inherit;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ui-fontcard__badge {
+	flex: none;
+	padding: 0 var(--space-xs);
+	border-radius: var(--rounded-sm);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-sm);
+	background: var(--color-surface-alt);
+	color: var(--color-text-muted);
+}
+
+.ui-fontcard.is-selected .ui-fontcard__badge {
+	background: color-mix(in srgb, var(--color-surface-card) 20%, transparent);
+	color: var(--color-surface-card);
+}
+
+.ui-fontcard__sample {
+	font-size: var(--font-size-xl);
+	line-height: var(--line-height-tight);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ui-fontpicker__foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-md);
+	padding: var(--space-sm) var(--space-lg);
+	border-top: var(--border-sm) solid var(--color-surface-alt);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-sm);
+	color: var(--color-text-muted);
+}
+
+.ui-fontpicker__done {
+	padding: var(--space-xs) var(--space-md);
+	border: 0;
+	border-radius: var(--rounded-sm);
+	background: var(--color-text);
+	color: var(--color-surface-card);
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-medium);
+	cursor: pointer;
+}

@@ -1,13 +1,16 @@
-import { Box } from "@components/base/Box";
 import { Heading } from "@components/base/Heading";
 import { Text } from "@components/base/Text";
-import { CogPanel, ColorField, NumberField, TextInput } from "@components/editor/Fields";
+import { EditableText } from "@components/editor/EditableText";
+import { NumberField, TextInput } from "@components/editor/Fields";
+import { FontPicker } from "@components/editor/FontPicker";
+import { SettingsCog } from "@components/editor/SettingsCog";
 import { Button } from "@components/ui/Button";
+import { Tabs } from "@components/ui/Tabs";
 import { TextField } from "@components/ui/TextField";
 import { resolveVariables } from "@lib/contract";
 import { contrastLevel, contrastRatio, isLight } from "@lib/contrast";
 import type { TokenValues } from "@lib/design-system";
-import { formatRem, spacingScaleRem, typeScaleRem } from "@lib/scale";
+import { formatRem } from "@lib/scale";
 import type * as React from "react";
 import { useState } from "react";
 import "./Preview.css";
@@ -25,180 +28,313 @@ const px = (values: TokenValues, variable: string): number => {
 	if (Number.isNaN(parsed)) return 0;
 	return raw.endsWith("px") ? parsed : parsed * 16;
 };
+const num = (values: TokenValues, variable: string): number =>
+	Number.parseFloat(read(values, variable)) || 0;
 const resolved = (values: TokenValues, variable: string): string =>
 	resolveVariables(read(values, variable), values);
 
-interface SectionShellProps {
-	id: string;
-	index: string;
-	title: string;
-	controls?: React.ReactNode;
-	children: React.ReactNode;
-}
-
-const SectionShell: React.FC<SectionShellProps> = ({ id, index, title, controls, children }) => (
-	<section id={id} className="vz-section">
-		<header className="vz-section__head">
-			<span className="vz-section__index">{index}</span>
-			<Heading level={2} size="lg" className="vz-section__title">
-				{title}
-			</Heading>
-		</header>
-		<div className="vz-section__body">
-			<div className="vz-section__preview" data-ds-preview>
-				{children}
-			</div>
-			{controls ? <aside className="vz-section__controls">{controls}</aside> : null}
-		</div>
-	</section>
-);
-
-const SIZE_STEPS = [
-	{ variable: "--font-size-display", label: "display" },
-	{ variable: "--font-size-2xl", label: "2xl" },
-	{ variable: "--font-size-xl", label: "xl" },
-	{ variable: "--font-size-lg", label: "lg" },
-	{ variable: "--font-size-md", label: "md" },
-	{ variable: "--font-size-sm", label: "sm" },
-	{ variable: "--font-size-xs", label: "xs" }
+/** Offsets from step 0 (`1rem`) for the fixed size scale. */
+const SIZE_OFFSETS: [string, number][] = [
+	["xs", -2],
+	["sm", -1],
+	["md", 0],
+	["lg", 1],
+	["xl", 2],
+	["2xl", 3],
+	["display", 4]
 ];
 
-const WEIGHT_STEPS = ["regular", "medium", "semibold", "bold", "extrabold"].map((name) => ({
-	variable: `--font-weight-${name}`,
-	label: name
-}));
+const SectionHeader: React.FC<{ index: string; title: string }> = ({ index, title }) => (
+	<header className="vz-section__head">
+		<span className="vz-section__index">{index}</span>
+		<Heading level={2} size="lg" className="vz-section__title">
+			{title}
+		</Heading>
+	</header>
+);
 
-const LINE_HEIGHT_STEPS = ["tight", "normal", "relaxed"].map((name) => ({
-	variable: `--line-height-${name}`,
-	label: name
-}));
+/** The meta summary line plus the single settings cog, right-aligned like the reference. */
+const MetaRow: React.FC<{
+	summary: React.ReactNode;
+	cogLabel: string;
+	children: React.ReactNode;
+}> = ({ summary, cogLabel, children }) => (
+	<div className="vz-meta">
+		<div className="vz-meta__text">{summary}</div>
+		<SettingsCog label={cogLabel}>{children}</SettingsCog>
+	</div>
+);
 
-const LETTER_SPACING_STEPS = ["tight", "normal", "wide"].map((name) => ({
-	variable: `--letter-spacing-${name}`,
-	label: name
-}));
+/* ── Typography ──────────────────────────────────────────────────────────── */
 
-/** Typography: families, the fixed size scale, weights, line heights, letter spacing. */
+type TrackKey = "heading" | "body" | "mono";
+
+interface TrackConfig {
+	base: number;
+	ratio: number;
+	steps: number;
+}
+
+const TRACK_DEFAULTS: Record<TrackKey, TrackConfig> = {
+	heading: { base: 16, ratio: 1.333, steps: 7 },
+	body: { base: 14, ratio: 1.25, steps: 5 },
+	mono: { base: 13, ratio: 1.2, steps: 4 }
+};
+
+const HEADING_LABELS = ["H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9"];
+const BODY_LABELS = ["xl", "lg", "base", "sm", "xs"];
+const MONO_LABELS = ["lg", "base", "sm", "xs"];
+
+const HEADING_TEXTS = [
+	"The Architecture of Type",
+	"Form Follows Function",
+	"Swiss Design Principles",
+	"Grid and Proportion",
+	"Negative Space",
+	"Typographic Hierarchy",
+	"Details Matter",
+	"Craft",
+	"Form"
+];
+const BODY_TEXTS = [
+	"The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs. Every good boy does fine.",
+	"A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.",
+	"Typography is the craft of endowing human language with a durable visual form, and thus with an independent existence.",
+	"The choice of typeface is the most fundamental typographic act and the one most likely to determine the outcome of a design.",
+	"Good typography makes the reading experience better."
+];
+const MONO_TEXTS = [
+	"const scale = (base, ratio, step) => base * ratio ** step;",
+	"--ds-color-brand-accent: #2D2DFF;",
+	"font-size: clamp(1rem, 2vw, 1.5rem);",
+	"// 16px → 1rem → t-base"
+];
+
+const stepSizes = (base: number, ratio: number, steps: number): number[] =>
+	Array.from({ length: steps }, (_, i) => base * ratio ** (steps - 1 - i));
+
+interface TrackView {
+	key: TrackKey;
+	familyVariable: string;
+	defaultFamily: string;
+	lineHeightVariable: string;
+	weightVariable: string;
+	assistVariable: string;
+	cogLabel: string;
+	tabLabel: string;
+	labels: string[];
+	texts: string[];
+	textStyle: (size: number) => React.CSSProperties;
+	metaExtra: string;
+}
+
+/** Typography: Headings / Body / Mono tracks, one cog each, faithful to the reference. */
 export const TypographySection: React.FC<SectionProps> = ({ values, update }) => {
-	const [ratio, setRatio] = useState(1.5);
+	const [track, setTrack] = useState<TrackKey>("heading");
+	const [configs, setConfigs] = useState<Record<TrackKey, TrackConfig>>(TRACK_DEFAULTS);
+	const [texts, setTexts] = useState<Record<TrackKey, string[]>>({
+		heading: HEADING_TEXTS,
+		body: BODY_TEXTS,
+		mono: MONO_TEXTS
+	});
+	const [picking, setPicking] = useState(false);
 
-	const generate = (): void => {
-		const scale = typeScaleRem(ratio);
-		for (const [name, value] of Object.entries(scale)) update(`--font-size-${name}`, value);
+	const config = configs[track];
+	const sizes = stepSizes(config.base, config.ratio, config.steps);
+
+	const setConfig = (patch: Partial<TrackConfig>): void => {
+		const next = { ...config, ...patch };
+		setConfigs((prev) => ({ ...prev, [track]: next }));
+		if (track === "heading") {
+			// The contract has a single size scale; the heading track owns it.
+			update("--font-size-base", "1rem");
+			for (const [name, offset] of SIZE_OFFSETS) {
+				update(`--font-size-${name}`, formatRem(next.base * next.ratio ** offset));
+			}
+		}
 	};
 
+	const setText = (index: number, value: string): void =>
+		setTexts((prev) => {
+			const list = [...prev[track]];
+			list[index] = value;
+			return { ...prev, [track]: list };
+		});
+
+	const views: Record<TrackKey, TrackView> = {
+		heading: {
+			key: "heading",
+			familyVariable: "--font-family-display",
+			defaultFamily: "DM Serif Display",
+			lineHeightVariable: "--line-height-tight",
+			weightVariable: "--font-weight-bold",
+			assistVariable: "--letter-spacing-tight",
+			cogLabel: "Heading Scale",
+			tabLabel: "Headings",
+			labels: HEADING_LABELS,
+			texts: texts.heading,
+			textStyle: (size) => ({
+				fontFamily: "var(--font-family-display)",
+				fontSize: `${size / 16}rem`,
+				lineHeight: "var(--line-height-tight)",
+				fontWeight: "var(--font-weight-bold)",
+				letterSpacing: "var(--letter-spacing-tight)",
+				whiteSpace: "nowrap"
+			}),
+			metaExtra: `${config.steps} steps`
+		},
+		body: {
+			key: "body",
+			familyVariable: "--font-family-base",
+			defaultFamily: "Plus Jakarta Sans",
+			lineHeightVariable: "--line-height-normal",
+			weightVariable: "--font-weight-regular",
+			assistVariable: "--letter-spacing-normal",
+			cogLabel: "Body Scale",
+			tabLabel: "Body",
+			labels: BODY_LABELS,
+			texts: texts.body,
+			textStyle: (size) => ({
+				fontFamily: "var(--font-family-base)",
+				fontSize: `${size / 16}rem`,
+				lineHeight: "var(--line-height-normal)",
+				fontWeight: "var(--font-weight-regular)"
+			}),
+			metaExtra: ""
+		},
+		mono: {
+			key: "mono",
+			familyVariable: "--font-family-mono",
+			defaultFamily: "JetBrains Mono",
+			lineHeightVariable: "--line-height-normal",
+			weightVariable: "--font-weight-regular",
+			assistVariable: "--letter-spacing-normal",
+			cogLabel: "Mono Scale",
+			tabLabel: "Mono",
+			labels: MONO_LABELS,
+			texts: texts.mono,
+			textStyle: (size) => ({
+				fontFamily: "var(--font-family-mono)",
+				fontSize: `${size / 16}rem`,
+				lineHeight: "var(--line-height-normal)"
+			}),
+			metaExtra: ""
+		}
+	};
+
+	const view = views[track];
+	const family = read(values, view.familyVariable) || view.defaultFamily;
+
 	return (
-		<SectionShell
-			id="typography"
-			index="01"
-			title="Typography"
-			controls={
-				<>
-					<CogPanel label="Type scale">
-						<NumberField
-							label="Geometric ratio"
-							value={ratio}
-							min={1.05}
-							max={2}
-							step={0.005}
-							onChange={setRatio}
-						/>
-						<Button label="Generate scale" size="sm" variant="secondary" onClick={generate} />
-						{SIZE_STEPS.map((step) => (
-							<NumberField
-								key={step.variable}
-								label={step.label}
-								suffix="px"
-								value={Math.round(px(values, step.variable) * 1000) / 1000}
-								onChange={(value) => update(step.variable, formatRem(value))}
-							/>
-						))}
-					</CogPanel>
-					<CogPanel label="Families">
-						<TextInput
-							label="Base"
-							value={read(values, "--font-family-base")}
-							onChange={(value) => update("--font-family-base", value)}
-						/>
-						<TextInput
-							label="Display"
-							value={read(values, "--font-family-display")}
-							onChange={(value) => update("--font-family-display", value)}
-						/>
-						<TextInput
-							label="Mono"
-							value={read(values, "--font-family-mono")}
-							onChange={(value) => update("--font-family-mono", value)}
-						/>
-					</CogPanel>
-					<CogPanel label="Weights">
-						{WEIGHT_STEPS.map((step) => (
-							<NumberField
-								key={step.variable}
-								label={step.label}
-								value={px(values, step.variable)}
-								step={100}
-								onChange={(value) => update(step.variable, String(value))}
-							/>
-						))}
-					</CogPanel>
-					<CogPanel label="Rhythm">
-						{LINE_HEIGHT_STEPS.map((step) => (
-							<NumberField
-								key={step.variable}
-								label={`line-height ${step.label}`}
-								value={Number.parseFloat(read(values, step.variable)) || 0}
-								step={0.05}
-								onChange={(value) => update(step.variable, String(value))}
-							/>
-						))}
-						{LETTER_SPACING_STEPS.map((step) => (
-							<TextInput
-								key={step.variable}
-								label={`letter-spacing ${step.label}`}
-								value={read(values, step.variable)}
-								onChange={(value) => update(step.variable, value)}
-							/>
-						))}
-					</CogPanel>
-				</>
-			}
-		>
-			<div className="vz-families">
-				<span style={{ fontFamily: "var(--font-family-display)" }}>
-					Display · The Architecture of Type
-				</span>
-				<span style={{ fontFamily: "var(--font-family-base)" }}>
-					Base · The quick brown fox jumps over the lazy dog
-				</span>
-				<span style={{ fontFamily: "var(--font-family-mono)" }}>
-					Mono · const scale = (base, ratio, step) =&gt; base * ratio ** step;
-				</span>
-			</div>
-			<div className="vz-type-scale">
-				{SIZE_STEPS.map((step) => (
-					<div className="vz-type-row" key={step.variable}>
-						<div className="vz-type-row__meta">
-							<span>{step.label}</span>
-							<code>{read(values, step.variable)}</code>
+		<section id="typography" className="vz-section">
+			<SectionHeader index="01" title="Typography" />
+			<Tabs
+				tabs={[
+					{ key: "heading", label: "Headings" },
+					{ key: "body", label: "Body" },
+					{ key: "mono", label: "Mono" }
+				]}
+				active={track}
+				onChange={(key) => setTrack(key as TrackKey)}
+			/>
+			<MetaRow
+				cogLabel={view.cogLabel}
+				summary={
+					<>
+						<span style={{ fontFamily: `var(${view.familyVariable})` }}>{family}</span>
+						<span className="vz-meta__sep">·</span>
+						<span>×{config.ratio}</span>
+						{view.metaExtra ? (
+							<>
+								<span className="vz-meta__sep">·</span>
+								<span>{view.metaExtra}</span>
+							</>
+						) : null}
+						<span className="vz-meta__sep">·</span>
+						<span>lh {read(values, view.lineHeightVariable)}</span>
+					</>
+				}
+			>
+				<div className="vz-family">
+					<input
+						className="vz-family__input"
+						value={family}
+						style={{ fontFamily: `var(${view.familyVariable})` }}
+						spellCheck={false}
+						aria-label="Font family"
+						onChange={(event) => update(view.familyVariable, event.currentTarget.value)}
+					/>
+					<button type="button" className="vz-family__browse" onClick={() => setPicking(true)}>
+						⋯
+					</button>
+				</div>
+				<NumberField
+					label="Base size (px)"
+					value={config.base}
+					min={8}
+					max={32}
+					onChange={(value) => setConfig({ base: value })}
+				/>
+				<NumberField
+					label="Scale ratio"
+					value={config.ratio}
+					min={1.05}
+					max={2}
+					step={0.001}
+					onChange={(value) => setConfig({ ratio: value })}
+				/>
+				<NumberField
+					label="Steps"
+					value={config.steps}
+					min={2}
+					max={track === "heading" ? 9 : 5}
+					onChange={(value) => setConfig({ steps: Math.round(value) })}
+				/>
+				<NumberField
+					label="Line height"
+					value={Number.parseFloat(read(values, view.lineHeightVariable)) || 0}
+					step={0.01}
+					onChange={(value) => update(view.lineHeightVariable, String(value))}
+				/>
+				<NumberField
+					label="Weight"
+					value={num(values, view.weightVariable)}
+					step={100}
+					min={100}
+					max={900}
+					onChange={(value) => update(view.weightVariable, String(value))}
+				/>
+			</MetaRow>
+
+			<div className="vz-preview" data-ds-preview>
+				{sizes.map((size, index) => (
+					<div className="vz-sample" key={`${view.key}-${view.labels[index] ?? index}`}>
+						<div className="vz-sample__meta">
+							<div>{view.labels[index] ?? `step-${index}`}</div>
+							<div>{`${(size / 16).toFixed(3)}rem`}</div>
 						</div>
-						<div className="vz-type-row__sample" style={{ fontSize: `var(${step.variable})` }}>
-							The Architecture of Type
+						<div className="vz-sample__body" style={view.textStyle(size)}>
+							<EditableText
+								value={view.texts[index] ?? "Sample text"}
+								onChange={(value) => setText(index, value)}
+							/>
 						</div>
 					</div>
 				))}
 			</div>
-			<div className="vz-weights">
-				{WEIGHT_STEPS.map((step) => (
-					<div className="vz-weight" key={step.variable}>
-						<span style={{ fontWeight: `var(${step.variable})` }}>Form follows function</span>
-						<code>{read(values, step.variable)}</code>
-					</div>
-				))}
-			</div>
-		</SectionShell>
+
+			{picking ? (
+				<FontPicker
+					value={family}
+					onChange={(next) => update(view.familyVariable, next)}
+					onClose={() => setPicking(false)}
+				/>
+			) : null}
+		</section>
 	);
 };
+
+/* ── Colors ──────────────────────────────────────────────────────────────── */
 
 const COLOR_GROUPS: { label: string; items: { label: string; variable: string }[] }[] = [
 	{
@@ -242,166 +378,177 @@ const SURFACES = [
 	{ label: "card", variable: "--color-surface-card", text: "--color-text" }
 ];
 
-const VARIANT_TOKENS = [
-	...["accent", "primary", "secondary", "tertiary"].map((name) => `--color-brand-${name}`),
-	...["success", "info", "warning", "danger"].map((name) => `--color-action-${name}`)
-];
-
-/** Colors: editable palette groups, usage surfaces with contrast, derived variants. */
-export const ColorsSection: React.FC<SectionProps> = ({ values, update }) => (
-	<SectionShell
-		id="colors"
-		index="02"
-		title="Colors"
-		controls={COLOR_GROUPS.map((group) => (
-			<CogPanel key={group.label} label={group.label}>
-				{group.items.map((item) => (
-					<ColorField
-						key={item.variable}
-						label={item.label}
-						token={item.variable}
-						value={read(values, item.variable)}
-						onChange={(value) => update(item.variable, value)}
-					/>
-				))}
-			</CogPanel>
-		))}
-	>
-		<div className="vz-palette">
-			{COLOR_GROUPS.map((group) => (
-				<div className="vz-palette__group" key={group.label}>
-					<span className="vz-label">{group.label}</span>
-					<div className="vz-swatches">
-						{group.items.map((item) => (
-							<div className="vz-swatch" key={item.variable}>
-								<div className="vz-swatch__chip" style={{ background: `var(${item.variable})` }} />
-								<span className="vz-swatch__name">{item.label}</span>
-								<code className="vz-code">{read(values, item.variable)}</code>
-							</div>
-						))}
-					</div>
-				</div>
-			))}
-		</div>
-
-		<span className="vz-label">Usage</span>
-		<div className="vz-surfaces">
-			{SURFACES.map((surface) => {
-				const bg = resolved(values, surface.variable);
-				const fg = resolved(values, surface.text);
-				const ratio = contrastRatio(fg, bg);
-				return (
-					<div
-						className="vz-surface"
-						key={surface.variable}
-						style={{ background: `var(${surface.variable})` }}
-					>
-						<div className="vz-surface__row">
-							<span style={{ color: `var(${surface.text})` }}>
-								{surface.label} — the quick brown fox
-							</span>
-							<span className="vz-contrast" data-level={contrastLevel(ratio)}>
-								{ratio}:1
-							</span>
-						</div>
-						<code className="vz-code">{surface.variable}</code>
-					</div>
-				);
-			})}
-		</div>
-
-		<span className="vz-label">Derived variants</span>
-		<div className="vz-swatches">
-			{VARIANT_TOKENS.map((variable) => (
-				<div className="vz-swatch" key={variable}>
-					<div className="vz-swatch__chip" style={{ background: `var(${variable}-muted)` }} />
-					<span className="vz-swatch__name">{variable.replace("--color-", "")}·muted</span>
-					<div className="vz-swatch__chip" style={{ background: `var(${variable}-active)` }} />
-					<span className="vz-swatch__name">·active</span>
-				</div>
-			))}
-		</div>
-	</SectionShell>
+const Swatch: React.FC<{
+	label: string;
+	variable: string;
+	value: string;
+	onChange: (value: string) => void;
+}> = ({ label, variable, value, onChange }) => (
+	<label className="vz-swatch">
+		<span className="vz-swatch__chip" style={{ background: `var(${variable})` }}>
+			<input
+				type="color"
+				className="vz-swatch__picker"
+				aria-label={label}
+				value={/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(value) ? value : "#000000"}
+				onChange={(event) => onChange(event.currentTarget.value)}
+			/>
+		</span>
+		<span className="vz-swatch__name">{label}</span>
+		<code className="vz-code">{variable}</code>
+		<code className="vz-code">{value}</code>
+	</label>
 );
+
+/** Colors: Palette / Usage tabs. */
+export const ColorsSection: React.FC<SectionProps> = ({ values, update }) => {
+	const [tab, setTab] = useState("palette");
+
+	return (
+		<section id="colors" className="vz-section">
+			<SectionHeader index="02" title="Color" />
+			<Tabs
+				tabs={[
+					{ key: "palette", label: "Palette" },
+					{ key: "usage", label: "Usage" }
+				]}
+				active={tab}
+				onChange={setTab}
+			/>
+			{tab === "palette" ? (
+				<div className="vz-preview" data-ds-preview>
+					{COLOR_GROUPS.map((group) => (
+						<div className="vz-palette__group" key={group.label}>
+							<span className="vz-label">{group.label}</span>
+							<div className="vz-swatches">
+								{group.items.map((item) => (
+									<Swatch
+										key={item.variable}
+										label={item.label}
+										variable={item.variable}
+										value={read(values, item.variable)}
+										onChange={(value) => update(item.variable, value)}
+									/>
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			) : (
+				<div className="vz-preview" data-ds-preview>
+					<div className="vz-surfaces">
+						{SURFACES.map((surface) => {
+							const bg = resolved(values, surface.variable);
+							const fg = resolved(values, surface.text);
+							const ratio = contrastRatio(fg, bg);
+							return (
+								<div
+									className="vz-surface"
+									key={surface.variable}
+									style={{ background: `var(${surface.variable})` }}
+								>
+									<div className="vz-surface__row">
+										<span style={{ color: `var(${surface.text})` }}>
+											{surface.label} — the quick brown fox
+										</span>
+										<span className="vz-contrast" data-level={contrastLevel(ratio)}>
+											{ratio}:1
+										</span>
+									</div>
+									<code className="vz-code">{surface.variable}</code>
+								</div>
+							);
+						})}
+					</div>
+				</div>
+			)}
+		</section>
+	);
+};
+
+/* ── Spacing ─────────────────────────────────────────────────────────────── */
 
 const SPACE_STEPS = ["xs", "sm", "md", "base", "lg", "xl", "xxl"].map((name) => ({
 	variable: `--space-${name}`,
 	label: name
 }));
 
-/** Spacing: the fixed scale as bars and squares, with a linear generator. */
+/** Spacing: one scale cog, bars and a visual preview. */
 export const SpacingSection: React.FC<SectionProps> = ({ values, update }) => {
 	const [unit, setUnit] = useState(4);
 	const max = Math.max(...SPACE_STEPS.map((step) => px(values, step.variable)), 1);
-
 	const generate = (): void => {
-		const scale = spacingScaleRem(unit);
-		for (const [name, value] of Object.entries(scale)) update(`--space-${name}`, value);
+		for (const [name, step] of Object.entries({
+			xs: 1,
+			sm: 2,
+			md: 3,
+			base: 4,
+			lg: 5,
+			xl: 8,
+			xxl: 12
+		})) {
+			update(`--space-${name}`, formatRem(unit * step));
+		}
 	};
 
 	return (
-		<SectionShell
-			id="spacing"
-			index="03"
-			title="Spacing"
-			controls={
-				<CogPanel label="Spacing scale">
+		<section id="spacing" className="vz-section">
+			<SectionHeader index="03" title="Spacing" />
+			<MetaRow
+				cogLabel="Spacing Scale"
+				summary={<span>{SPACE_STEPS.map((step) => read(values, step.variable)).join(" · ")}</span>}
+			>
+				<NumberField label="Linear unit (px)" value={unit} min={1} max={16} onChange={setUnit} />
+				<Button label="Generate scale" size="sm" variant="secondary" onClick={generate} />
+				{SPACE_STEPS.map((step) => (
 					<NumberField
-						label="Linear unit"
+						key={step.variable}
+						label={step.label}
 						suffix="px"
-						value={unit}
-						min={1}
-						max={16}
-						onChange={setUnit}
+						value={Math.round(px(values, step.variable) * 1000) / 1000}
+						onChange={(value) => update(step.variable, formatRem(value))}
 					/>
-					<Button label="Generate scale" size="sm" variant="secondary" onClick={generate} />
+				))}
+			</MetaRow>
+			<div className="vz-preview" data-ds-preview>
+				<div className="vz-spacing">
 					{SPACE_STEPS.map((step) => (
-						<NumberField
+						<div className="vz-space-row" key={step.variable}>
+							<span className="vz-space-row__name">{step.label}</span>
+							<span className="vz-space-row__value">{read(values, step.variable)}</span>
+							<div className="vz-space-row__track">
+								<div
+									className="vz-space-row__bar"
+									style={{
+										width: `${Math.max(2, (px(values, step.variable) / max) * 100)}%`,
+										background: "var(--color-brand-accent)"
+									}}
+								/>
+							</div>
+							<code className="vz-code">{step.variable}</code>
+						</div>
+					))}
+				</div>
+				<div className="vz-space-preview">
+					{SPACE_STEPS.map((step) => (
+						<div
 							key={step.variable}
-							label={step.label}
-							suffix="px"
-							value={Math.round(px(values, step.variable) * 1000) / 1000}
-							onChange={(value) => update(step.variable, formatRem(value))}
+							className="vz-space-square"
+							title={step.label}
+							style={{
+								width: `calc(var(${step.variable}) * 6)`,
+								height: `calc(var(${step.variable}) * 6)`,
+								background: "var(--color-brand-primary)"
+							}}
 						/>
 					))}
-				</CogPanel>
-			}
-		>
-			<div className="vz-spacing">
-				{SPACE_STEPS.map((step) => (
-					<div className="vz-space-row" key={step.variable}>
-						<span className="vz-space-row__name">{step.label}</span>
-						<span className="vz-space-row__value">{read(values, step.variable)}</span>
-						<div className="vz-space-row__track">
-							<div
-								className="vz-space-row__bar"
-								style={{
-									width: `${Math.max(2, (px(values, step.variable) / max) * 100)}%`,
-									background: "var(--color-brand-accent)"
-								}}
-							/>
-						</div>
-						<code className="vz-code">{step.variable}</code>
-					</div>
-				))}
+				</div>
 			</div>
-			<div className="vz-space-preview">
-				{SPACE_STEPS.map((step) => (
-					<div
-						key={step.variable}
-						className="vz-space-square"
-						title={step.label}
-						style={{
-							width: `calc(var(${step.variable}) * 6)`,
-							height: `calc(var(${step.variable}) * 6)`,
-							background: "var(--color-brand-primary)"
-						}}
-					/>
-				))}
-			</div>
-		</SectionShell>
+		</section>
 	);
 };
+
+/* ── Shapes ──────────────────────────────────────────────────────────────── */
 
 const ROUNDED_STEPS = ["none", "sm", "md", "lg", "full"].map((name) => ({
 	variable: `--rounded-${name}`,
@@ -430,7 +577,7 @@ const ELEVATION_PRESETS: Record<string, string[]> = {
 	]
 };
 
-/** Shapes: rounded presets, border widths, and elevation presets. */
+/** Shapes: radius presets, border widths, and elevation presets. */
 export const ShapesSection: React.FC<SectionProps> = ({ values, update }) => {
 	const applyPreset = (name: string): void => {
 		const preset = ELEVATION_PRESETS[name];
@@ -441,180 +588,189 @@ export const ShapesSection: React.FC<SectionProps> = ({ values, update }) => {
 	};
 
 	return (
-		<SectionShell
-			id="shapes"
-			index="04"
-			title="Shapes"
-			controls={
-				<>
-					<CogPanel label="Rounded">
-						{ROUNDED_STEPS.map((step) => (
-							<NumberField
-								key={step.variable}
-								label={step.label}
-								suffix="px"
-								value={Math.round(px(values, step.variable))}
-								onChange={(value) =>
-									update(
-										step.variable,
-										step.variable === "--rounded-full" ? `${value}px` : formatRem(value)
-									)
-								}
-							/>
-						))}
-					</CogPanel>
-					<CogPanel label="Border widths">
-						{BORDER_STEPS.map((step) => (
-							<TextInput
-								key={step.variable}
-								label={step.label}
-								value={read(values, step.variable)}
-								onChange={(value) => update(step.variable, value)}
-							/>
-						))}
-					</CogPanel>
-					<CogPanel label="Elevation">
-						{ELEVATION_STEPS.map((step) => (
-							<TextInput
-								key={step.variable}
-								label={step.label}
-								value={read(values, step.variable)}
-								onChange={(value) => update(step.variable, value)}
-							/>
-						))}
-						<div className="vz-presets">
-							{Object.keys(ELEVATION_PRESETS).map((name) => (
-								<Button
-									key={name}
-									label={name}
-									size="sm"
-									variant="secondary"
-									onClick={() => applyPreset(name)}
-								/>
-							))}
-						</div>
-					</CogPanel>
-				</>
-			}
-		>
-			<span className="vz-label">Rounded</span>
-			<div className="vz-rounded">
+		<section id="shapes" className="vz-section">
+			<SectionHeader index="04" title="Shape" />
+			<MetaRow
+				cogLabel="Radius Steps"
+				summary={BORDER_STEPS.map((step) => `${step.label} ${read(values, step.variable)}`).join(
+					" · "
+				)}
+			>
 				{ROUNDED_STEPS.map((step) => (
-					<div className="vz-rounded__item" key={step.variable}>
-						<div className="vz-rounded__tile" style={{ borderRadius: `var(${step.variable})` }} />
-						<span className="vz-swatch__name">{step.label}</span>
-						<code className="vz-code">{read(values, step.variable)}</code>
-					</div>
+					<NumberField
+						key={step.variable}
+						label={step.label}
+						suffix="px"
+						value={Math.round(px(values, step.variable))}
+						onChange={(value) =>
+							update(
+								step.variable,
+								step.variable === "--rounded-full" ? `${value}px` : formatRem(value)
+							)
+						}
+					/>
 				))}
-			</div>
-
-			<span className="vz-label">Border widths</span>
-			<div className="vz-borders">
-				{BORDER_STEPS.map((step) => (
-					<div className="vz-border-item" key={step.variable}>
-						<div
-							className="vz-border-sample"
-							style={{ border: `var(${step.variable}) solid var(--color-text)` }}
-						/>
-						<code className="vz-code">{read(values, step.variable)}</code>
-					</div>
-				))}
-			</div>
-
-			<span className="vz-label">Elevation</span>
-			<div className="vz-elevations">
+			</MetaRow>
+			<MetaRow
+				cogLabel="Elevation Levels"
+				summary={<span>{ELEVATION_PRESETS ? Object.keys(ELEVATION_PRESETS).join(" · ") : ""}</span>}
+			>
 				{ELEVATION_STEPS.map((step) => (
-					<div className="vz-elevation" key={step.variable}>
-						<div className="vz-elevation__card" style={{ boxShadow: `var(${step.variable})` }} />
-						<code className="vz-code">{step.label}</code>
-					</div>
+					<TextInput
+						key={step.variable}
+						label={step.label}
+						value={read(values, step.variable)}
+						onChange={(value) => update(step.variable, value)}
+					/>
 				))}
+				<div className="vz-presets">
+					{Object.keys(ELEVATION_PRESETS).map((name) => (
+						<Button
+							key={name}
+							label={name}
+							size="sm"
+							variant="secondary"
+							onClick={() => applyPreset(name)}
+						/>
+					))}
+				</div>
+			</MetaRow>
+			<div className="vz-preview" data-ds-preview>
+				<span className="vz-label">Border radius</span>
+				<div className="vz-rounded">
+					{ROUNDED_STEPS.map((step) => (
+						<div className="vz-rounded__item" key={step.variable}>
+							<div className="vz-rounded__tile" style={{ borderRadius: `var(${step.variable})` }} />
+							<span className="vz-swatch__name">{step.label}</span>
+							<code className="vz-code">{read(values, step.variable)}</code>
+						</div>
+					))}
+				</div>
+				<span className="vz-label">Elevation</span>
+				<div className="vz-elevations">
+					{ELEVATION_STEPS.map((step) => (
+						<div className="vz-elevation" key={step.variable}>
+							<div className="vz-elevation__card" style={{ boxShadow: `var(${step.variable})` }} />
+							<code className="vz-code">{step.label}</code>
+						</div>
+					))}
+				</div>
 			</div>
-		</SectionShell>
+		</section>
 	);
 };
 
-/** Components: the gallery every other token set feeds into. */
+/* ── Components ──────────────────────────────────────────────────────────── */
+
+/** Components: Buttons / Containers / Cards tabs. */
 export const ComponentsSection: React.FC<SectionProps> = ({ values }) => {
+	const [tab, setTab] = useState("buttons");
 	const [field, setField] = useState("Design System");
 	const onDark = isLight(resolved(values, "--color-brand-primary"));
 
 	return (
-		<SectionShell id="components" index="05" title="Components">
-			<span className="vz-label">Buttons</span>
-			<div className="vz-row">
-				<Button label="Primary" variant="primary" />
-				<Button label="Accent" variant="accent" />
-				<Button label="Secondary" variant="secondary" />
-				<Button label="Ghost" variant="ghost" />
-				<Button label="Success" variant="success" />
-				<Button label="Warning" variant="warning" />
-				<Button label="Danger" variant="danger" />
-				<Button label="Info" variant="info" />
+		<section id="components" className="vz-section">
+			<SectionHeader index="05" title="Components" />
+			<Tabs
+				tabs={[
+					{ key: "buttons", label: "Buttons" },
+					{ key: "containers", label: "Containers" },
+					{ key: "cards", label: "Cards" }
+				]}
+				active={tab}
+				onChange={setTab}
+			/>
+			<div className="vz-preview" data-ds-preview>
+				{tab === "buttons" ? (
+					<>
+						<span className="vz-label">Variants</span>
+						<div className="vz-row">
+							<Button label="Primary" variant="primary" />
+							<Button label="Accent" variant="accent" />
+							<Button label="Secondary" variant="secondary" />
+							<Button label="Ghost" variant="ghost" />
+							<Button label="Success" variant="success" />
+							<Button label="Warning" variant="warning" />
+							<Button label="Danger" variant="danger" />
+							<Button label="Info" variant="info" />
+						</div>
+						<span className="vz-label">Sizes</span>
+						<div className="vz-row">
+							<Button label="Small" size="sm" />
+							<Button label="Default" />
+							<Button label="Large" size="lg" />
+						</div>
+						<span className="vz-label">States</span>
+						<div className="vz-row">
+							<Button label="Default" />
+							<Button label="Loading" loading />
+							<Button label="Disabled" disabled />
+						</div>
+					</>
+				) : null}
+				{tab === "containers" ? (
+					<div className="vz-containers">
+						<div className="vz-container">
+							<Heading level={3} size="md">
+								Container heading
+							</Heading>
+							<Text size="sm" tone="base">
+								A text container establishes the reading column width, internal padding, and
+								typographic rhythm. Good containers make content feel intentional and effortless to
+								read.
+							</Text>
+							<Text size="xs" tone="muted">
+								Design Systems · August 2026 · 4 min read
+							</Text>
+						</div>
+						<div className="vz-container">
+							<TextField id="vz-name" label="Project name" value={field} onChange={setField} />
+							<Button label="Save" variant="primary" />
+						</div>
+					</div>
+				) : null}
+				{tab === "cards" ? (
+					<div className="vz-cards">
+						<div className="vz-card">
+							<span className="vz-label">Article</span>
+							<Heading level={3} size="md">
+								The grid as structure
+							</Heading>
+							<Text size="sm" tone="muted">
+								Invisible scaffolding that organizes every element into a coherent whole.
+							</Text>
+						</div>
+						<div
+							className="vz-card vz-card--dark"
+							style={{ background: "var(--color-brand-primary)" }}
+						>
+							<span
+								className="vz-label"
+								style={{ color: onDark ? "var(--color-text)" : "var(--color-text-ondark)" }}
+							>
+								Design tokens
+							</span>
+							<Heading level={3} size="xl" className="vz-stat">
+								26
+							</Heading>
+							<Text size="sm" tone={onDark ? "muted" : "ondark"}>
+								variables in the contract
+							</Text>
+						</div>
+						<div className="vz-card" style={{ background: "var(--color-surface-alt)" }}>
+							<span className="vz-label" style={{ color: "var(--color-text-muted)" }}>
+								Spacing · Color · Type
+							</span>
+							<Heading level={3} size="md">
+								Everything in its right place
+							</Heading>
+							<Text size="sm" tone="muted">
+								A systematic approach keeps every decision intentional and every token purposeful.
+							</Text>
+						</div>
+					</div>
+				) : null}
 			</div>
-			<div className="vz-row">
-				<Button label="Small" size="sm" />
-				<Button label="Default" />
-				<Button label="Large" size="lg" />
-				<Button label="Loading" loading />
-				<Button label="Disabled" disabled />
-			</div>
-
-			<span className="vz-label">Form</span>
-			<div className="vz-form">
-				<TextField id="vz-name" label="Project name" value={field} onChange={setField} />
-				<Button label="Save" variant="primary" />
-			</div>
-
-			<span className="vz-label">Cards</span>
-			<div className="vz-cards">
-				<Box
-					background="surface-card"
-					border="sm"
-					borderColor="surface-alt"
-					rounded="lg"
-					elevation="md"
-					p="lg"
-				>
-					<Text size="sm" tone="accent">
-						Article
-					</Text>
-					<Heading level={3} size="md">
-						The grid as structure
-					</Heading>
-					<Text size="sm" tone="muted">
-						Invisible scaffolding that organizes every element into a coherent whole.
-					</Text>
-				</Box>
-				<Box
-					background="brand-primary"
-					rounded="lg"
-					elevation="md"
-					p="lg"
-					className="vz-card--dark"
-				>
-					<Text size="sm" tone={onDark ? "base" : "ondark"}>
-						Design tokens
-					</Text>
-					<Heading level={3} size="xl" className="vz-stat">
-						26
-					</Heading>
-					<Text size="sm" tone={onDark ? "muted" : "ondark"}>
-						variables in the contract
-					</Text>
-				</Box>
-				<Box background="surface-alt" border="sm" borderColor="surface" rounded="lg" p="lg">
-					<Text size="sm" tone="muted">
-						Spacing · Color · Type
-					</Text>
-					<Heading level={3} size="md">
-						Everything in its right place
-					</Heading>
-					<Text size="sm" tone="muted">
-						A systematic approach keeps every decision intentional and every token purposeful.
-					</Text>
-				</Box>
-			</div>
-		</SectionShell>
+		</section>
 	);
 };

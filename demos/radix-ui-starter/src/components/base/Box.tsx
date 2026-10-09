@@ -16,7 +16,8 @@ export {
 	BOX_COLORS,
 	BOX_ELEVATIONS,
 	BOX_ROUNDED,
-	BOX_SPACES
+	BOX_SPACES,
+	boxClassNames
 } from "./box-classes";
 
 /**

@@ -1,9 +1,10 @@
+import { type BoxProperties, boxClassNames } from "@components/base/Box";
 import { clsx } from "@lib/clsx";
 import type * as React from "react";
 import "./HStack.css";
 import type { Space } from "./space";
 
-interface HStackProps {
+interface HStackProps extends BoxProperties {
 	gap?: Space;
 	align?: "start" | "center" | "end" | "stretch";
 	justify?: "start" | "center" | "end" | "between";
@@ -13,8 +14,8 @@ interface HStackProps {
 }
 
 /**
- * Stacks children horizontally with an optional token gap, alignment, and
- * distribution.
+ * Stacks children horizontally with an optional token gap, alignment, distribution,
+ * and the full box surface.
  */
 export const HStack: React.FC<HStackProps> = ({
 	gap = "md",
@@ -22,7 +23,8 @@ export const HStack: React.FC<HStackProps> = ({
 	justify = "start",
 	wrap = false,
 	children,
-	className
+	className,
+	...box
 }) => (
 	<div
 		className={clsx(
@@ -31,6 +33,7 @@ export const HStack: React.FC<HStackProps> = ({
 			`layout-hstack--align-${align}`,
 			`layout-hstack--justify-${justify}`,
 			{ "layout-hstack--wrap": wrap },
+			boxClassNames(box),
 			className
 		)}
 	>

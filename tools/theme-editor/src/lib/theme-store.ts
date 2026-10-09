@@ -1,4 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
+import DEFAULT_DESIGN_MD from "../../DESIGN.md" with { type: "text" };
+import DEFAULT_TOKENS_CSS from "../../design-tokens.css" with { type: "text" };
 import {
 	mergeValues,
 	parseContract,
@@ -8,7 +10,6 @@ import {
 	type TypographyField,
 	type TypographyRefs
 } from "./contract";
-import { DEFAULT_DESIGN_MD, DEFAULT_TOKENS_CSS } from "./default-theme";
 import type { TokenValues } from "./design-system";
 import {
 	deleteLocalTheme,

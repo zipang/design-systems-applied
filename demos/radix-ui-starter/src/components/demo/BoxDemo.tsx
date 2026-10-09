@@ -128,5 +128,26 @@ export const BoxDemo: React.FC = () => (
 		<Text size="sm" tone="muted">
 			`main` is reserved for the page shell, so it is not rendered here.
 		</Text>
+
+		<Heading level={3}>Layout primitives</Heading>
+		<HStack
+			gap="md"
+			background="surface-alt"
+			border="sm"
+			borderColor="brand-primary"
+			p="md"
+			rounded="sm"
+		>
+			<Box background="surface" p="sm" rounded="sm">
+				<Text as="span" size="xs">
+					Box
+				</Text>
+			</Box>
+			<Box background="surface" p="sm" rounded="sm">
+				<Text as="span" size="xs">
+					Box
+				</Text>
+			</Box>
+		</HStack>
 	</VStack>
 );

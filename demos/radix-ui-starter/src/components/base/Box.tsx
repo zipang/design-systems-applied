@@ -1,4 +1,5 @@
 import { clsx } from "@lib/clsx";
+import { acceptCommonProps, type CommonProps } from "@lib/common-props";
 import type * as React from "react";
 import { type BoxProperties, boxClassNames } from "./box-classes";
 import "./Box.css";
@@ -35,9 +36,7 @@ export type BoxTag =
 	| "nav"
 	| "main";
 
-export interface BoxProps
-	extends BoxProperties,
-		Omit<React.HTMLAttributes<HTMLElement>, keyof BoxProperties> {
+export interface BoxProps extends BoxProperties, CommonProps {
 	as?: BoxTag;
 	children?: React.ReactNode;
 	className?: string;
@@ -54,8 +53,8 @@ type BoxElementProps = React.HTMLAttributes<HTMLElement> & {
 
 /**
  * A token-driven box. Every aspect prop accepts only a token-derived enum; the `as`
- * prop picks the emitted semantic tag. Forwards `ref` and the remaining HTML attributes
- * to the element, so it works as a Radix `asChild` target.
+ * prop picks the emitted semantic tag. Forwards `ref` and the common HTML attributes to
+ * the element, so it works as a Radix `asChild` target.
  */
 export const Box: React.FC<BoxProps> = ({
 	as = "div",
@@ -96,7 +95,7 @@ export const Box: React.FC<BoxProps> = ({
 				}),
 				className
 			)}
-			{...rest}
+			{...acceptCommonProps(rest)}
 		>
 			{children}
 		</BoxElt>

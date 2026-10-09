@@ -6,11 +6,26 @@ const port = Number(process.env.PORT ?? 4444);
 const json = (data: unknown, status = 200): Response =>
 	new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json" } });
 
-const errorResponse = (error: unknown): Response => {
+/** Timestamp prefix for console lines, in `HH:MM:SS` (UTC) form. */
+const stamp = (): string => new Date().toISOString().slice(11, 19);
+
+/** Log an informational or successful action, prefixed with an emoji. */
+const log = (emoji: string, message: string): void => {
+	console.log(`[${stamp()}] ${emoji} ${message}`);
+};
+
+/** Log a rejected or failed action, including the captured error message. */
+const logError = (emoji: string, message: string): void => {
+	console.error(`[${stamp()}] ${emoji} ${message}`);
+};
+
+const errorResponse = (error: unknown, action: string): Response => {
+	const message = error instanceof Error ? error.message : "Unknown error";
+	logError("❌", `${action} failed: ${message}`);
 	if (error instanceof ThemeApiError) {
 		return json({ message: error.message, issues: error.issues }, error.status);
 	}
-	return json({ message: error instanceof Error ? error.message : "Unknown error" }, 500);
+	return json({ message }, 500);
 };
 
 /**
@@ -23,9 +38,18 @@ const server = Bun.serve({
 		"/api/theme": {
 			GET: async (request) => {
 				const dir = new URL(request.url).searchParams.get("dir");
-				if (!dir) return json({ message: "Missing ?dir query parameter" }, 400);
+				if (!dir) {
+					logError("🟠", "Load rejected: missing ?dir query parameter");
+					return json({ message: "Missing ?dir query parameter" }, 400);
+				}
+				log("📂", `Loading theme from ${dir}`);
 				try {
 					const theme = await readTheme(dir);
+					const errors = theme.issues.filter((issue) => issue.level === "error").length;
+					log(
+						"✅",
+						`Loaded theme from ${theme.dir} — ${theme.issues.length} issue(s), ${errors} error(s)`
+					);
 					return json({
 						dir: theme.dir,
 						designMd: theme.designMd,
@@ -33,7 +57,7 @@ const server = Bun.serve({
 						issues: theme.issues
 					});
 				} catch (error) {
-					return errorResponse(error);
+					return errorResponse(error, `Load theme from ${dir}`);
 				}
 			},
 			POST: async (request) => {
@@ -44,15 +68,19 @@ const server = Bun.serve({
 						tokensCss?: string;
 					};
 					if (!body.dir || body.designMd === undefined || body.tokensCss === undefined) {
+						logError("🟠", "Save rejected: expected { dir, designMd, tokensCss }");
 						return json({ message: "Expected { dir, designMd, tokensCss }" }, 400);
 					}
+					log("💾", `Saving theme to ${body.dir}`);
 					const issues = await saveTheme(body.dir, {
 						designMd: body.designMd,
 						tokensCss: body.tokensCss
 					});
+					const errors = issues.filter((issue) => issue.level === "error").length;
+					log("✅", `Saved theme to ${body.dir} — ${issues.length} issue(s), ${errors} error(s)`);
 					return json({ ok: true, issues });
 				} catch (error) {
-					return errorResponse(error);
+					return errorResponse(error, "Save theme");
 				}
 			}
 		},
@@ -60,4 +88,16 @@ const server = Bun.serve({
 	}
 });
 
-console.log(`Theme editor running at ${server.url}`);
+const banner = `
+████████╗██╗  ██╗███████╗███╗   ███╗███████╗   ███████╗██████╗ ██╗████████╗ ██████╗ ██████╗
+╚══██╔══╝██║  ██║██╔════╝████╗ ████║██╔════╝   ██╔════╝██╔══██╗██║╚══██╔══╝██╔═══██╗██╔══██╗
+   ██║   ███████║█████╗  ██╔████╔██║█████╗     █████╗  ██║  ██║██║   ██║   ██║   ██║██████╔╝
+   ██║   ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══╝     ██╔══╝  ██║  ██║██║   ██║   ██║   ██║██╔══██╗
+   ██║   ██║  ██║███████╗██║ ╚═╝ ██║███████╗   ███████╗██████╔╝██║   ██║   ╚██████╔╝██║  ██║
+   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝   ╚══════╝╚═════╝ ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
+`;
+
+console.log(banner);
+log("🎨", `Theme editor running at ${server.url}`);
+log("🧭", "Load a project directory to edit its DESIGN.md and design-tokens.css.");
+log("🛑", "Press Ctrl+C to stop.");

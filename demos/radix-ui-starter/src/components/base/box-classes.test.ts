@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { readFileSync } from "node:fs";
 import {
 	BOX_BORDER_WIDTHS,
 	BOX_COLORS,
@@ -90,5 +91,70 @@ describe("boxClassNames", () => {
 			"base-box--rounded-md",
 			"base-box--bg-surface-alt"
 		]);
+	});
+});
+
+/** Every aspect class `boxClassNames` can emit, gathered from the enum arrays. */
+const emittableClasses = (): string[] => {
+	const classes = new Set<string>();
+
+	for (const step of BOX_SPACES) {
+		for (const cls of boxClassNames({ p: step, px: step, py: step, m: step, mx: step, my: step })) {
+			classes.add(cls);
+		}
+	}
+
+	for (const value of BOX_BORDER_WIDTHS) {
+		for (const cls of boxClassNames({ border: value })) {
+			classes.add(cls);
+		}
+	}
+
+	for (const value of BOX_ROUNDED) {
+		for (const cls of boxClassNames({ rounded: value })) {
+			classes.add(cls);
+		}
+	}
+
+	for (const value of BOX_ELEVATIONS) {
+		for (const cls of boxClassNames({ elevation: value })) {
+			classes.add(cls);
+		}
+	}
+
+	for (const role of BOX_COLORS) {
+		for (const cls of boxClassNames({ background: role })) {
+			classes.add(cls);
+		}
+
+		for (const cls of boxClassNames({ borderColor: role })) {
+			classes.add(cls);
+		}
+	}
+
+	return [...classes];
+};
+
+const escapeClassName = (value: string): string => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+describe("Box.css", () => {
+	const css = readFileSync(new URL("./Box.css", import.meta.url), "utf8");
+
+	test("defines the base-box root", () => {
+		expect(css).toMatch(/\.base-box\s*\{/);
+	});
+
+	test("defines a rule for every class boxClassNames can emit", () => {
+		for (const cls of emittableClasses()) {
+			expect(css).toMatch(new RegExp(`\\.${escapeClassName(cls)}(?![\\w-])`));
+		}
+	});
+
+	test("orders the padding axis rule after the uniform rule", () => {
+		expect(css.indexOf(".base-box--p-sm")).toBeLessThan(css.indexOf(".base-box--px-sm"));
+	});
+
+	test("orders the margin axis rule after the uniform rule", () => {
+		expect(css.indexOf(".base-box--m-sm")).toBeLessThan(css.indexOf(".base-box--mx-sm"));
 	});
 });

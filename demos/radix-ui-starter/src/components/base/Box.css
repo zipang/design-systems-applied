@@ -1,0 +1,318 @@
+/* Box.css — every rule is scoped under .base-box */
+.base-box {
+	box-sizing: border-box;
+
+	/* Uniform padding first, then the inline/block axis, so the axis class wins on
+	   equal specificity. */
+	&.base-box--p-xs {
+		padding: var(--space-xs);
+	}
+
+	&.base-box--p-sm {
+		padding: var(--space-sm);
+	}
+
+	&.base-box--p-md {
+		padding: var(--space-md);
+	}
+
+	&.base-box--p-base {
+		padding: var(--space-base);
+	}
+
+	&.base-box--p-lg {
+		padding: var(--space-lg);
+	}
+
+	&.base-box--p-xl {
+		padding: var(--space-xl);
+	}
+
+	&.base-box--p-xxl {
+		padding: var(--space-xxl);
+	}
+
+	&.base-box--px-xs {
+		padding-inline: var(--space-xs);
+	}
+
+	&.base-box--px-sm {
+		padding-inline: var(--space-sm);
+	}
+
+	&.base-box--px-md {
+		padding-inline: var(--space-md);
+	}
+
+	&.base-box--px-base {
+		padding-inline: var(--space-base);
+	}
+
+	&.base-box--px-lg {
+		padding-inline: var(--space-lg);
+	}
+
+	&.base-box--px-xl {
+		padding-inline: var(--space-xl);
+	}
+
+	&.base-box--px-xxl {
+		padding-inline: var(--space-xxl);
+	}
+
+	&.base-box--py-xs {
+		padding-block: var(--space-xs);
+	}
+
+	&.base-box--py-sm {
+		padding-block: var(--space-sm);
+	}
+
+	&.base-box--py-md {
+		padding-block: var(--space-md);
+	}
+
+	&.base-box--py-base {
+		padding-block: var(--space-base);
+	}
+
+	&.base-box--py-lg {
+		padding-block: var(--space-lg);
+	}
+
+	&.base-box--py-xl {
+		padding-block: var(--space-xl);
+	}
+
+	&.base-box--py-xxl {
+		padding-block: var(--space-xxl);
+	}
+
+	&.base-box--m-xs {
+		margin: var(--space-xs);
+	}
+
+	&.base-box--m-sm {
+		margin: var(--space-sm);
+	}
+
+	&.base-box--m-md {
+		margin: var(--space-md);
+	}
+
+	&.base-box--m-base {
+		margin: var(--space-base);
+	}
+
+	&.base-box--m-lg {
+		margin: var(--space-lg);
+	}
+
+	&.base-box--m-xl {
+		margin: var(--space-xl);
+	}
+
+	&.base-box--m-xxl {
+		margin: var(--space-xxl);
+	}
+
+	&.base-box--mx-xs {
+		margin-inline: var(--space-xs);
+	}
+
+	&.base-box--mx-sm {
+		margin-inline: var(--space-sm);
+	}
+
+	&.base-box--mx-md {
+		margin-inline: var(--space-md);
+	}
+
+	&.base-box--mx-base {
+		margin-inline: var(--space-base);
+	}
+
+	&.base-box--mx-lg {
+		margin-inline: var(--space-lg);
+	}
+
+	&.base-box--mx-xl {
+		margin-inline: var(--space-xl);
+	}
+
+	&.base-box--mx-xxl {
+		margin-inline: var(--space-xxl);
+	}
+
+	&.base-box--my-xs {
+		margin-block: var(--space-xs);
+	}
+
+	&.base-box--my-sm {
+		margin-block: var(--space-sm);
+	}
+
+	&.base-box--my-md {
+		margin-block: var(--space-md);
+	}
+
+	&.base-box--my-base {
+		margin-block: var(--space-base);
+	}
+
+	&.base-box--my-lg {
+		margin-block: var(--space-lg);
+	}
+
+	&.base-box--my-xl {
+		margin-block: var(--space-xl);
+	}
+
+	&.base-box--my-xxl {
+		margin-block: var(--space-xxl);
+	}
+
+	/* Border width; the color falls back to currentColor when unset. */
+	&.base-box--border-sm {
+		border-style: solid;
+		border-width: var(--border-sm);
+	}
+
+	&.base-box--border-md {
+		border-style: solid;
+		border-width: var(--border-md);
+	}
+
+	&.base-box--border-lg {
+		border-style: solid;
+		border-width: var(--border-lg);
+	}
+
+	&.base-box--border-color-surface {
+		border-color: var(--color-surface);
+	}
+
+	&.base-box--border-color-surface-alt {
+		border-color: var(--color-surface-alt);
+	}
+
+	&.base-box--border-color-surface-dark {
+		border-color: var(--color-surface-dark);
+	}
+
+	&.base-box--border-color-surface-card {
+		border-color: var(--color-surface-card);
+	}
+
+	&.base-box--border-color-brand-primary {
+		border-color: var(--color-brand-primary);
+	}
+
+	&.base-box--border-color-brand-accent {
+		border-color: var(--color-brand-accent);
+	}
+
+	&.base-box--border-color-brand-secondary {
+		border-color: var(--color-brand-secondary);
+	}
+
+	&.base-box--border-color-brand-tertiary {
+		border-color: var(--color-brand-tertiary);
+	}
+
+	&.base-box--border-color-action-success {
+		border-color: var(--color-action-success);
+	}
+
+	&.base-box--border-color-action-info {
+		border-color: var(--color-action-info);
+	}
+
+	&.base-box--border-color-action-warning {
+		border-color: var(--color-action-warning);
+	}
+
+	&.base-box--border-color-action-danger {
+		border-color: var(--color-action-danger);
+	}
+
+	&.base-box--elevation-sm {
+		box-shadow: var(--elevation-sm);
+	}
+
+	&.base-box--elevation-md {
+		box-shadow: var(--elevation-md);
+	}
+
+	&.base-box--elevation-lg {
+		box-shadow: var(--elevation-lg);
+	}
+
+	&.base-box--rounded-none {
+		border-radius: var(--rounded-none);
+	}
+
+	&.base-box--rounded-sm {
+		border-radius: var(--rounded-sm);
+	}
+
+	&.base-box--rounded-md {
+		border-radius: var(--rounded-md);
+	}
+
+	&.base-box--rounded-lg {
+		border-radius: var(--rounded-lg);
+	}
+
+	&.base-box--rounded-full {
+		border-radius: var(--rounded-full);
+	}
+
+	&.base-box--bg-surface {
+		background: var(--color-surface);
+	}
+
+	&.base-box--bg-surface-alt {
+		background: var(--color-surface-alt);
+	}
+
+	&.base-box--bg-surface-dark {
+		background: var(--color-surface-dark);
+	}
+
+	&.base-box--bg-surface-card {
+		background: var(--color-surface-card);
+	}
+
+	&.base-box--bg-brand-primary {
+		background: var(--color-brand-primary);
+	}
+
+	&.base-box--bg-brand-accent {
+		background: var(--color-brand-accent);
+	}
+
+	&.base-box--bg-brand-secondary {
+		background: var(--color-brand-secondary);
+	}
+
+	&.base-box--bg-brand-tertiary {
+		background: var(--color-brand-tertiary);
+	}
+
+	&.base-box--bg-action-success {
+		background: var(--color-action-success);
+	}
+
+	&.base-box--bg-action-info {
+		background: var(--color-action-info);
+	}
+
+	&.base-box--bg-action-warning {
+		background: var(--color-action-warning);
+	}
+
+	&.base-box--bg-action-danger {
+		background: var(--color-action-danger);
+	}
+}

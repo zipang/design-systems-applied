@@ -30,7 +30,7 @@ assistive technology reach the elements.
 
 ### Phase 1: The helper
 
-- [ ] **Task 1: Add `acceptCommonProps` and its test**
+- [x] **Task 1: Add `acceptCommonProps` and its test**
   - Acceptance: `src/lib/common-props.ts` exports `COMMON_ATTRIBUTES`, `CommonProps`, and
     `acceptCommonProps`. The function keeps every named attribute, every `aria-*` and
     `data-*` key, and every `on*` handler. It drops `className`, `style`, `children`,
@@ -40,12 +40,12 @@ assistive technology reach the elements.
   - Depends: None
 
 ### Checkpoint: Helper
-- [ ] `bun test common-props` passes
-- [ ] `bun run typecheck` passes
+- [x] `bun test common-props` passes
+- [x] `bun run typecheck` passes
 
 ### Phase 2: Base tier
 
-- [ ] **Task 2: Add `CommonProps` to `Heading`, `Text`, and `Icon`**
+- [x] **Task 2: Add `CommonProps` to `Heading`, `Text`, and `Icon`**
   - Acceptance: each props interface extends `CommonProps`; each component destructures
     its own props and spreads `acceptCommonProps(rest)`. `Icon` spreads the common props
     before its a11y attributes. An `id` and a `data-*` attribute reach the element.
@@ -54,7 +54,7 @@ assistive technology reach the elements.
     `src/components/base/Icon.tsx`
   - Depends: Task 1
 
-- [ ] **Task 3: Route `Box` through `acceptCommonProps`**
+- [x] **Task 3: Route `Box` through `acceptCommonProps`**
   - Acceptance: `BoxProps` extends `BoxProperties` and `CommonProps`; `Box` spreads
     `acceptCommonProps(rest)` onto the element. The dialog still renders with
     `role="dialog"` and a working focus trap.
@@ -63,12 +63,12 @@ assistive technology reach the elements.
   - Depends: Task 1
 
 ### Checkpoint: Base tier
-- [ ] Base components accept and forward the common props
-- [ ] `bun run check`, `bun run typecheck`, `bun test` pass
+- [x] Base components accept and forward the common props
+- [x] `bun run check`, `bun run typecheck`, `bun test` pass
 
 ### Phase 3: Layout tier
 
-- [ ] **Task 4: Add `CommonProps` to the layout primitives**
+- [x] **Task 4: Add `CommonProps` to the layout primitives**
   - Acceptance: `HStackProps`, `VStackProps`, `GridProps`, and `ContainerProps` extend
     `CommonProps`; each spreads `acceptCommonProps(rest)`. Their box aspects and layout
     props are unchanged.
@@ -77,7 +77,7 @@ assistive technology reach the elements.
     `src/components/layout/Grid.tsx`, `src/components/layout/Container.tsx`
   - Depends: Task 1
 
-- [ ] **Task 5: Add `CommonProps` to the page-shell components**
+- [x] **Task 5: Add `CommonProps` to the page-shell components**
   - Acceptance: `PageLayoutProps`, `PageHeaderProps`, `PageBodyProps`,
     `PageFooterProps`, and `SiteNavigationHeaderProps` extend `CommonProps`; each spreads
     `acceptCommonProps(rest)`. `PageBody` keeps its scroll ref. `SiteNavigationHeader`
@@ -90,12 +90,12 @@ assistive technology reach the elements.
   - Depends: Task 1
 
 ### Checkpoint: Layout tier
-- [ ] Every layout component accepts and forwards the common props
-- [ ] The page shell and scroll behaviour still work
+- [x] Every layout component accepts and forwards the common props
+- [x] The page shell and scroll behaviour still work
 
 ### Phase 4: Documentation and verification
 
-- [ ] **Task 6: Document the common-props rule**
+- [x] **Task 6: Document the common-props rule**
   - Acceptance: `src/components/AGENTS.md` states that a component extends `CommonProps`
     and forwards `acceptCommonProps(rest)`, and lists the curated set and the exclusions.
     `src/lib/README.md`, if it exists, notes the helper, or the rule lives in
@@ -104,7 +104,7 @@ assistive technology reach the elements.
   - Files: `src/components/AGENTS.md`
   - Depends: Tasks 2-5
 
-- [ ] **Task 7: Gates and browser dogfood**
+- [x] **Task 7: Gates and browser dogfood**
   - Acceptance: `bun run check`, `bun run typecheck`, `bun test`, and the demo build
     pass. In the browser, the dialog exposes `role="dialog"` and a resolvable
     `aria-labelledby`, an injected `id` and `data-*` reach base and layout elements, and
@@ -114,8 +114,8 @@ assistive technology reach the elements.
   - Depends: Task 6
 
 ### Checkpoint: Complete
-- [ ] All success criteria in `spec.md` met
-- [ ] Ready for review
+- [x] All success criteria in `spec.md` met
+- [x] Ready for review
 
 ## Risks and Mitigations
 

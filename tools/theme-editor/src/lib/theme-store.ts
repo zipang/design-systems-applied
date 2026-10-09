@@ -2,6 +2,16 @@ import { useCallback, useMemo, useState } from "react";
 import { mergeValues, parseContract, serializeDesignMd, serializeTokensCss } from "./contract";
 import { DEFAULT_DESIGN_MD, DEFAULT_TOKENS_CSS } from "./default-theme";
 import type { TokenValues } from "./design-system";
+import {
+	deleteLocalTheme,
+	type LocalTheme,
+	type LocalThemeSummary,
+	listLocalThemes,
+	readLastThemeName,
+	readLocalTheme,
+	writeLastThemeName,
+	writeLocalTheme
+} from "./local-themes";
 import { type Issue, validateContract } from "./validate";
 
 /** Async status of the theme store. */
@@ -15,11 +25,20 @@ export interface ThemeStore {
 	status: ThemeStatus;
 	message: string;
 	dirty: boolean;
+	currentThemeName: string;
+	localThemes: LocalThemeSummary[];
+	saveDialogOpen: boolean;
+	loadDialogOpen: boolean;
 	setDir: (dir: string) => void;
 	update: (variable: string, value: string) => void;
 	reset: () => void;
-	open: () => Promise<void>;
-	save: () => Promise<void>;
+	requestOpen: () => void;
+	requestSave: () => void;
+	saveAsLocal: (name: string) => void;
+	loadLocal: (name: string) => void;
+	removeLocal: (name: string) => void;
+	closeSaveDialog: () => void;
+	closeLoadDialog: () => void;
 	exportFiles: () => void;
 }
 
@@ -38,18 +57,41 @@ const download = (name: string, text: string): void => {
 const errorMessage = (error: unknown): string =>
 	error instanceof Error ? error.message : "Unexpected error";
 
+/** The theme remembered for this browser, or `null` when there is none. */
+const readLastTheme = (): LocalTheme | null => {
+	const name = readLastThemeName();
+	return name ? readLocalTheme(name) : null;
+};
+
 /**
  * The theme editor's state. Token values are the source of truth; both contract files
  * are serialized from them on every change, so the preview, validation, and save stay
- * in sync. The editor seeds from the tool's own Design System.
+ * in sync. A project directory persists to disk through the server; without one, themes
+ * are saved by name in this browser's localStorage and restored on the next visit.
  */
 export const useThemeStore = (): ThemeStore => {
-	const [baseDesignMd, setBaseDesignMd] = useState(DEFAULT_DESIGN_MD);
-	const [values, setValues] = useState<TokenValues>(initialValues);
+	const [baseDesignMd, setBaseDesignMd] = useState(
+		() => readLastTheme()?.designMd ?? DEFAULT_DESIGN_MD
+	);
+	const [values, setValues] = useState<TokenValues>(() => {
+		const theme = readLastTheme();
+		if (!theme) return initialValues;
+		try {
+			return mergeValues(parseContract(theme.designMd, theme.tokensCss));
+		} catch {
+			return initialValues;
+		}
+	});
 	const [dir, setDir] = useState("");
 	const [status, setStatus] = useState<ThemeStatus>("idle");
 	const [message, setMessage] = useState("");
 	const [dirty, setDirty] = useState(false);
+	const [currentThemeName, setCurrentThemeName] = useState(() =>
+		readLastTheme() ? (readLastThemeName() ?? "") : ""
+	);
+	const [localThemes, setLocalThemes] = useState<LocalThemeSummary[]>(() => listLocalThemes());
+	const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+	const [loadDialogOpen, setLoadDialogOpen] = useState(false);
 
 	const tokensCss = useMemo(() => serializeTokensCss(values), [values]);
 	const designMd = useMemo(() => serializeDesignMd(values, baseDesignMd), [values, baseDesignMd]);
@@ -57,6 +99,10 @@ export const useThemeStore = (): ThemeStore => {
 		() => validateContract(parseContract(designMd, tokensCss)),
 		[designMd, tokensCss]
 	);
+
+	const refreshLocalThemes = useCallback(() => setLocalThemes(listLocalThemes()), []);
+	const closeSaveDialog = useCallback(() => setSaveDialogOpen(false), []);
+	const closeLoadDialog = useCallback(() => setLoadDialogOpen(false), []);
 
 	const update = useCallback((variable: string, value: string) => {
 		setValues((prev) => ({ ...prev, [variable]: value }));
@@ -67,17 +113,15 @@ export const useThemeStore = (): ThemeStore => {
 	const reset = useCallback(() => {
 		setBaseDesignMd(DEFAULT_DESIGN_MD);
 		setValues(initialValues);
+		setCurrentThemeName("");
+		writeLastThemeName("");
 		setDirty(true);
 		setStatus("idle");
 		setMessage("Restored the theme editor's default Design System.");
 	}, []);
 
-	const open = useCallback(async () => {
-		if (!dir) {
-			setStatus("error");
-			setMessage("Enter a project directory first.");
-			return;
-		}
+	const openFromDisk = useCallback(async (): Promise<boolean> => {
+		if (!dir) return false;
 		setStatus("loading");
 		setMessage("");
 		try {
@@ -93,21 +137,19 @@ export const useThemeStore = (): ThemeStore => {
 			const contract = parseContract(data.designMd, data.tokensCss);
 			setBaseDesignMd(data.designMd);
 			setValues(mergeValues(contract));
+			setCurrentThemeName("");
 			setDirty(false);
 			setStatus("saved");
 			setMessage(`Opened ${dir}`);
+			return true;
 		} catch (error) {
 			setStatus("error");
 			setMessage(errorMessage(error));
+			return false;
 		}
 	}, [dir]);
 
-	const save = useCallback(async () => {
-		if (!dir) {
-			setStatus("error");
-			setMessage("Enter a project directory first.");
-			return;
-		}
+	const saveToDisk = useCallback(async () => {
 		if (issues.some((issue) => issue.level === "error")) {
 			setStatus("error");
 			setMessage("Fix the validation errors before saving.");
@@ -133,6 +175,83 @@ export const useThemeStore = (): ThemeStore => {
 		}
 	}, [dir, designMd, tokensCss, issues]);
 
+	const requestOpen = useCallback(async () => {
+		if (dir && (await openFromDisk())) return;
+		refreshLocalThemes();
+		setLoadDialogOpen(true);
+	}, [dir, openFromDisk, refreshLocalThemes]);
+
+	const requestSave = useCallback(() => {
+		if (dir) {
+			void saveToDisk();
+			return;
+		}
+		refreshLocalThemes();
+		setSaveDialogOpen(true);
+	}, [dir, saveToDisk, refreshLocalThemes]);
+
+	const saveAsLocal = useCallback(
+		(name: string) => {
+			const trimmed = name.trim();
+			if (!trimmed) {
+				setStatus("error");
+				setMessage("Enter a theme name.");
+				return;
+			}
+			if (issues.some((issue) => issue.level === "error")) {
+				setStatus("error");
+				setMessage("Fix the validation errors before saving.");
+				return;
+			}
+			writeLocalTheme(trimmed, { designMd, tokensCss });
+			writeLastThemeName(trimmed);
+			setBaseDesignMd(designMd);
+			setCurrentThemeName(trimmed);
+			setDirty(false);
+			setStatus("saved");
+			setMessage(`Saved "${trimmed}" in this browser.`);
+			refreshLocalThemes();
+			setSaveDialogOpen(false);
+		},
+		[designMd, tokensCss, issues, refreshLocalThemes]
+	);
+
+	const loadLocal = useCallback((name: string) => {
+		const theme = readLocalTheme(name);
+		if (!theme) {
+			setStatus("error");
+			setMessage(`No saved theme named "${name}".`);
+			return;
+		}
+		try {
+			const contract = parseContract(theme.designMd, theme.tokensCss);
+			setBaseDesignMd(theme.designMd);
+			setValues(mergeValues(contract));
+			writeLastThemeName(name);
+			setCurrentThemeName(name);
+			setDirty(false);
+			setStatus("saved");
+			setMessage(`Loaded "${name}" from this browser.`);
+			setLoadDialogOpen(false);
+		} catch (error) {
+			setStatus("error");
+			setMessage(errorMessage(error));
+		}
+	}, []);
+
+	const removeLocal = useCallback(
+		(name: string) => {
+			deleteLocalTheme(name);
+			if (currentThemeName === name) {
+				setCurrentThemeName("");
+				writeLastThemeName("");
+			}
+			refreshLocalThemes();
+			setMessage(`Deleted "${name}".`);
+		},
+		[currentThemeName, refreshLocalThemes]
+	);
+
 	const exportFiles = useCallback(() => {
 		download("DESIGN.md", designMd);
 		download("design-tokens.css", tokensCss);
@@ -145,11 +264,20 @@ export const useThemeStore = (): ThemeStore => {
 		status,
 		message,
 		dirty,
+		currentThemeName,
+		localThemes,
+		saveDialogOpen,
+		loadDialogOpen,
 		setDir,
 		update,
 		reset,
-		open,
-		save,
+		requestOpen,
+		requestSave,
+		saveAsLocal,
+		loadLocal,
+		removeLocal,
+		closeSaveDialog,
+		closeLoadDialog,
 		exportFiles
 	};
 };

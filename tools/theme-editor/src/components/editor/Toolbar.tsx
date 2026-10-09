@@ -16,12 +16,16 @@ export const Toolbar: React.FC<ToolbarProps> = ({ store, onShowReference }) => {
 		<header className="editor-toolbar">
 			<div className="editor-toolbar__brand">
 				<span className="editor-toolbar__mark">THEME EDITOR</span>
-				<span className="editor-toolbar__status" data-status={store.status}>
+				<span
+					className="editor-toolbar__status"
+					data-status={store.status}
+					title={store.message || undefined}
+				>
 					{errors > 0
 						? `${errors} error${errors === 1 ? "" : "s"}`
 						: store.dirty
 							? "unsaved changes"
-							: store.status}
+							: store.message || store.status}
 				</span>
 			</div>
 			<div className="editor-toolbar__actions">
@@ -39,9 +43,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({ store, onShowReference }) => {
 					size="sm"
 					variant="secondary"
 					icon="file"
-					onClick={() => void store.open()}
+					onClick={() => void store.requestOpen()}
 				/>
-				<Button label="Save" size="sm" variant="primary" onClick={() => void store.save()} />
+				<Button label="Save" size="sm" variant="primary" onClick={() => store.requestSave()} />
 				<Button label="Export" size="sm" variant="ghost" onClick={store.exportFiles} />
 				<Button label="Reset" size="sm" variant="ghost" icon="reset" onClick={store.reset} />
 				<Button label="Reference" size="sm" variant="ghost" onClick={onShowReference} />

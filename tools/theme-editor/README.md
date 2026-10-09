@@ -17,6 +17,9 @@ shadcn.
 - **Reads and writes the contract.** A Bun server reads and writes `DESIGN.md` and
   `design-tokens.css` under a project directory, validating against the section 10 rules
   before it saves.
+- **Saves locally too.** Without a project directory, Save stores the theme in this
+  browser under a name, and Open lists the saved themes so you can load one. The active
+  theme is restored on the next visit.
 - **Stays honest.** Every value consumes a token; the fixed list is the same one the
   skill documents.
 

@@ -1,4 +1,5 @@
 import { IssuesPanel } from "@components/editor/IssuesPanel";
+import { ThemeLibrary } from "@components/editor/ThemeLibrary";
 import { TokenReference } from "@components/editor/TokenReference";
 import { Toolbar } from "@components/editor/Toolbar";
 import {
@@ -106,6 +107,30 @@ export const App: React.FC = () => {
 					values={store.values}
 					issues={store.issues}
 					onClose={() => setShowReference(false)}
+				/>
+			) : null}
+			{store.saveDialogOpen ? (
+				<ThemeLibrary
+					mode="save"
+					themes={store.localThemes}
+					currentThemeName={store.currentThemeName}
+					defaultName={store.currentThemeName}
+					onSave={store.saveAsLocal}
+					onLoad={store.loadLocal}
+					onDelete={store.removeLocal}
+					onClose={store.closeSaveDialog}
+				/>
+			) : null}
+			{store.loadDialogOpen ? (
+				<ThemeLibrary
+					mode="load"
+					themes={store.localThemes}
+					currentThemeName={store.currentThemeName}
+					defaultName={store.currentThemeName}
+					onSave={store.saveAsLocal}
+					onLoad={store.loadLocal}
+					onDelete={store.removeLocal}
+					onClose={store.closeLoadDialog}
 				/>
 			) : null}
 		</div>

@@ -1,6 +1,6 @@
-# AGENTS.md — DS Visualizer TypeScript
+# AGENTS.md — Theme Editor TypeScript
 
-TypeScript rules for `tools/ds-visualizer/src/`. The root and tool `AGENTS.md`
+TypeScript rules for `tools/theme-editor/src/`. The root and tool `AGENTS.md`
 still apply.
 
 - **Arrow functions only.** No `function` declarations for components or helpers.
@@ -13,7 +13,7 @@ still apply.
 - **Comments explain *why* only**, at non-obvious branches. Do not narrate the code.
 - **Path aliases.** Import across directories with the aliases `@components`,
   `@assets`, `@lib`, and `@styles`. The package declares them in
-  `tools/ds-visualizer/tsconfig.json`. Keep imports within the same directory
+  `tools/theme-editor/tsconfig.json`. Keep imports within the same directory
   relative (for example `./Foo`).
 - **Class names use `clsx()`** from `@lib/clsx`. Never concatenate strings by hand
   and never add an external class-name library.

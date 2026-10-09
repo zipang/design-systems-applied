@@ -60,4 +60,4 @@ const server = Bun.serve({
 	}
 });
 
-console.log(`DS visualizer running at ${server.url}`);
+console.log(`Theme editor running at ${server.url}`);

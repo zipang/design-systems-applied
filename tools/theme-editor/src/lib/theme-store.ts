@@ -7,7 +7,7 @@ import { type Issue, validateContract } from "./validate";
 /** Async status of the theme store. */
 export type ThemeStatus = "idle" | "loading" | "saving" | "saved" | "error";
 
-/** State and actions the visualizer uses to edit and persist a project's contract. */
+/** State and actions the theme editor uses to edit and persist a project's contract. */
 export interface ThemeStore {
 	values: TokenValues;
 	issues: Issue[];
@@ -39,7 +39,7 @@ const errorMessage = (error: unknown): string =>
 	error instanceof Error ? error.message : "Unexpected error";
 
 /**
- * The visualizer's state. Token values are the source of truth; both contract files
+ * The theme editor's state. Token values are the source of truth; both contract files
  * are serialized from them on every change, so the preview, validation, and save stay
  * in sync. The editor seeds from the tool's own Design System.
  */
@@ -69,7 +69,7 @@ export const useThemeStore = (): ThemeStore => {
 		setValues(initialValues);
 		setDirty(true);
 		setStatus("idle");
-		setMessage("Restored the visualizer's default Design System.");
+		setMessage("Restored the theme editor's default Design System.");
 	}, []);
 
 	const open = useCallback(async () => {

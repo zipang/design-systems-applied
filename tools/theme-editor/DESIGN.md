@@ -1,6 +1,6 @@
 ---
 version: alpha
-name: DS Visualizer Default
+name: Theme Editor Default
 
 # ============================================================================
 # COLORS — every entry maps to a --color-* CSS variable
@@ -92,8 +92,8 @@ border:
 
 ## Overview
 
-The default Design System for the DS Visualizer. It matches the reference
-visualizer's starting values so the two tools can be compared side by side.
+The default Design System for the Theme Editor. It matches the demo's
+starting values so the two tools can be compared side by side.
 It is a dual-file contract: the YAML front matter above is the source of truth
 for token values, and `design-tokens.css` exposes every token as a CSS variable.
 

@@ -24,7 +24,7 @@ const SECTIONS = [
 ];
 
 /**
- * The visualizer shell. Edits the Design System contract, previews it in a scoped
+ * The theme editor shell. Edits the Design System contract, previews it in a scoped
  * subtree (so the tool's chrome keeps its own tokens), and saves it through the API.
  */
 export const App: React.FC = () => {

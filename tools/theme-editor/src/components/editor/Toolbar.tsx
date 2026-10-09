@@ -15,7 +15,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({ store, onShowReference }) => {
 	return (
 		<header className="editor-toolbar">
 			<div className="editor-toolbar__brand">
-				<span className="editor-toolbar__mark">DS·VISUALIZER</span>
+				<span className="editor-toolbar__mark">THEME EDITOR</span>
 				<span className="editor-toolbar__status" data-status={store.status}>
 					{errors > 0
 						? `${errors} error${errors === 1 ? "" : "s"}`

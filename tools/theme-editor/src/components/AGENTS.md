@@ -1,6 +1,6 @@
 # AGENTS.md — demo components
 
-Rules for the component library under `tools/ds-visualizer/src/components/`. The
+Rules for the component library under `tools/theme-editor/src/components/`. The
 root, tool, and `src/AGENTS.md` rules still apply.
 
 ## Tiers
@@ -14,9 +14,9 @@ Components live in tiers. Place each component in the lowest tier that fits.
 - **`layout/`** — layout primitives only (`Container`, `VStack`, `HStack`, `Grid`, and the
   page shell: `PageLayout`, `PageHeader`, `PageBody`, `PageFooter`,
   `SiteNavigationHeader`).
-- **`editor/`** — visualizer controls (`Toolbar`, `Fields`, `TokenReference`,
+- **`editor/`** — editor controls (`Toolbar`, `Fields`, `TokenReference`,
   `IssuesPanel`).
-- **`preview/`** — visualizer preview sections (`Preview`).
+- **`preview/`** — preview sections (`Preview`).
 
 Rules:
 

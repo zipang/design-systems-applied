@@ -10,7 +10,7 @@ export interface SettingsCogProps {
 
 /**
  * A single cog button that opens the full settings menu for a track or section in a
- * popover, mirroring the reference visualizer's one-cog-per-scale pattern.
+ * popover, mirroring the reference editor's one-cog-per-scale pattern.
  */
 export const SettingsCog: React.FC<SettingsCogProps> = ({ label, children, align = "end" }) => (
 	<Popover.Root>

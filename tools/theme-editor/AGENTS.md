@@ -1,6 +1,6 @@
-# AGENTS.md — DS Visualizer
+# AGENTS.md — Theme Editor
 
-Rules for AI agents that work in `tools/ds-visualizer/`. The root `AGENTS.md` still
+Rules for AI agents that work in `tools/theme-editor/`. The root `AGENTS.md` still
 applies; these rules add the tool's conventions.
 
 ## What this tool is
@@ -42,8 +42,8 @@ src/
 
 ```
 Install:  bun install                                  # from the repo root (workspaces)
-Dev:      bun run --cwd tools/ds-visualizer dev
-Build:    bun run --cwd tools/ds-visualizer build
+Dev:      bun run --cwd tools/theme-editor dev
+Build:    bun run --cwd tools/theme-editor build
 Check:    bun run check
 Test:     bun test
 ```

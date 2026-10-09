@@ -1,4 +1,4 @@
-# DS Visualizer
+# Theme Editor
 
 An in-repo tool that creates, edits, previews, and saves a Design System as the
 `DESIGN.md` + `design-tokens.css` contract. It is built with Bun, React, and Radix UI,
@@ -24,9 +24,9 @@ shadcn.
 
 ```
 Install:    bun install                                   # from the repo root (workspaces)
-Dev:        bun run --cwd tools/ds-visualizer dev
-Build:      bun run --cwd tools/ds-visualizer build
-Typecheck:  bun run --cwd tools/ds-visualizer typecheck
+Dev:        bun run --cwd tools/theme-editor dev
+Build:      bun run --cwd tools/theme-editor build
+Typecheck:  bun run --cwd tools/theme-editor typecheck
 ```
 
 The dev server also exposes the theme API: `GET /api/theme?dir=<project>` and

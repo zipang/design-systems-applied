@@ -1,0 +1,93 @@
+.app {
+	min-height: 100vh;
+	background: var(--color-surface);
+	color: var(--color-text);
+}
+
+.app__content {
+	padding-left: var(--space-xxl);
+	padding-right: var(--space-lg);
+	max-width: 80rem;
+	margin: 0 auto;
+}
+
+.app__nav {
+	position: fixed;
+	left: var(--space-md);
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 15;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.app__nav-item {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	padding: var(--space-xs) 0;
+	background: none;
+	border: 0;
+	cursor: pointer;
+	color: var(--color-text-muted);
+}
+
+.app__nav-dot {
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: var(--rounded-full);
+	background: var(--color-text-muted);
+	transition:
+		transform 0.15s ease,
+		background 0.15s ease;
+}
+
+.app__nav-item.is-active {
+	color: var(--color-text);
+}
+
+.app__nav-item.is-active .app__nav-dot {
+	width: 0.625rem;
+	height: 0.625rem;
+	background: var(--color-brand-accent);
+}
+
+.app__nav-label {
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-xs);
+	letter-spacing: var(--letter-spacing-wide);
+	text-transform: uppercase;
+	opacity: 0;
+	transition: opacity 0.15s ease;
+	white-space: nowrap;
+}
+
+.app__nav-item:hover .app__nav-label,
+.app__nav-item.is-active .app__nav-label {
+	opacity: 1;
+}
+
+.app__footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-md);
+	padding: var(--space-lg) var(--space-lg) var(--space-lg) var(--space-xxl);
+	border-top: var(--border-sm) solid var(--color-surface-alt);
+	font-family: var(--font-family-mono);
+	font-size: var(--font-size-xs);
+	color: var(--color-text-muted);
+}
+
+.app__top {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	color: var(--color-text-muted);
+	font: inherit;
+
+	&:hover {
+		color: var(--color-text);
+	}
+}

@@ -74,11 +74,11 @@ describe("theme-api", () => {
 		const outside = await mkdtemp(join(tmpdir(), "dsv-outside-"));
 		const outsideFile = join(outside, "outside.md");
 		await writeFile(outsideFile, designMd);
-		const escape = await mkdtemp(join(tmpdir(), "dsv-escape-"));
-		await symlink(outsideFile, join(escape, DESIGN_FILE));
-		await writeFile(join(escape, TOKENS_FILE), tokensCss);
-		await expect(readTheme(escape)).rejects.toBeInstanceOf(ThemeApiError);
+		const escapeDir = await mkdtemp(join(tmpdir(), "dsv-escape-"));
+		await symlink(outsideFile, join(escapeDir, DESIGN_FILE));
+		await writeFile(join(escapeDir, TOKENS_FILE), tokensCss);
+		await expect(readTheme(escapeDir)).rejects.toBeInstanceOf(ThemeApiError);
 		await rm(outside, { recursive: true, force: true });
-		await rm(escape, { recursive: true, force: true });
+		await rm(escapeDir, { recursive: true, force: true });
 	});
 });

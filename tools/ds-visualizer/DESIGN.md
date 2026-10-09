@@ -1,56 +1,104 @@
 ---
 version: alpha
 name: Reference Design System
+
+# ============================================================================
+# COLORS  —  every entry maps to a --color-* CSS variable
+# Required tokens must appear here. Optional tokens appear only when the
+# designer overrides their stylesheet fallback.
+# ============================================================================
 colors:
+  # Brand — primary and accent are required; secondary and tertiary are
+  # optional.
   brand:
-    primary: "#000000"
-    accent: "#ffcc00"
-    secondary: "#333333"
+    primary:   "#000000"   # --color-brand-primary   (headings, logo, contrast)
+    accent:    "#ffcc00"   # --color-brand-accent    (CTAs, highlights, selection)
+    secondary: "#333333"   # --color-brand-secondary (optional, overridden)
+    # tertiary: omitted → --color-brand-tertiary: var(--color-brand-primary)
+
+  # Action — all four are required
   action:
-    success: "#2e7d4f"
-    info: "#2a6f97"
-    warning: "#b7791f"
-    danger: "#b23a2e"
+    success: "#2e7d4f"     # --color-action-success
+    info:    "#2a6f97"     # --color-action-info
+    warning: "#b7791f"     # --color-action-warning
+    danger:  "#b23a2e"     # --color-action-danger
+
+  # Text  (drop-.base rule: colors.text.base -> --color-text)
   text:
-    base: "#000000"
-    accent: "#ffcc00"
-    muted: "#606060"
-    ondark: "#ffffff"
+    base:    "#000000"     # --color-text
+    accent:  "#ffcc00"     # --color-text-accent (highlighted or selected text)
+    muted:   "#606060"     # --color-text-muted
+    ondark:  "#ffffff"     # --color-text-ondark
+
+  # Surface  (drop-.base rule: colors.surface.base -> --color-surface)
   surface:
-    base: "#ffffff"
-    alt: "#f2f2f2"
-    dark: "#0f0f0f"
+    base: "#ffffff"        # --color-surface
+    alt:  "#f2f2f2"        # --color-surface-alt
+    dark: "#0f0f0f"        # --color-surface-dark      (optional, overridden)
+    # card:  omitted → --color-surface-card: var(--color-surface)
+
+# ============================================================================
+# TYPOGRAPHY  —  entries are objects;
+# fontFamily, fontWeight, lineHeight, letterSpacing values MUST use existing preset values from design-tokens.css (CSS variables)
+# ============================================================================
 typography:
-  base:
-    fontFamily: ui-serif, "Palatino Linotype", Cambria, Georgia, serif
-    fontWeight: var(--font-weight-regular)
-    lineHeight: var(--line-height-normal)
-  display:
-    fontFamily: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Verdana, sans-serif
-    fontWeight: var(--font-weight-semibold)
-    lineHeight: var(--line-height-tight)
-    letterSpacing: var(--letter-spacing-tight)
-  mono:
-    fontFamily: ui-monospace, "Courier New", monospace
+  # Font families — No font size
+  base: {
+    fontFamily: 'ui-serif, "Palatino Linotype", Cambria, Georgia, serif',
+    fontWeight: "var(--font-weight-regular)",
+    lineHeight: "var(--line-height-normal)"
+  }
+  display: {
+    fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Verdana, sans-serif',
+    fontWeight: "var(--font-weight-semibold)",
+    lineHeight: "var(--line-height-tight)",
+    letterSpacing: "var(--letter-spacing-tight)"
+  }
+  mono: {
+    fontFamily: 'ui-monospace, "Courier New", monospace'
+  }
+
+# ============================================================================
+# ROUNDED  —  corner radius presets (all five are required)
+# Values in rem, except full (9999px for circular shapes).
+# ============================================================================
 rounded:
   none: "0"
-  sm: 0.25rem
-  md: 0.75rem
-  lg: 1.125rem
-  full: 9999px
+  sm:   "0.25rem"
+  md:   "0.75rem"
+  lg:   "1.125rem"
+  full: "9999px"   # circular — avatars, icons, pills
+
+# ============================================================================
+# SPACING  —  spatial rhythm scale, 4px linear (all required)
+# ============================================================================
 spacing:
-  xs: 0.25rem
-  sm: 0.5rem
-  md: 0.75rem
-  base: 1rem
-  lg: 1.25rem
-  xl: 2rem
-  xxl: 3rem
-elevation: {}
+  xs:   "0.25rem"
+  sm:   "0.5rem"
+  md:   "0.75rem"
+  base: "1rem"
+  lg:   "1.25rem"
+  xl:   "2rem"
+  xxl:  "3rem"
+
+# ============================================================================
+# ELEVATION  —  custom top-level family (shadow presets; optional, default none)
+# Values match the flat preset — import from presets/elevation/flat.css.
+# ============================================================================
+elevation:
+  sm: "none"
+  md: "none"
+  lg: "none"
+
+# ============================================================================
+# BORDER  —  custom top-level family (border WIDTHS; all required)
+# Values match the 124 preset — import from presets/borders/124.css.
+# Border COLORS are not tokens — components pick them under `components`.
+# ============================================================================
 border:
-  sm: 1px
-  md: 2px
-  lg: 4px
+  sm: "1px"
+  md: "2px"
+  lg: "4px"
 ---
 
 ## Overview

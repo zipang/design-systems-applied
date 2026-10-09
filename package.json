@@ -12,6 +12,8 @@
 		"check:fix": "biome check --write .",
 		"format": "biome format --write .",
 		"generate:themes": "bun tools/generate-theme-overrides.ts",
+		"theme-editor": "bun run --cwd tools/ds-visualizer start",
+		"theme-editor:dev": "bun run --cwd tools/ds-visualizer dev",
 		"typecheck": "tsc --noEmit && bun run --cwd demos/radix-ui-starter typecheck && bun run --cwd tools/ds-visualizer typecheck",
 		"test": "bun test"
 	},

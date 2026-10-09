@@ -1,3 +1,4 @@
+import { type BoxProperties, boxClassNames } from "@components/base/Box";
 import { clsx } from "@lib/clsx";
 import type * as React from "react";
 import "./Container.css";
@@ -8,7 +9,7 @@ import "./Container.css";
  */
 export type ContainerWidth = "fluid" | "lg" | "prose";
 
-interface ContainerProps {
+interface ContainerProps extends BoxProperties {
 	as?: "div" | "main" | "section" | "nav";
 	width?: ContainerWidth;
 	children: React.ReactNode;
@@ -16,18 +17,29 @@ interface ContainerProps {
 }
 
 /**
- * Centers content and applies horizontal padding. `width` picks the max width.
+ * Centers content and applies horizontal padding. `width` picks the max width. The
+ * inline padding is the default for the `px` box aspect, so callers can override any
+ * box aspect (padding, margin, border, elevation, rounded, background).
  */
 export const Container: React.FC<ContainerProps> = ({
 	as = "div",
 	width = "lg",
+	px = "lg",
 	children,
-	className
+	className,
+	...box
 }) => {
-	const ContainerElt = as;
+	const ContainerElt: React.ElementType = as;
 
 	return (
-		<ContainerElt className={clsx("layout-container", `layout-container--${width}`, className)}>
+		<ContainerElt
+			className={clsx(
+				"layout-container",
+				`layout-container--${width}`,
+				boxClassNames({ px, ...box }),
+				className
+			)}
+		>
 			{children}
 		</ContainerElt>
 	);

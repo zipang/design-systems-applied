@@ -2,7 +2,6 @@
 .layout-container {
 	inline-size: 100%;
 	margin-inline: auto;
-	padding-inline: var(--space-lg);
 
 	&.layout-container--fluid {
 		max-inline-size: none;

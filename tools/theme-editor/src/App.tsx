@@ -11,6 +11,7 @@ import {
 } from "@components/preview/Preview";
 import { previewStylesheet } from "@lib/apply-preview";
 import { clsx } from "@lib/clsx";
+import { resolveVariables } from "@lib/contract";
 import { useThemeStore } from "@lib/theme-store";
 import type * as React from "react";
 import { useEffect, useLayoutEffect, useState } from "react";
@@ -33,6 +34,9 @@ export const App: React.FC = () => {
 	const [active, setActive] = useState("typography");
 	const [showReference, setShowReference] = useState(false);
 	const previewCss = previewStylesheet(store.values);
+	// The active nav dot tracks the edited theme's accent, so the one exception to the
+	// scoped preview is this single variable on the nav.
+	const navAccent = resolveVariables(store.values["--color-text-accent"] ?? "", store.values);
 
 	// The scoped preview stylesheet is injected into <head>, never rendered inline.
 	useLayoutEffect(() => {
@@ -69,7 +73,11 @@ export const App: React.FC = () => {
 	return (
 		<div className="app">
 			<Toolbar store={store} onShowReference={() => setShowReference(true)} />
-			<nav className="app__nav" aria-label="Sections">
+			<nav
+				className="app__nav"
+				aria-label="Sections"
+				style={navAccent ? { ["--color-text-accent" as string]: navAccent } : undefined}
+			>
 				{SECTIONS.map((section) => (
 					<button
 						key={section.id}

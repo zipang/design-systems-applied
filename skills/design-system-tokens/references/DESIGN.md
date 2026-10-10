@@ -85,7 +85,7 @@ spacing:
 
 # ============================================================================
 # ELEVATION  —  custom top-level family (shadow presets; optional, default none)
-# Values match the flat preset — import from presets/elevation/flat.css.
+# Values match the flat preset (presets/elevation/flat.css).
 # ============================================================================
 elevation:
   sm: "none"
@@ -94,7 +94,7 @@ elevation:
 
 # ============================================================================
 # BORDER  —  custom top-level family (border WIDTHS; all required)
-# Values match the 124 preset — import from presets/borders/124.css.
+# Values match the 124 preset (presets/borders/124.css).
 # Border COLORS are not tokens — components pick them under `components`.
 # ============================================================================
 border:
@@ -221,5 +221,3 @@ background and `colors.brand.accent` for a highlight bar.
   body copy
 - Do not list the derived `muted` / `active` variants as tokens in the front
   matter — they are generated in `color-variants.css`
-- Do not redefine `--elevation-*` or `--border-*` in the main stylesheet —
-  import the chosen preset instead

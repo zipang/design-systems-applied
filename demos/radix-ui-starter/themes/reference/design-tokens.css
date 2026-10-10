@@ -137,26 +137,15 @@
 	--rounded-full: 9999px; /* circular — avatars, circular icons   */
 
 	/* ============================================================================
-       5. ELEVATION — Flat preset (this theme is flat; depth comes from contrast)
-       ----------------------------------------------------------------------------
-       Elevation presets live in presets/elevation/ and are imported rather
-       than redefined — in a real theme use:
-           @import url("../presets/elevation/flat.css");
-       The flat preset sets all elevations to `none`; depth comes from
-       background contrast and spacing rather than shadows. The tokens are
-       listed here only so this reference file remains self-contained.
+       5. ELEVATION — Flat (depth comes from contrast and spacing)
        ========================================================================== */
 	--elevation-sm: none;
 	--elevation-md: none;
 	--elevation-lg: none;
 
 	/* ============================================================================
-       6. BORDERS — 124 preset (1px / 2px / 4px stepped widths)
+       6. BORDERS — 1px / 2px / 4px stepped widths
        ----------------------------------------------------------------------------
-       Border width presets live in presets/borders/ and are imported rather
-       than redefined — in a real theme use:
-           @import url("../presets/borders/124.css");
-       This theme uses 1px borders for dividers, inputs, and card edges.
        Border COLORS are not tokens — components pick them.
        ========================================================================== */
 	--border-sm: 1px; /* dividers, card edges, default separators     */
